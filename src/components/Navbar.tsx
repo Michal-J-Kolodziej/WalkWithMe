@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { Menu, PawPrint, X } from 'lucide-react'
 import { useState } from 'react'
-import { Button } from './ui/button'
+import { Button } from './ui/Button'
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,9 +35,11 @@ export function Navbar() {
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
                 Sign In
               </Button>
-              <Button variant="default">
-                Get Started
-              </Button>
+              <Link to="/register">
+                <Button variant="default">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
           
@@ -74,9 +76,11 @@ export function Navbar() {
               <Button variant="ghost" className="w-full justify-start">
                 Sign In
               </Button>
-              <Button variant="default" className="w-full">
-                Get Started
-              </Button>
+              <Link to="/register">
+                <Button variant="default" className="w-full">
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

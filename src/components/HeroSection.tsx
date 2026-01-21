@@ -1,5 +1,5 @@
 import { ArrowRight, MapPin, Search } from 'lucide-react'
-import { Button } from './ui/button'
+import { Button } from './ui/Button'
 import { Card } from './ui/card'
 
 export function HeroSection() {

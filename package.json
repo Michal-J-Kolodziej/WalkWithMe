@@ -12,6 +12,8 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
+    "@auth/core": "0.37.0",
+    "@convex-dev/auth": "^0.0.90",
     "@convex-dev/react-query": "0.1.0",
     "@faker-js/faker": "^10.0.0",
     "@radix-ui/react-label": "^2.1.8",
