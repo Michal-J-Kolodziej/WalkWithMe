@@ -32,9 +32,11 @@ export function Navbar() {
               <a href="#about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
                 About
               </a>
-              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                Sign In
-              </Button>
+              <Link to="/login">
+                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                  Sign In
+                </Button>
+              </Link>
               <Link to="/register">
                 <Button variant="default">
                   Get Started
@@ -73,9 +75,11 @@ export function Navbar() {
               About
             </a>
             <div className="mt-4 flex flex-col space-y-2 px-3">
-              <Button variant="ghost" className="w-full justify-start">
-                Sign In
-              </Button>
+              <Link to="/login">
+                <Button variant="ghost" className="w-full justify-start">
+                  Sign In
+                </Button>
+              </Link>
               <Link to="/register">
                 <Button variant="default" className="w-full">
                   Get Started
