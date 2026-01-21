@@ -1,0 +1,24 @@
+{
+  "initialized": true,
+  "mode": "file-router",
+  "projectName": "WalkWithMe",
+  "typescript": true,
+  "tailwind": true,
+  "git": true,
+  "addOnOptions": {},
+  "packageManager": "bun",
+  "install": true,
+  "version": 1,
+  "framework": "react-cra",
+  "chosenAddOns": [
+    "convex",
+    "form",
+    "shadcn",
+    "table",
+    "start",
+    "store",
+    "tanstack-query",
+    "eslint",
+    "nitro"
+  ]
+}
