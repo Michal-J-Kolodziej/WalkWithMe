@@ -9,8 +9,18 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as conversations from "../conversations.js";
+import type * as discover from "../discover.js";
+import type * as dogs from "../dogs.js";
+import type * as files from "../files.js";
+import type * as friendRequests from "../friendRequests.js";
+import type * as friendships from "../friendships.js";
 import type * as http from "../http.js";
+import type * as meetingInvitations from "../meetingInvitations.js";
+import type * as meetings from "../meetings.js";
+import type * as messages from "../messages.js";
 import type * as todos from "../todos.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
@@ -20,8 +30,18 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  conversations: typeof conversations;
+  discover: typeof discover;
+  dogs: typeof dogs;
+  files: typeof files;
+  friendRequests: typeof friendRequests;
+  friendships: typeof friendships;
   http: typeof http;
+  meetingInvitations: typeof meetingInvitations;
+  meetings: typeof meetings;
+  messages: typeof messages;
   todos: typeof todos;
+  users: typeof users;
 }>;
 
 /**

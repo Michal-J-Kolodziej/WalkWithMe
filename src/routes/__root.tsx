@@ -1,17 +1,12 @@
-import { TanStackDevtools } from '@tanstack/react-devtools'
 import {
-  HeadContent,
-  Scripts,
-  createRootRouteWithContext,
+    HeadContent,
+    Scripts,
+    createRootRouteWithContext,
 } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-
 
 import ConvexProvider from '../integrations/convex/provider'
 
-import StoreDevtools from '../lib/demo-store-devtools'
-
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+import { ProfileGuard } from '../components/ProfileGuard'
 
 import appCss from '../styles.css?url'
 
@@ -54,20 +49,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ConvexProvider>
-          {children}
-          <TanStackDevtools
-            config={{
-              position: 'bottom-right',
-            }}
-            plugins={[
-              {
-                name: 'Tanstack Router',
-                render: <TanStackRouterDevtoolsPanel />,
-              },
-              StoreDevtools,
-              TanStackQueryDevtools,
-            ]}
-          />
+          <ProfileGuard>
+            {children}
+          </ProfileGuard>
         </ConvexProvider>
         <Scripts />
       </body>

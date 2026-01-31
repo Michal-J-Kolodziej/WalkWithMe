@@ -11,17 +11,32 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CompleteProfileRouteImport } from './routes/complete-profile'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as DemoStoreRouteImport } from './routes/demo/store'
 import { Route as DemoConvexRouteImport } from './routes/demo/convex'
+import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
+import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
+import { Route as DashboardMeetingsRouteImport } from './routes/dashboard/meetings'
+import { Route as DashboardFriendsRouteImport } from './routes/dashboard/friends'
+import { Route as DashboardDogsRouteImport } from './routes/dashboard/dogs'
+import { Route as DashboardDiscoverRouteImport } from './routes/dashboard/discover'
+import { Route as DashboardChatRouteImport } from './routes/dashboard/chat'
+import { Route as DashboardMeetingsIndexRouteImport } from './routes/dashboard/meetings.index'
+import { Route as DashboardChatIndexRouteImport } from './routes/dashboard/chat.index'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 import { Route as DemoApiTqTodosRouteImport } from './routes/demo/api.tq-todos'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
+import { Route as DashboardMeetingsMeetingIdRouteImport } from './routes/dashboard/meetings.$meetingId'
+import { Route as DashboardChatConversationIdRouteImport } from './routes/dashboard/chat.$conversationId'
 import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
@@ -37,10 +52,30 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompleteProfileRoute = CompleteProfileRouteImport.update({
+  id: '/complete-profile',
+  path: '/complete-profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
 } as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   id: '/demo/tanstack-query',
@@ -61,6 +96,51 @@ const DemoConvexRoute = DemoConvexRouteImport.update({
   id: '/demo/convex',
   path: '/demo/convex',
   getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardProfileRoute = DashboardProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardMeetingsRoute = DashboardMeetingsRouteImport.update({
+  id: '/meetings',
+  path: '/meetings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardFriendsRoute = DashboardFriendsRouteImport.update({
+  id: '/friends',
+  path: '/friends',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardDogsRoute = DashboardDogsRouteImport.update({
+  id: '/dogs',
+  path: '/dogs',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardDiscoverRoute = DashboardDiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardChatRoute = DashboardChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardMeetingsIndexRoute = DashboardMeetingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardMeetingsRoute,
+} as any)
+const DashboardChatIndexRoute = DashboardChatIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardChatRoute,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
   id: '/demo/start/server-funcs',
@@ -92,6 +172,18 @@ const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
   path: '/demo/api/names',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardMeetingsMeetingIdRoute =
+  DashboardMeetingsMeetingIdRouteImport.update({
+    id: '/$meetingId',
+    path: '/$meetingId',
+    getParentRoute: () => DashboardMeetingsRoute,
+  } as any)
+const DashboardChatConversationIdRoute =
+  DashboardChatConversationIdRouteImport.update({
+    id: '/$conversationId',
+    path: '/$conversationId',
+    getParentRoute: () => DashboardChatRoute,
+  } as any)
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
   path: '/demo/start/ssr/',
@@ -115,18 +207,33 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/complete-profile': typeof CompleteProfileRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/chat': typeof DashboardChatRouteWithChildren
+  '/dashboard/discover': typeof DashboardDiscoverRoute
+  '/dashboard/dogs': typeof DashboardDogsRoute
+  '/dashboard/friends': typeof DashboardFriendsRoute
+  '/dashboard/meetings': typeof DashboardMeetingsRouteWithChildren
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/demo/convex': typeof DemoConvexRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/chat/$conversationId': typeof DashboardChatConversationIdRoute
+  '/dashboard/meetings/$meetingId': typeof DashboardMeetingsMeetingIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/dashboard/chat/': typeof DashboardChatIndexRoute
+  '/dashboard/meetings/': typeof DashboardMeetingsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -134,18 +241,30 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/complete-profile': typeof CompleteProfileRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/discover': typeof DashboardDiscoverRoute
+  '/dashboard/dogs': typeof DashboardDogsRoute
+  '/dashboard/friends': typeof DashboardFriendsRoute
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/demo/convex': typeof DemoConvexRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/chat/$conversationId': typeof DashboardChatConversationIdRoute
+  '/dashboard/meetings/$meetingId': typeof DashboardMeetingsMeetingIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/dashboard/chat': typeof DashboardChatIndexRoute
+  '/dashboard/meetings': typeof DashboardMeetingsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -154,18 +273,33 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/complete-profile': typeof CompleteProfileRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/dashboard/chat': typeof DashboardChatRouteWithChildren
+  '/dashboard/discover': typeof DashboardDiscoverRoute
+  '/dashboard/dogs': typeof DashboardDogsRoute
+  '/dashboard/friends': typeof DashboardFriendsRoute
+  '/dashboard/meetings': typeof DashboardMeetingsRouteWithChildren
+  '/dashboard/profile': typeof DashboardProfileRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
   '/demo/convex': typeof DemoConvexRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/chat/$conversationId': typeof DashboardChatConversationIdRoute
+  '/dashboard/meetings/$meetingId': typeof DashboardMeetingsMeetingIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/dashboard/chat/': typeof DashboardChatIndexRoute
+  '/dashboard/meetings/': typeof DashboardMeetingsIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -175,18 +309,33 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/complete-profile'
+    | '/dashboard'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/dashboard/chat'
+    | '/dashboard/discover'
+    | '/dashboard/dogs'
+    | '/dashboard/friends'
+    | '/dashboard/meetings'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
     | '/demo/convex'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/dashboard/'
+    | '/dashboard/chat/$conversationId'
+    | '/dashboard/meetings/$meetingId'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/dashboard/chat/'
+    | '/dashboard/meetings/'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -194,18 +343,30 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/complete-profile'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/dashboard/discover'
+    | '/dashboard/dogs'
+    | '/dashboard/friends'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
     | '/demo/convex'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/dashboard'
+    | '/dashboard/chat/$conversationId'
+    | '/dashboard/meetings/$meetingId'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/dashboard/chat'
+    | '/dashboard/meetings'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -213,18 +374,33 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/complete-profile'
+    | '/dashboard'
+    | '/forgot-password'
     | '/login'
     | '/register'
+    | '/dashboard/chat'
+    | '/dashboard/discover'
+    | '/dashboard/dogs'
+    | '/dashboard/friends'
+    | '/dashboard/meetings'
+    | '/dashboard/profile'
+    | '/dashboard/settings'
     | '/demo/convex'
     | '/demo/store'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/dashboard/'
+    | '/dashboard/chat/$conversationId'
+    | '/dashboard/meetings/$meetingId'
     | '/demo/api/names'
     | '/demo/api/tq-todos'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/dashboard/chat/'
+    | '/dashboard/meetings/'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -233,6 +409,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompleteProfileRoute: typeof CompleteProfileRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   DemoConvexRoute: typeof DemoConvexRoute
@@ -267,12 +446,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/complete-profile': {
+      id: '/complete-profile'
+      path: '/complete-profile'
+      fullPath: '/complete-profile'
+      preLoaderRoute: typeof CompleteProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
     }
     '/demo/tanstack-query': {
       id: '/demo/tanstack-query'
@@ -301,6 +508,69 @@ declare module '@tanstack/react-router' {
       fullPath: '/demo/convex'
       preLoaderRoute: typeof DemoConvexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/profile': {
+      id: '/dashboard/profile'
+      path: '/profile'
+      fullPath: '/dashboard/profile'
+      preLoaderRoute: typeof DashboardProfileRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/meetings': {
+      id: '/dashboard/meetings'
+      path: '/meetings'
+      fullPath: '/dashboard/meetings'
+      preLoaderRoute: typeof DashboardMeetingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/friends': {
+      id: '/dashboard/friends'
+      path: '/friends'
+      fullPath: '/dashboard/friends'
+      preLoaderRoute: typeof DashboardFriendsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/dogs': {
+      id: '/dashboard/dogs'
+      path: '/dogs'
+      fullPath: '/dashboard/dogs'
+      preLoaderRoute: typeof DashboardDogsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/discover': {
+      id: '/dashboard/discover'
+      path: '/discover'
+      fullPath: '/dashboard/discover'
+      preLoaderRoute: typeof DashboardDiscoverRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/chat': {
+      id: '/dashboard/chat'
+      path: '/chat'
+      fullPath: '/dashboard/chat'
+      preLoaderRoute: typeof DashboardChatRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/meetings/': {
+      id: '/dashboard/meetings/'
+      path: '/'
+      fullPath: '/dashboard/meetings/'
+      preLoaderRoute: typeof DashboardMeetingsIndexRouteImport
+      parentRoute: typeof DashboardMeetingsRoute
+    }
+    '/dashboard/chat/': {
+      id: '/dashboard/chat/'
+      path: '/'
+      fullPath: '/dashboard/chat/'
+      preLoaderRoute: typeof DashboardChatIndexRouteImport
+      parentRoute: typeof DashboardChatRoute
     }
     '/demo/start/server-funcs': {
       id: '/demo/start/server-funcs'
@@ -344,6 +614,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoApiNamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/meetings/$meetingId': {
+      id: '/dashboard/meetings/$meetingId'
+      path: '/$meetingId'
+      fullPath: '/dashboard/meetings/$meetingId'
+      preLoaderRoute: typeof DashboardMeetingsMeetingIdRouteImport
+      parentRoute: typeof DashboardMeetingsRoute
+    }
+    '/dashboard/chat/$conversationId': {
+      id: '/dashboard/chat/$conversationId'
+      path: '/$conversationId'
+      fullPath: '/dashboard/chat/$conversationId'
+      preLoaderRoute: typeof DashboardChatConversationIdRouteImport
+      parentRoute: typeof DashboardChatRoute
+    }
     '/demo/start/ssr/': {
       id: '/demo/start/ssr/'
       path: '/demo/start/ssr'
@@ -375,8 +659,64 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface DashboardChatRouteChildren {
+  DashboardChatConversationIdRoute: typeof DashboardChatConversationIdRoute
+  DashboardChatIndexRoute: typeof DashboardChatIndexRoute
+}
+
+const DashboardChatRouteChildren: DashboardChatRouteChildren = {
+  DashboardChatConversationIdRoute: DashboardChatConversationIdRoute,
+  DashboardChatIndexRoute: DashboardChatIndexRoute,
+}
+
+const DashboardChatRouteWithChildren = DashboardChatRoute._addFileChildren(
+  DashboardChatRouteChildren,
+)
+
+interface DashboardMeetingsRouteChildren {
+  DashboardMeetingsMeetingIdRoute: typeof DashboardMeetingsMeetingIdRoute
+  DashboardMeetingsIndexRoute: typeof DashboardMeetingsIndexRoute
+}
+
+const DashboardMeetingsRouteChildren: DashboardMeetingsRouteChildren = {
+  DashboardMeetingsMeetingIdRoute: DashboardMeetingsMeetingIdRoute,
+  DashboardMeetingsIndexRoute: DashboardMeetingsIndexRoute,
+}
+
+const DashboardMeetingsRouteWithChildren =
+  DashboardMeetingsRoute._addFileChildren(DashboardMeetingsRouteChildren)
+
+interface DashboardRouteChildren {
+  DashboardChatRoute: typeof DashboardChatRouteWithChildren
+  DashboardDiscoverRoute: typeof DashboardDiscoverRoute
+  DashboardDogsRoute: typeof DashboardDogsRoute
+  DashboardFriendsRoute: typeof DashboardFriendsRoute
+  DashboardMeetingsRoute: typeof DashboardMeetingsRouteWithChildren
+  DashboardProfileRoute: typeof DashboardProfileRoute
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardChatRoute: DashboardChatRouteWithChildren,
+  DashboardDiscoverRoute: DashboardDiscoverRoute,
+  DashboardDogsRoute: DashboardDogsRoute,
+  DashboardFriendsRoute: DashboardFriendsRoute,
+  DashboardMeetingsRoute: DashboardMeetingsRouteWithChildren,
+  DashboardProfileRoute: DashboardProfileRoute,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompleteProfileRoute: CompleteProfileRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   DemoConvexRoute: DemoConvexRoute,

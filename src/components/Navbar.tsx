@@ -1,10 +1,73 @@
+import { useAuthActions } from '@convex-dev/auth/react'
 import { Link } from '@tanstack/react-router'
-import { Menu, PawPrint, X } from 'lucide-react'
+import { useQuery } from 'convex/react'
+import { Loader2, Menu, PawPrint, X } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { api } from '../../convex/_generated/api'
 import { Button } from './ui/Button'
 
 export function Navbar() {
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
+  const user = useQuery(api.users.current)
+  const { signOut } = useAuthActions()
+
+  // Determine auth state: loading, authenticated, or unauthenticated
+  const isLoading = user === undefined
+  const isAuthenticated = user !== undefined && user !== null
+
+  // Render auth buttons based on state
+  const renderAuthButtons = (isMobile: boolean = false) => {
+    if (isLoading) {
+      return (
+        <div className={isMobile ? "flex justify-center py-2" : "flex items-center"}>
+          <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+        </div>
+      )
+    }
+
+    if (isAuthenticated) {
+      return (
+        <>
+          <Link to="/dashboard">
+            <Button 
+              variant="ghost" 
+              className={isMobile ? "w-full justify-start" : "text-muted-foreground hover:text-foreground"}
+            >
+              {t('nav.dashboard')}
+            </Button>
+          </Link>
+          <Button 
+            variant="ghost" 
+            className={isMobile ? "w-full justify-start" : "text-muted-foreground hover:text-foreground"}
+            onClick={() => signOut()}
+          >
+            {t('nav.signOut')}
+          </Button>
+        </>
+      )
+    }
+
+    // Not authenticated
+    return (
+      <>
+        <Link to="/login">
+          <Button 
+            variant="ghost" 
+            className={isMobile ? "w-full justify-start" : "text-muted-foreground hover:text-foreground"}
+          >
+            {t('auth.signIn')}
+          </Button>
+        </Link>
+        <Link to="/register">
+          <Button variant="default" className={isMobile ? "w-full" : ""}>
+            {t('landing.getStarted')}
+          </Button>
+        </Link>
+      </>
+    )
+  }
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b bg-background/80 backdrop-blur-md">
@@ -24,24 +87,10 @@ export function Navbar() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <a href="#features" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-                Features
+                {t('landing.featuresTitle').split('?')[0]}
               </a>
-              <a href="#testimonials" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-                Community
-              </a>
-              <a href="#about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-                About
-              </a>
-              <Link to="/login">
-                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                  Sign In
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button variant="default">
-                  Get Started
-                </Button>
-              </Link>
+              
+              {renderAuthButtons(false)}
             </div>
           </div>
           
@@ -66,25 +115,10 @@ export function Navbar() {
         <div className="border-t bg-background md:hidden">
           <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             <a href="#features" className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-muted hover:text-foreground">
-              Features
-            </a>
-            <a href="#testimonials" className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-muted hover:text-foreground">
-              Community
-            </a>
-            <a href="#about" className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-muted hover:text-foreground">
-              About
+              {t('landing.featuresTitle').split('?')[0]}
             </a>
             <div className="mt-4 flex flex-col space-y-2 px-3">
-              <Link to="/login">
-                <Button variant="ghost" className="w-full justify-start">
-                  Sign In
-                </Button>
-              </Link>
-              <Link to="/register">
-                <Button variant="default" className="w-full">
-                  Get Started
-                </Button>
-              </Link>
+              {renderAuthButtons(true)}
             </div>
           </div>
         </div>

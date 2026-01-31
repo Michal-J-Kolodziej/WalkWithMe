@@ -2,11 +2,13 @@ import { useAuthActions } from "@convex-dev/auth/react"
 import { Link, useNavigate } from "@tanstack/react-router"
 import { ArrowRight, Lock, Mail, PawPrint } from "lucide-react"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Button } from "./ui/Button"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 
 export function LoginForm() {
+  const { t } = useTranslation()
   const { signIn } = useAuthActions()
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
@@ -23,7 +25,7 @@ export function LoginForm() {
       await signIn("password", formData)
       navigate({ to: "/" })
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Invalid email or password. Please try again.")
+      setError(err instanceof Error ? err.message : t('auth.loginError', 'Invalid email or password. Please try again.'))
     } finally {
       setIsLoading(false)
     }
@@ -54,10 +56,10 @@ export function LoginForm() {
         <div className="bg-card rounded-3xl shadow-xl border border-border/50 p-8 backdrop-blur-sm">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-foreground mb-2">
-              Welcome back
+              {t('auth.loginTitle')}
             </h1>
             <p className="text-muted-foreground">
-              Sign in to continue your walking journey
+              {t('auth.loginSubtitle')}
             </p>
           </div>
 
@@ -67,7 +69,7 @@ export function LoginForm() {
             {/* Email Field */}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-foreground font-medium">
-                Email Address
+                {t('auth.email')}
               </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -75,7 +77,7 @@ export function LoginForm() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder={t('auth.emailPlaceholder')}
                   required
                   className="pl-10 h-12 rounded-xl bg-background border-border focus:border-primary transition-colors"
                 />
@@ -86,14 +88,14 @@ export function LoginForm() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password" className="text-foreground font-medium">
-                  Password
+                  {t('auth.password')}
                 </Label>
-                <a 
-                  href="#" 
+                <Link 
+                  to="/forgot-password" 
                   className="text-sm text-primary hover:text-primary/80 transition-colors"
                 >
-                  Forgot password?
-                </a>
+                  {t('auth.forgotPassword')}
+                </Link>
               </div>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -124,11 +126,11 @@ export function LoginForm() {
               {isLoading ? (
                 <span className="flex items-center gap-2">
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                  Signing in...
+                  {t('auth.signingIn', 'Signing in...')}
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
-                  Sign In
+                  {t('auth.signIn')}
                   <ArrowRight className="h-5 w-5" />
                 </span>
               )}
@@ -142,7 +144,7 @@ export function LoginForm() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-card px-2 text-muted-foreground">
-                New to WalkWithMe?
+                {t('auth.noAccount')}
               </span>
             </div>
           </div>
@@ -153,7 +155,7 @@ export function LoginForm() {
               to="/register"
               className="inline-flex items-center gap-1 text-primary font-medium hover:text-primary/80 transition-colors cursor-pointer"
             >
-              Create an account
+              {t('auth.signUp')}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

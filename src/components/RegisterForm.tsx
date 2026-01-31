@@ -2,11 +2,13 @@ import { useAuthActions } from "@convex-dev/auth/react"
 import { Link, useNavigate } from "@tanstack/react-router"
 import { ArrowRight, Lock, Mail, PawPrint, User } from "lucide-react"
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Button } from "./ui/Button"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 
 export function RegisterForm() {
+  const { t } = useTranslation()
   const { signIn } = useAuthActions()
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
@@ -21,9 +23,9 @@ export function RegisterForm() {
     
     try {
       await signIn("password", formData)
-      navigate({ to: "/" })
+      navigate({ to: "/complete-profile" })
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Registration failed. Please try again.")
+      setError(err instanceof Error ? err.message : t('auth.registerError', 'Registration failed. Please try again.'))
     } finally {
       setIsLoading(false)
     }
@@ -54,10 +56,10 @@ export function RegisterForm() {
         <div className="bg-card rounded-3xl shadow-xl border border-border/50 p-8 backdrop-blur-sm">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-foreground mb-2">
-              Create your account
+              {t('auth.registerTitle')}
             </h1>
             <p className="text-muted-foreground">
-              Join the community and start walking together
+              {t('auth.registerSubtitle')}
             </p>
           </div>
 
@@ -67,7 +69,7 @@ export function RegisterForm() {
             {/* Name Field */}
             <div className="space-y-2">
               <Label htmlFor="name" className="text-foreground font-medium">
-                Full Name
+                {t('completeProfile.name')}
               </Label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -75,7 +77,7 @@ export function RegisterForm() {
                   id="name"
                   name="name"
                   type="text"
-                  placeholder="John Doe"
+                  placeholder={t('completeProfile.namePlaceholder')}
                   required
                   className="pl-10 h-12 rounded-xl bg-background border-border focus:border-primary transition-colors"
                 />
@@ -85,7 +87,7 @@ export function RegisterForm() {
             {/* Email Field */}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-foreground font-medium">
-                Email Address
+                {t('auth.email')}
               </Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -93,7 +95,7 @@ export function RegisterForm() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="you@example.com"
+                  placeholder={t('auth.emailPlaceholder')}
                   required
                   className="pl-10 h-12 rounded-xl bg-background border-border focus:border-primary transition-colors"
                 />
@@ -103,7 +105,7 @@ export function RegisterForm() {
             {/* Password Field */}
             <div className="space-y-2">
               <Label htmlFor="password" className="text-foreground font-medium">
-                Password
+                {t('auth.password')}
               </Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -118,7 +120,7 @@ export function RegisterForm() {
                 />
               </div>
               <p className="text-xs text-muted-foreground">
-                Must be at least 8 characters
+                {t('auth.passwordMinLength', 'Must be at least 8 characters')}
               </p>
             </div>
 
@@ -138,11 +140,11 @@ export function RegisterForm() {
               {isLoading ? (
                 <span className="flex items-center gap-2">
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                  Creating account...
+                  {t('auth.creatingAccount', 'Creating account...')}
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
-                  Get Started
+                  {t('landing.getStarted')}
                   <ArrowRight className="h-5 w-5" />
                 </span>
               )}
@@ -156,7 +158,7 @@ export function RegisterForm() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-card px-2 text-muted-foreground">
-                Already have an account?
+                {t('auth.hasAccount')}
               </span>
             </div>
           </div>
@@ -167,7 +169,7 @@ export function RegisterForm() {
               to="/"
               className="inline-flex items-center gap-1 text-primary font-medium hover:text-primary/80 transition-colors cursor-pointer"
             >
-              Sign in instead
+              {t('auth.signIn')}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -175,13 +177,13 @@ export function RegisterForm() {
 
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-6">
-          By creating an account, you agree to our{" "}
+          {t('auth.termsAgreement', 'By creating an account, you agree to our')}{" "}
           <a href="#" className="underline hover:text-foreground transition-colors">
-            Terms of Service
+            {t('footer.terms')}
           </a>{" "}
-          and{" "}
+          {t('common.and')}{" "}
           <a href="#" className="underline hover:text-foreground transition-colors">
-            Privacy Policy
+            {t('footer.privacy')}
           </a>
         </p>
       </div>
