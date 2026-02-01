@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { Clock, Dog, MapPin, MessageSquare, User, UserPlus } from 'lucide-react'
 import { useState } from 'react'
 import type { Id } from '../../../convex/_generated/dataModel'
+import { calculateDistance } from '../../lib/geo'
 import { Button } from '../ui/Button'
 import { SendRequestModal } from './SendRequestModal'
 
@@ -18,6 +19,7 @@ interface DiscoverableUser {
   image?: string
   bio?: string
   location?: string
+  geo_location?: { latitude: number; longitude: number; updatedAt: number }
   status: "none" | "pending_sent" | "pending_received"
   requestId?: string
   dogs: UserDog[]
@@ -25,9 +27,10 @@ interface DiscoverableUser {
 
 interface UserCardProps {
   user: DiscoverableUser
+  currentLocation?: { latitude: number; longitude: number } | null
 }
 
-export function UserCard({ user }: UserCardProps) {
+export function UserCard({ user, currentLocation }: UserCardProps) {
   const [showRequestModal, setShowRequestModal] = useState(false)
   const [localStatus, setLocalStatus] = useState(user.status)
 
@@ -60,7 +63,19 @@ export function UserCard({ user }: UserCardProps) {
               {user.location && (
                 <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
                   <MapPin className="w-3.5 h-3.5" />
-                  <span className="truncate">{user.location}</span>
+                  <span className="truncate">
+                    {user.location}
+                    {currentLocation && user.geo_location && (
+                      <span className="ml-1">
+                        ({calculateDistance(
+                          currentLocation.latitude,
+                          currentLocation.longitude,
+                          user.geo_location.latitude,
+                          user.geo_location.longitude
+                        ).formatted} away)
+                      </span>
+                    )}
+                  </span>
                 </div>
               )}
             </div>

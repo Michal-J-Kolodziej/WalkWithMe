@@ -1,23 +1,24 @@
 import { useAuthActions } from '@convex-dev/auth/react'
 import { Link, useLocation } from '@tanstack/react-router'
 import {
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-  Dog,
-  Home,
-  LogOut,
-  Menu,
-  MessageSquare,
-  PawPrint,
-  Search,
-  Settings,
-  User,
-  Users,
-  X
+    Calendar,
+    ChevronLeft,
+    ChevronRight,
+    Dog,
+    Home,
+    LogOut,
+    Menu,
+    MessageSquare,
+    PawPrint,
+    Search,
+    Settings,
+    User,
+    Users,
+    X
 } from 'lucide-react'
 import { ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocationTracker } from '../../hooks/useLocationTracker'
 
 interface DashboardLayoutProps {
   children: ReactNode
@@ -57,6 +58,9 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
   const handleSignOut = async () => {
     await signOut()
   }
+
+  // Enable background location tracking
+  useLocationTracker();
 
   return (
     <div className="dashboard-layout bg-gradient-to-br from-background via-background to-muted/30">

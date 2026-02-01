@@ -52,6 +52,7 @@ export const list = query({
             image: friend.image,
             bio: friend.bio,
             location: friend.location,
+            geo_location: friend.isLocationEnabled ? friend.geo_location : undefined,
             email: friend.email,
           } : null,
           dogsCount: dogs.length,

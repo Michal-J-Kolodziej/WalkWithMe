@@ -30,6 +30,7 @@ function SettingsPage() {
   const { t, i18n } = useTranslation()
   const user = useQuery(api.users.current)
   const updateProfile = useMutation(api.users.updateProfile)
+  const toggleLocationVisibility = useMutation(api.users.toggleLocationVisibility)
 
   // Form state
   const [name, setName] = useState('')
@@ -377,6 +378,49 @@ function SettingsPage() {
             <p className="text-xs text-muted-foreground italic">
               {t('settings.preferencesNote')}
             </p>
+          </div>
+        </GlassCard>
+
+        {/* Location Services */}
+        <GlassCard hover={false}>
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 pb-4 border-b border-border/50">
+              <div className="p-2 rounded-lg bg-green-500/10">
+                <MapPin className="w-5 h-5 text-green-500" />
+              </div>
+              <div>
+                <h2 className="font-semibold">{t('settings.locationServices')}</h2>
+                <p className="text-sm text-muted-foreground">
+                  {t('settings.locationServicesDesc')}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <MapPin className="w-5 h-5 text-muted-foreground" />
+                <div>
+                  <p className="font-medium">{t('settings.shareLocation')}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {t('settings.shareLocationDesc')}
+                  </p>
+                </div>
+              </div>
+              <button
+                className={`
+                  relative w-12 h-6 rounded-full transition-colors cursor-pointer
+                  ${user.isLocationEnabled ? 'bg-primary' : 'bg-muted'}
+                `}
+                onClick={() => toggleLocationVisibility({ enabled: !user.isLocationEnabled })}
+              >
+                <div 
+                  className={`
+                    absolute top-1 w-4 h-4 rounded-full bg-white transition-all
+                    ${user.isLocationEnabled ? 'left-7' : 'left-1'}
+                  `} 
+                />
+              </button>
+            </div>
           </div>
         </GlassCard>
 

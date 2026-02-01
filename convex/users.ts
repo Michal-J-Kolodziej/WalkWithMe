@@ -105,3 +105,54 @@ export const updateProfile = mutation({
     return await ctx.db.get(userId);
   },
 });
+
+export const updateLocation = mutation({
+  args: {
+    latitude: v.number(),
+    longitude: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+
+    const user = await ctx.db.get(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // Only update if location tracking is enabled
+    if (!user.isLocationEnabled) {
+      return; // Silently ignore or throw error depending on preference. Silently ignoring allows client to just send updates without checking state drastically.
+    }
+
+    await ctx.db.patch(userId, {
+      geo_location: {
+        latitude: args.latitude,
+        longitude: args.longitude,
+        updatedAt: Date.now(),
+      },
+    });
+  },
+});
+
+export const toggleLocationVisibility = mutation({
+  args: {
+    enabled: v.boolean(),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("Not authenticated");
+    }
+
+    await ctx.db.patch(userId, {
+      isLocationEnabled: args.enabled,
+    });
+    
+    // If disabling, optionally we could clear the location data, 
+    // but keeping it might be useful for "last known location" if re-enabled.
+    // For privacy, maybe better to keep it but not serve it.
+  },
+});

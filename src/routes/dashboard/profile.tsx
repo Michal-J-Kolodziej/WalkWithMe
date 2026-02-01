@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
-import { Dog, Loader2, Mail, PawPrint, User } from 'lucide-react'
+import { Dog, Loader2, Mail, MapPin, PawPrint, User } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
 import { GlassCard } from '../../components/dashboard/DashboardWidgets'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
 import { Button } from '../../components/ui/Button'
+import { formatLocationFreshness } from '../../lib/geo'
 
 export const Route = createFileRoute('/dashboard/profile')({
   component: ProfilePage,
@@ -70,6 +71,19 @@ function ProfilePage() {
                   <Mail className="w-4 h-4" />
                   <span>{user.email || t('settings.notSet')}</span>
                 </div>
+                {user.location && (
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4" />
+                    <span>
+                      {user.location}
+                      {user.geo_location && (
+                        <span className="ml-2 text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                           Updated {formatLocationFreshness(user.geo_location.updatedAt)}
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>

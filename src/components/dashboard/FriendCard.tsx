@@ -4,6 +4,7 @@ import { Loader2, MapPin, MessageSquare, User, UserMinus, X } from 'lucide-react
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
 import type { Id } from '../../../convex/_generated/dataModel'
+import { calculateDistance } from '../../lib/geo'
 import { Button } from '../ui/Button'
 
 interface FriendData {
@@ -15,6 +16,7 @@ interface FriendData {
     image?: string
     bio?: string
     location?: string
+    geo_location?: { latitude: number; longitude: number; updatedAt: number }
     email?: string
   }
   dogsCount: number
@@ -22,9 +24,10 @@ interface FriendData {
 
 interface FriendCardProps {
   data: FriendData
+  currentLocation?: { latitude: number; longitude: number } | null
 }
 
-export function FriendCard({ data }: FriendCardProps) {
+export function FriendCard({ data, currentLocation }: FriendCardProps) {
   const navigate = useNavigate()
   const [showUnfriendConfirm, setShowUnfriendConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -123,7 +126,19 @@ export function FriendCard({ data }: FriendCardProps) {
           {data.friend.location && (
             <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
               <MapPin className="w-3.5 h-3.5" />
-              <span>{data.friend.location}</span>
+              <span>
+                {data.friend.location}
+                {currentLocation && data.friend.geo_location && (
+                  <span className="ml-1">
+                    ({calculateDistance(
+                      currentLocation.latitude,
+                      currentLocation.longitude,
+                      data.friend.geo_location.latitude,
+                      data.friend.geo_location.longitude
+                    ).formatted} away)
+                  </span>
+                )}
+              </span>
             </div>
           )}
           

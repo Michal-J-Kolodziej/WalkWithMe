@@ -100,6 +100,7 @@ export const listUsers = query({
         image: user.image,
         bio: user.bio,
         location: user.location,
+        geo_location: user.isLocationEnabled ? user.geo_location : undefined,
         status,
         requestId,
         dogs: dogs.map((d) => ({
@@ -219,6 +220,7 @@ export const searchUsers = query({
         image: user.image,
         bio: user.bio,
         location: user.location,
+        geo_location: user.isLocationEnabled ? user.geo_location : undefined,
         status,
         requestId,
         dogs: dogs.map((d) => ({
@@ -303,6 +305,7 @@ export const getUserProfile = query({
       image: user.image,
       bio: user.bio,
       location: user.location,
+      geo_location: user.isLocationEnabled ? user.geo_location : undefined,
       email: user.email,
       status,
       requestId,

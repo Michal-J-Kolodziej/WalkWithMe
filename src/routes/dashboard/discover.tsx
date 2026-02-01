@@ -115,7 +115,11 @@ function DiscoverPage() {
         ) : users && users.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {users.map((discoverUser) => (
-              <UserCard key={discoverUser._id} user={discoverUser} />
+              <UserCard 
+                key={discoverUser._id} 
+                user={discoverUser} 
+                currentLocation={user.geo_location}
+              />
             ))}
           </div>
         ) : isSearchMode ? (

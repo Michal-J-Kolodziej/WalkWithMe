@@ -15,7 +15,14 @@ export default defineSchema({
     // Profile fields
     isProfileComplete: v.optional(v.boolean()),
     bio: v.optional(v.string()),
-    location: v.optional(v.string()),
+    location: v.optional(v.string()), // This seems to be a text location (e.g. "Paris"). The new one is geo coordinates.
+    // Geo location for tracking
+    geo_location: v.optional(v.object({
+      latitude: v.number(),
+      longitude: v.number(),
+      updatedAt: v.number(),
+    })),
+    isLocationEnabled: v.optional(v.boolean()),
     role: v.optional(v.string()),
     age: v.optional(v.number()),
   }).index("email", ["email"]),
