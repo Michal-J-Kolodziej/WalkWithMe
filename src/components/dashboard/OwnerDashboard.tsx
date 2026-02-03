@@ -13,6 +13,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
 import { Button } from '../ui/Button'
+import { ActiveWalkersList } from './beacon/ActiveWalkersList'
 import { EmptyState, GlassCard, StatCard } from './DashboardWidgets'
 import { DogCard } from './DogCard'
 import { AddDogForm } from './DogForm'
@@ -59,6 +60,9 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
           </Button>
         </Link>
       </div>
+
+      {/* Active Walkers - Beacon */}
+      <ActiveWalkersList />
 
       {/* Weather Widget */}
       <WeatherWidget />

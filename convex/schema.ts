@@ -27,6 +27,15 @@ export default defineSchema({
     isLocationEnabled: v.optional(v.boolean()),
     role: v.optional(v.string()),
     age: v.optional(v.number()),
+    // Beacon - Walking Now feature
+    beacon: v.optional(
+      v.object({
+        isActive: v.boolean(),
+        startedAt: v.number(),
+        lastHeartbeat: v.optional(v.number()), // Optional for backward compatibility, but conceptually required for active beacons
+        privacy: v.string(), // 'friends' | 'public' | 'none'
+      }),
+    ),
   }).index('email', ['email']),
   dogs: defineTable({
     ownerId: v.id('users'),

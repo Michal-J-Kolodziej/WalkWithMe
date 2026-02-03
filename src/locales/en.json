@@ -224,7 +224,14 @@
     "preferencesNote": "* Notifications will be available in a future update",
     "saveChanges": "Save Changes",
     "changesSaved": "Changes saved successfully!",
-    "saveFailed": "Failed to save changes"
+    "saveFailed": "Failed to save changes",
+    "beaconSettings": "Beacon Settings",
+    "beaconSettingsDesc": "Manage your 'Walking Now' active status",
+    "whoCanSeeBeacon": "Who can see when I'm walking?",
+    "whoCanSeeBeaconDesc": "Control visibility of your live beacon",
+    "privacyFriends": "Friends Only",
+    "privacyPublic": "Public (All Users)",
+    "privacyNone": "No One (Disable Sharing)"
   },
   "auth": {
     "login": "Log In",

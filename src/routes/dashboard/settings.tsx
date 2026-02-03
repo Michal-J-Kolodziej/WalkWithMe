@@ -1,26 +1,28 @@
+
 import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
-  Bell,
-  Calendar,
-  Check,
-  Globe,
-  Loader2,
-  Mail,
-  MapPin,
-  Save,
-  Settings,
-  User,
-  X,
+    Bell,
+    Calendar,
+    Check,
+    Footprints,
+    Globe,
+    Loader2,
+    Mail,
+    MapPin,
+    Save,
+    Settings,
+    User,
+    X,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
+import type { Id } from '../../../convex/_generated/dataModel'
 import { GlassCard } from '../../components/dashboard/DashboardWidgets'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
 import { Button } from '../../components/ui/Button'
 import { ImageUpload } from '../../components/ui/ImageUpload'
-import type { Id } from '../../../convex/_generated/dataModel'
 
 export const Route = createFileRoute('/dashboard/settings')({
   component: SettingsPage,
@@ -33,6 +35,7 @@ function SettingsPage() {
   const toggleLocationVisibility = useMutation(
     api.users.toggleLocationVisibility,
   )
+  const updateBeaconPrivacy = useMutation(api.beacon.setBeaconPrivacy)
 
   // Form state
   const [name, setName] = useState('')
@@ -450,6 +453,47 @@ function SettingsPage() {
                   `}
                 />
               </button>
+            </div>
+          </div>
+        </GlassCard>
+
+        {/* Beacon Settings */}
+        <GlassCard hover={false}>
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 pb-4 border-b border-border/50">
+              <div className="p-2 rounded-lg bg-green-500/10">
+                <Footprints className="w-5 h-5 text-green-500" />
+              </div>
+              <div>
+                <h2 className="font-semibold">{t('settings.beaconSettings')}</h2>
+                <p className="text-sm text-muted-foreground">
+                  {t('settings.beaconSettingsDesc')}
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-medium">{t('settings.whoCanSeeBeacon')}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {t('settings.whoCanSeeBeaconDesc')}
+                  </p>
+                </div>
+                <select
+                  value={user.beacon?.privacy || 'friends'}
+                  onChange={(e) =>
+                    updateBeaconPrivacy({ privacy: e.target.value })
+                  }
+                  className="px-3 py-2 rounded-lg bg-muted/50 border border-border/50 text-sm cursor-pointer
+                    focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50
+                    transition-all"
+                >
+                  <option value="friends">{t('settings.privacyFriends')}</option>
+                  <option value="public">{t('settings.privacyPublic')}</option>
+                  <option value="none">{t('settings.privacyNone')}</option>
+                </select>
+              </div>
             </div>
           </div>
         </GlassCard>

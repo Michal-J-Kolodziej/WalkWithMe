@@ -234,7 +234,14 @@
     "preferencesNote": "* Powiadomienia będą dostępne w przyszłej aktualizacji",
     "saveChanges": "Zapisz Zmiany",
     "changesSaved": "Zmiany zostały zapisane!",
-    "saveFailed": "Nie udało się zapisać zmian"
+    "saveFailed": "Nie udało się zapisać zmian",
+    "beaconSettings": "Ustawienia Beacona",
+    "beaconSettingsDesc": "Zarządzaj statusem 'Spaceruję Teraz'",
+    "whoCanSeeBeacon": "Kto widzi kiedy spaceruję?",
+    "whoCanSeeBeaconDesc": "Kontroluj widoczność swojego beacona",
+    "privacyFriends": "Tylko Znajomi",
+    "privacyPublic": "Publiczny (Wszyscy)",
+    "privacyNone": "Nikt (Wyłączone)"
   },
   "auth": {
     "login": "Zaloguj się",

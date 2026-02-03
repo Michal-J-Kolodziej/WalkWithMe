@@ -1,25 +1,26 @@
 import { useAuthActions } from '@convex-dev/auth/react'
 import { Link, useLocation } from '@tanstack/react-router'
 import {
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-  Dog,
-  Home,
-  LogOut,
-  Menu,
-  MessageSquare,
-  PawPrint,
-  Search,
-  Settings,
-  User,
-  Users,
-  X,
+    Calendar,
+    ChevronLeft,
+    ChevronRight,
+    Dog,
+    Home,
+    LogOut,
+    Menu,
+    MessageSquare,
+    PawPrint,
+    Search,
+    Settings,
+    User,
+    Users,
+    X,
 } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocationTracker } from '../../hooks/useLocationTracker'
-import type { ReactNode} from 'react';
+import { BeaconToggle } from '../dashboard/beacon/BeaconToggle'
 
 interface DashboardLayoutProps {
   children: ReactNode
@@ -131,7 +132,8 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
           </nav>
 
           {/* User Section */}
-          <div className="border-t border-border/50 pt-4 mt-4">
+          <div className="border-t border-border/50 pt-4 mt-4 space-y-2">
+            {!collapsed && <BeaconToggle />}
             {!collapsed && user && (
               <div className="flex items-center gap-3 px-3 py-2 mb-2">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
