@@ -1,7 +1,7 @@
+import { URL, fileURLToPath } from 'node:url'
 import { devtools } from '@tanstack/devtools-vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
-import { fileURLToPath, URL } from 'url'
 import { defineConfig } from 'vite'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 
@@ -22,7 +22,7 @@ const config = defineConfig({
           // Only split chunks for client-side code, not SSR externals
           if (id.includes('node_modules')) {
             if (id.includes('lucide-react')) {
-              return 'vendor-lucide';
+              return 'vendor-lucide'
             }
           }
         },

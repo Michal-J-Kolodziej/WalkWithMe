@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
     ArrowLeft,
@@ -9,11 +9,11 @@ import {
     MapPin,
     Trash2,
     UserPlus,
-    Users
+    Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import { Id } from '../../../convex/_generated/dataModel'
+import type { Id } from '../../../convex/_generated/dataModel'
 import { GlassCard } from '../../components/dashboard/DashboardWidgets'
 import { InviteFriendsModal } from '../../components/dashboard/InviteFriendsModal'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
@@ -93,7 +93,11 @@ function MeetingDetailsPage() {
   const isPast = meeting.dateTime < Date.now()
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this meeting? This action cannot be undone.')) {
+    if (
+      !confirm(
+        'Are you sure you want to delete this meeting? This action cannot be undone.',
+      )
+    ) {
       return
     }
 
@@ -138,7 +142,9 @@ function MeetingDetailsPage() {
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <h1 className="text-3xl font-bold tracking-tight">{meeting.title}</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                {meeting.title}
+              </h1>
               {isPast && (
                 <span className="px-2 py-0.5 text-xs font-medium bg-muted text-muted-foreground rounded-full">
                   Past
@@ -233,9 +239,18 @@ function MeetingDetailsPage() {
                       {meeting.location.address || 'Location set on map'}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      {meeting.location.lat.toFixed(4)}, {meeting.location.lng.toFixed(4)}
+                      {meeting.location.lat.toFixed(4)},{' '}
+                      {meeting.location.lng.toFixed(4)}
                     </p>
                   </div>
+                </div>
+
+                <div className="pt-4 border-t border-border/50">
+                  <MeetingWeather
+                    lat={meeting.location.lat}
+                    lng={meeting.location.lng}
+                    dateTime={meeting.dateTime}
+                  />
                 </div>
               </div>
 
@@ -289,9 +304,12 @@ function MeetingDetailsPage() {
                       <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
                         <Dog className="w-4 h-4" />
                         <span>
-                          {participant.dogs.length} dog{participant.dogs.length !== 1 ? 's' : ''}:
-                          {' '}
-                          {participant.dogs.map((d) => d?.name).filter(Boolean).join(', ')}
+                          {participant.dogs.length} dog
+                          {participant.dogs.length !== 1 ? 's' : ''}:{' '}
+                          {participant.dogs
+                            .map((d) => d?.name)
+                            .filter(Boolean)
+                            .join(', ')}
                         </span>
                       </div>
                     </div>
@@ -306,7 +324,9 @@ function MeetingDetailsPage() {
             {/* Pending Invitations (owner only) */}
             {meeting.isOwner && invitations && invitations.length > 0 && (
               <GlassCard hover={false}>
-                <h2 className="font-semibold text-lg mb-4">Pending Invitations</h2>
+                <h2 className="font-semibold text-lg mb-4">
+                  Pending Invitations
+                </h2>
                 <div className="space-y-3">
                   {invitations
                     .filter((inv) => inv.status === 'pending')
@@ -346,17 +366,24 @@ function MeetingDetailsPage() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Participants</span>
-                  <span className="font-medium">{meeting.participants.length}</span>
+                  <span className="font-medium">
+                    {meeting.participants.length}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Total Dogs</span>
                   <span className="font-medium">
-                    {meeting.participants.reduce((acc, p) => acc + p.dogs.length, 0)}
+                    {meeting.participants.reduce(
+                      (acc, p) => acc + p.dogs.length,
+                      0,
+                    )}
                   </span>
                 </div>
                 {invitations && (
                   <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">Pending Invites</span>
+                    <span className="text-muted-foreground">
+                      Pending Invites
+                    </span>
                     <span className="font-medium">
                       {invitations.filter((i) => i.status === 'pending').length}
                     </span>

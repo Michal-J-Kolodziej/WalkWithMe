@@ -1,24 +1,25 @@
 import { useAuthActions } from '@convex-dev/auth/react'
 import { Link, useLocation } from '@tanstack/react-router'
 import {
-    Calendar,
-    ChevronLeft,
-    ChevronRight,
-    Dog,
-    Home,
-    LogOut,
-    Menu,
-    MessageSquare,
-    PawPrint,
-    Search,
-    Settings,
-    User,
-    Users,
-    X
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Dog,
+  Home,
+  LogOut,
+  Menu,
+  MessageSquare,
+  PawPrint,
+  Search,
+  Settings,
+  User,
+  Users,
+  X,
 } from 'lucide-react'
-import { ReactNode, useState } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocationTracker } from '../../hooks/useLocationTracker'
+import type { ReactNode} from 'react';
 
 interface DashboardLayoutProps {
   children: ReactNode
@@ -35,7 +36,7 @@ interface NavItem {
   href: string
 }
 
-const navItems: NavItem[] = [
+const navItems: Array<NavItem> = [
   { icon: Home, labelKey: 'nav.dashboard', href: '/dashboard' },
   { icon: Dog, labelKey: 'nav.myDogs', href: '/dashboard/dogs' },
   { icon: Users, labelKey: 'nav.friends', href: '/dashboard/friends' },
@@ -53,27 +54,25 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
   const { signOut } = useAuthActions()
   const location = useLocation()
 
-
-
   const handleSignOut = async () => {
     await signOut()
   }
 
   // Enable background location tracking
-  useLocationTracker();
+  useLocationTracker()
 
   return (
     <div className="dashboard-layout bg-gradient-to-br from-background via-background to-muted/30">
       {/* Mobile Overlay */}
       {mobileOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 md:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <aside 
+      <aside
         className={`
           dashboard-sidebar glass-sidebar
           ${collapsed ? 'collapsed' : ''}
@@ -88,12 +87,14 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
                 <PawPrint className="h-5 w-5" />
               </div>
               {!collapsed && (
-                <span className="text-lg font-bold tracking-tight">WalkWithMe</span>
+                <span className="text-lg font-bold tracking-tight">
+                  WalkWithMe
+                </span>
               )}
             </Link>
-            
+
             {/* Mobile Close */}
-            <button 
+            <button
               className="md:hidden p-2 hover:bg-muted rounded-lg"
               onClick={() => setMobileOpen(false)}
             >
@@ -112,14 +113,17 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
                   className={`
                     flex items-center gap-3 px-3 py-2.5 rounded-xl
                     transition-all duration-200 cursor-pointer
-                    ${isActive 
-                      ? 'bg-primary/10 text-primary font-medium' 
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                    ${
+                      isActive
+                        ? 'bg-primary/10 text-primary font-medium'
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                     }
                   `}
                   onClick={() => setMobileOpen(false)}
                 >
-                  <item.icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-primary' : ''}`} />
+                  <item.icon
+                    className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-primary' : ''}`}
+                  />
                   {!collapsed && <span>{t(item.labelKey)}</span>}
                 </Link>
               )
@@ -134,12 +138,16 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
                   <User className="w-5 h-5 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">{user.name || 'User'}</p>
-                  <p className="text-xs text-muted-foreground capitalize">{user.role || 'Member'}</p>
+                  <p className="text-sm font-medium truncate">
+                    {user.name || 'User'}
+                  </p>
+                  <p className="text-xs text-muted-foreground capitalize">
+                    {user.role || 'Member'}
+                  </p>
                 </div>
               </div>
             )}
-            
+
             <button
               onClick={handleSignOut}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl w-full
@@ -168,10 +176,12 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
       </aside>
 
       {/* Main Content */}
-      <main className={`dashboard-main ${collapsed ? 'sidebar-collapsed' : ''}`}>
+      <main
+        className={`dashboard-main ${collapsed ? 'sidebar-collapsed' : ''}`}
+      >
         {/* Mobile Header */}
         <header className="md:hidden sticky top-0 z-20 glass px-4 py-3 flex items-center justify-between">
-          <button 
+          <button
             onClick={() => setMobileOpen(true)}
             className="p-2 hover:bg-muted rounded-lg cursor-pointer"
           >
@@ -185,9 +195,7 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
         </header>
 
         {/* Page Content */}
-        <div className="p-4 md:p-8">
-          {children}
-        </div>
+        <div className="p-4 md:p-8">{children}</div>
       </main>
     </div>
   )

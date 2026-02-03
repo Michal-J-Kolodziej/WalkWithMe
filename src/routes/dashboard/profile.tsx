@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
 import { Dog, Loader2, Mail, MapPin, PawPrint, User } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
@@ -78,7 +78,8 @@ function ProfilePage() {
                       {user.location}
                       {user.geo_location && (
                         <span className="ml-2 text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                           Updated {formatLocationFreshness(user.geo_location.updatedAt)}
+                          Updated{' '}
+                          {formatLocationFreshness(user.geo_location.updatedAt)}
                         </span>
                       )}
                     </span>
@@ -97,10 +98,10 @@ function ProfilePage() {
                 <Dog className="w-8 h-8 text-primary" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('profile.myDogs')}</p>
-                <p className="text-2xl font-bold">
-                  {dogs.length}
+                <p className="text-sm text-muted-foreground">
+                  {t('profile.myDogs')}
                 </p>
+                <p className="text-2xl font-bold">{dogs.length}</p>
               </div>
             </div>
             <Link to="/dashboard/dogs">
@@ -116,13 +117,13 @@ function ProfilePage() {
             <div className="mt-6 pt-6 border-t border-border/50">
               <div className="flex flex-wrap gap-3">
                 {dogs.slice(0, 5).map((dog) => (
-                  <div 
+                  <div
                     key={dog._id}
                     className="flex items-center gap-2 px-3 py-2 rounded-xl bg-muted/50"
                   >
                     <div className="w-8 h-8 rounded-lg overflow-hidden bg-primary/10">
-                      <img 
-                        src={dog.imageUrl} 
+                      <img
+                        src={dog.imageUrl}
                         alt={dog.name}
                         className="w-full h-full object-cover"
                       />

@@ -2,17 +2,22 @@ import { useMutation } from 'convex/react'
 import { Loader2, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { Button } from '../ui/Button'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface RejectRequestModalProps {
   isOpen: boolean
   onClose: () => void
-  requestId: Id<"friendRequests">
+  requestId: Id<'friendRequests'>
   userName?: string
 }
 
-export function RejectRequestModal({ isOpen, onClose, requestId, userName }: RejectRequestModalProps) {
+export function RejectRequestModal({
+  isOpen,
+  onClose,
+  requestId,
+  userName,
+}: RejectRequestModalProps) {
   const [reason, setReason] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -31,7 +36,8 @@ export function RejectRequestModal({ isOpen, onClose, requestId, userName }: Rej
       onClose()
       setReason('')
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Failed to reject request'
+      const message =
+        err instanceof Error ? err.message : 'Failed to reject request'
       setError(message)
       console.error('Failed to reject request:', err)
     } finally {
@@ -52,11 +58,11 @@ export function RejectRequestModal({ isOpen, onClose, requestId, userName }: Rej
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={handleClose}
       />
-      
+
       {/* Modal */}
       <div className="relative w-full max-w-md bg-card/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-border/50 p-6 animate-in fade-in zoom-in-95 duration-300">
         {/* Close Button */}
@@ -73,7 +79,10 @@ export function RejectRequestModal({ isOpen, onClose, requestId, userName }: Rej
           <h2 className="text-xl font-bold">Reject Request</h2>
           <p className="text-muted-foreground text-sm mt-1">
             Are you sure you want to reject the friend request from{' '}
-            <span className="text-foreground font-medium">{userName || 'this user'}</span>?
+            <span className="text-foreground font-medium">
+              {userName || 'this user'}
+            </span>
+            ?
           </p>
         </div>
 
@@ -81,7 +90,10 @@ export function RejectRequestModal({ isOpen, onClose, requestId, userName }: Rej
           {/* Reason (Optional) */}
           <div className="space-y-2">
             <label htmlFor="reason" className="text-sm font-medium">
-              Reason <span className="text-muted-foreground font-normal">(optional)</span>
+              Reason{' '}
+              <span className="text-muted-foreground font-normal">
+                (optional)
+              </span>
             </label>
             <textarea
               id="reason"

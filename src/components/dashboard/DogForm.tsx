@@ -3,21 +3,21 @@ import { Dog, Loader2, PawPrint, Sparkles, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { Button } from '../ui/Button'
 import { ImageUpload } from '../ui/ImageUpload'
 import { MultiImageUpload } from '../ui/MultiImageUpload'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface DogData {
-  _id: Id<"dogs">
+  _id: Id<'dogs'>
   name: string
   breed: string
   age: number
   bio: string
   imageUrl: string
-  imageUrls?: string[]
+  imageUrls?: Array<string>
   createdAt: number
 }
 
@@ -25,25 +25,32 @@ interface DogFormProps {
   isOpen: boolean
   onClose: () => void
   onSuccess?: () => void
-  dog?: DogData | null  // Pre-fill form when editing
+  dog?: DogData | null // Pre-fill form when editing
   mode?: 'add' | 'edit'
 }
 
-export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFormProps) {
+export function DogForm({
+  isOpen,
+  onClose,
+  onSuccess,
+  dog,
+  mode = 'add',
+}: DogFormProps) {
   const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formKey, setFormKey] = useState(0)
-  const [pendingStorageId, setPendingStorageId] = useState<Id<"_storage"> | null>(null)
-  const [additionalPhotos, setAdditionalPhotos] = useState<string[]>([])
-  
+  const [pendingStorageId, setPendingStorageId] =
+    useState<Id<'_storage'> | null>(null)
+  const [additionalPhotos, setAdditionalPhotos] = useState<Array<string>>([])
+
   const createDog = useMutation(api.dogs.create)
   const updateDog = useMutation(api.dogs.update)
-  
+
   // Get URL for uploaded image
   const uploadedImageUrl = useQuery(
     api.files.getUrl,
-    pendingStorageId ? { storageId: pendingStorageId } : "skip"
+    pendingStorageId ? { storageId: pendingStorageId } : 'skip',
   )
 
   // Reset form when modal opens/closes or dog changes
@@ -52,7 +59,7 @@ export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFo
       setError(null)
       setPendingStorageId(null)
       setAdditionalPhotos(dog?.imageUrls || [])
-      setFormKey(prev => prev + 1)
+      setFormKey((prev) => prev + 1)
     }
   }, [isOpen, dog?._id])
 
@@ -73,12 +80,13 @@ export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFo
       setIsLoading(false)
       return
     }
-    
+
     // For new dogs, require an image upload; for edits, use existing if no new upload
-    const imageUrl = pendingStorageId && uploadedImageUrl 
-      ? uploadedImageUrl 
-      : dog?.imageUrl || ''
-    
+    const imageUrl =
+      pendingStorageId && uploadedImageUrl
+        ? uploadedImageUrl
+        : dog?.imageUrl || ''
+
     if (!imageUrl && mode === 'add') {
       setError(t('dogs.photo') + ' ' + t('common.required').toLowerCase())
       setIsLoading(false)
@@ -133,11 +141,11 @@ export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFo
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={onClose}
       />
-      
+
       {/* Modal */}
       <div className="relative w-full max-w-lg bg-card/95 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-border/50 p-8 animate-in fade-in zoom-in-95 duration-300">
         {/* Close Button */}
@@ -162,7 +170,10 @@ export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFo
           {/* Name & Breed Row */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2 group">
-              <Label htmlFor="name" className="text-sm font-medium ml-1 transition-colors group-focus-within:text-primary">
+              <Label
+                htmlFor="name"
+                className="text-sm font-medium ml-1 transition-colors group-focus-within:text-primary"
+              >
                 {t('dogs.name')} *
               </Label>
               <div className="relative">
@@ -179,7 +190,10 @@ export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFo
             </div>
 
             <div className="space-y-2 group">
-              <Label htmlFor="breed" className="text-sm font-medium ml-1 transition-colors group-focus-within:text-primary">
+              <Label
+                htmlFor="breed"
+                className="text-sm font-medium ml-1 transition-colors group-focus-within:text-primary"
+              >
                 {t('dogs.breed')} *
               </Label>
               <div className="relative">
@@ -198,7 +212,10 @@ export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFo
 
           {/* Age */}
           <div className="space-y-2 group">
-            <Label htmlFor="age" className="text-sm font-medium ml-1 transition-colors group-focus-within:text-primary">
+            <Label
+              htmlFor="age"
+              className="text-sm font-medium ml-1 transition-colors group-focus-within:text-primary"
+            >
               {t('dogs.age')} *
             </Label>
             <Input
@@ -216,7 +233,10 @@ export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFo
 
           {/* Bio */}
           <div className="space-y-2 group">
-            <Label htmlFor="bio" className="text-sm font-medium ml-1 transition-colors group-focus-within:text-primary">
+            <Label
+              htmlFor="bio"
+              className="text-sm font-medium ml-1 transition-colors group-focus-within:text-primary"
+            >
               {t('dogs.bio')} *
             </Label>
             <textarea
@@ -236,7 +256,11 @@ export function DogForm({ isOpen, onClose, onSuccess, dog, mode = 'add' }: DogFo
               {t('dogs.photo')} {mode === 'add' && '*'}
             </Label>
             <ImageUpload
-              currentImageUrl={pendingStorageId && uploadedImageUrl ? uploadedImageUrl : dog?.imageUrl}
+              currentImageUrl={
+                pendingStorageId && uploadedImageUrl
+                  ? uploadedImageUrl
+                  : dog?.imageUrl
+              }
               onUpload={(storageId) => setPendingStorageId(storageId)}
               onRemove={() => setPendingStorageId(null)}
               shape="square"

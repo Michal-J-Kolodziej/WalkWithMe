@@ -1,28 +1,28 @@
 import { Link } from '@tanstack/react-router'
 import { Clock, Dog, MapPin, MessageSquare, User, UserPlus } from 'lucide-react'
 import { useState } from 'react'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { calculateDistance } from '../../lib/geo'
 import { Button } from '../ui/Button'
 import { SendRequestModal } from './SendRequestModal'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface UserDog {
-  _id: Id<"dogs">
+  _id: Id<'dogs'>
   name: string
   breed: string
   imageUrl: string
 }
 
 interface DiscoverableUser {
-  _id: Id<"users">
+  _id: Id<'users'>
   name?: string
   image?: string
   bio?: string
   location?: string
   geo_location?: { latitude: number; longitude: number; updatedAt: number }
-  status: "none" | "pending_sent" | "pending_received"
+  status: 'none' | 'pending_sent' | 'pending_received'
   requestId?: string
-  dogs: UserDog[]
+  dogs: Array<UserDog>
 }
 
 interface UserCardProps {
@@ -35,7 +35,7 @@ export function UserCard({ user, currentLocation }: UserCardProps) {
   const [localStatus, setLocalStatus] = useState(user.status)
 
   const handleRequestSent = () => {
-    setLocalStatus("pending_sent")
+    setLocalStatus('pending_sent')
   }
 
   return (
@@ -47,8 +47,8 @@ export function UserCard({ user, currentLocation }: UserCardProps) {
             {/* Avatar */}
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
               {user.image ? (
-                <img 
-                  src={user.image} 
+                <img
+                  src={user.image}
                   alt={user.name || 'User'}
                   className="w-full h-full object-cover"
                 />
@@ -58,8 +58,10 @@ export function UserCard({ user, currentLocation }: UserCardProps) {
             </div>
 
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-lg truncate">{user.name || 'Dog Lover'}</h3>
-              
+              <h3 className="font-semibold text-lg truncate">
+                {user.name || 'Dog Lover'}
+              </h3>
+
               {user.location && (
                 <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
                   <MapPin className="w-3.5 h-3.5" />
@@ -67,12 +69,16 @@ export function UserCard({ user, currentLocation }: UserCardProps) {
                     {user.location}
                     {currentLocation && user.geo_location && (
                       <span className="ml-1">
-                        ({calculateDistance(
-                          currentLocation.latitude,
-                          currentLocation.longitude,
-                          user.geo_location.latitude,
-                          user.geo_location.longitude
-                        ).formatted} away)
+                        (
+                        {
+                          calculateDistance(
+                            currentLocation.latitude,
+                            currentLocation.longitude,
+                            user.geo_location.latitude,
+                            user.geo_location.longitude,
+                          ).formatted
+                        }{' '}
+                        away)
                       </span>
                     )}
                   </span>
@@ -99,18 +105,20 @@ export function UserCard({ user, currentLocation }: UserCardProps) {
               </div>
               <div className="flex flex-wrap gap-2">
                 {user.dogs.slice(0, 3).map((dog) => (
-                  <div 
+                  <div
                     key={dog._id}
                     className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-muted/50 text-xs"
                   >
                     <div className="w-6 h-6 rounded-md overflow-hidden bg-primary/10 flex-shrink-0">
-                      <img 
-                        src={dog.imageUrl} 
+                      <img
+                        src={dog.imageUrl}
                         alt={dog.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <span className="font-medium truncate max-w-[80px]">{dog.name}</span>
+                    <span className="font-medium truncate max-w-[80px]">
+                      {dog.name}
+                    </span>
                   </div>
                 ))}
                 {user.dogs.length > 3 && (
@@ -124,8 +132,8 @@ export function UserCard({ user, currentLocation }: UserCardProps) {
 
           {/* Action Button */}
           <div className="mt-auto pt-4">
-            {localStatus === "none" && (
-              <Button 
+            {localStatus === 'none' && (
+              <Button
                 onClick={() => setShowRequestModal(true)}
                 className="w-full gap-2 cursor-pointer"
                 size="sm"
@@ -135,16 +143,16 @@ export function UserCard({ user, currentLocation }: UserCardProps) {
               </Button>
             )}
 
-            {localStatus === "pending_sent" && (
+            {localStatus === 'pending_sent' && (
               <div className="flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-amber-500/10 text-amber-500 text-sm font-medium">
                 <Clock className="w-4 h-4" />
                 Request Pending
               </div>
             )}
 
-            {localStatus === "pending_received" && (
+            {localStatus === 'pending_received' && (
               <Link to="/dashboard/friends">
-                <Button 
+                <Button
                   variant="outline"
                   className="w-full gap-2 cursor-pointer"
                   size="sm"

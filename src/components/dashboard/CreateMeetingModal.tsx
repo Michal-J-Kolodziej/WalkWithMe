@@ -2,7 +2,7 @@ import { useMutation, useQuery } from 'convex/react'
 import { Calendar, Clock, Loader2, MapPin, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import { Id } from '../../../convex/_generated/dataModel'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface CreateMeetingModalProps {
   onClose: () => void
@@ -19,7 +19,7 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
   const [address, setAddress] = useState('')
   const [lat, setLat] = useState<number | null>(null)
   const [lng, setLng] = useState<number | null>(null)
-  const [selectedDogs, setSelectedDogs] = useState<Id<'dogs'>[]>([])
+  const [selectedDogs, setSelectedDogs] = useState<Array<Id<'dogs'>>>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -38,7 +38,7 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
     setSelectedDogs((prev) =>
       prev.includes(dogId)
         ? prev.filter((id) => id !== dogId)
-        : [...prev, dogId]
+        : [...prev, dogId],
     )
   }
 
@@ -221,9 +221,10 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
                     onClick={() => toggleDog(dog._id)}
                     className={`
                       flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer
-                      ${selectedDogs.includes(dog._id)
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border hover:border-primary/50'
+                      ${
+                        selectedDogs.includes(dog._id)
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50'
                       }
                     `}
                   >
@@ -242,7 +243,9 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
                     </div>
                     <div className="text-left min-w-0">
                       <p className="font-medium truncate">{dog.name}</p>
-                      <p className="text-xs text-muted-foreground truncate">{dog.breed}</p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {dog.breed}
+                      </p>
                     </div>
                   </button>
                 ))}

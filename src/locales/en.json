@@ -292,5 +292,19 @@
     "copyright": "© {{year}} WalkWithMe. All rights reserved.",
     "privacy": "Privacy",
     "terms": "Terms"
+  },
+  "weather": {
+    "clearSky": "Clear sky",
+    "partlyCloudy": "Partly cloudy",
+    "fog": "Foggy",
+    "drizzle": "Drizzle",
+    "rain": "Rain",
+    "snow": "Snow",
+    "showers": "Showers",
+    "snowShowers": "Snow showers",
+    "thunderstorm": "Thunderstorm",
+    "unknown": "Unknown",
+    "loading": "Loading weather...",
+    "precipChance": "{{chance}}% chance of rain"
   }
 }

@@ -1,34 +1,47 @@
-import { useAuthActions } from "@convex-dev/auth/react"
-import { Link, useNavigate } from "@tanstack/react-router"
-import { ArrowLeft, ArrowRight, KeyRound, Lock, Mail, PawPrint } from "lucide-react"
-import { useState } from "react"
-import { Button } from "./ui/Button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
+import { useAuthActions } from '@convex-dev/auth/react'
+import { Link, useNavigate } from '@tanstack/react-router'
+import {
+  ArrowLeft,
+  ArrowRight,
+  KeyRound,
+  Lock,
+  Mail,
+  PawPrint,
+} from 'lucide-react'
+import { useState } from 'react'
+import { Button } from './ui/Button'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
 
-type Step = "request" | { email: string }
+type Step = 'request' | { email: string }
 
 export function ForgotPasswordForm() {
   const { signIn } = useAuthActions()
   const navigate = useNavigate()
-  const [step, setStep] = useState<Step>("request")
+  const [step, setStep] = useState<Step>('request')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
-  const handleRequestReset = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleRequestReset = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault()
     setIsLoading(true)
     setError(null)
 
     const formData = new FormData(event.currentTarget)
-    const email = formData.get("email") as string
-    
+    const email = formData.get('email') as string
+
     try {
-      await signIn("password", formData)
+      await signIn('password', formData)
       setStep({ email })
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to send reset code. Please try again.")
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Failed to send reset code. Please try again.',
+      )
     } finally {
       setIsLoading(false)
     }
@@ -40,15 +53,19 @@ export function ForgotPasswordForm() {
     setError(null)
 
     const formData = new FormData(event.currentTarget)
-    
+
     try {
-      await signIn("password", formData)
+      await signIn('password', formData)
       setSuccess(true)
       setTimeout(() => {
-        navigate({ to: "/login" })
+        navigate({ to: '/login' })
       }, 2000)
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Invalid code or password. Please try again.")
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Invalid code or password. Please try again.',
+      )
     } finally {
       setIsLoading(false)
     }
@@ -89,13 +106,14 @@ export function ForgotPasswordForm() {
                 Password Reset!
               </h1>
               <p className="text-muted-foreground mb-6">
-                Your password has been successfully reset. Redirecting to login...
+                Your password has been successfully reset. Redirecting to
+                login...
               </p>
               <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
                 <div className="h-full bg-secondary animate-pulse w-full" />
               </div>
             </div>
-          ) : step === "request" ? (
+          ) : step === 'request' ? (
             // Step 1: Request Reset Code
             <>
               <div className="text-center mb-8">
@@ -109,10 +127,13 @@ export function ForgotPasswordForm() {
 
               <form onSubmit={handleRequestReset} className="space-y-6">
                 <input name="flow" type="hidden" value="reset" />
-                
+
                 {/* Email Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-foreground font-medium">
+                  <Label
+                    htmlFor="email"
+                    className="text-foreground font-medium"
+                  >
                     Email Address
                   </Label>
                   <div className="relative">
@@ -163,14 +184,17 @@ export function ForgotPasswordForm() {
                   Check your email
                 </h1>
                 <p className="text-muted-foreground">
-                  We sent a code to <span className="font-medium text-foreground">{step.email}</span>
+                  We sent a code to{' '}
+                  <span className="font-medium text-foreground">
+                    {step.email}
+                  </span>
                 </p>
               </div>
 
               <form onSubmit={handleVerifyReset} className="space-y-6">
                 <input name="flow" type="hidden" value="reset-verification" />
                 <input name="email" type="hidden" value={step.email} />
-                
+
                 {/* Code Field */}
                 <div className="space-y-2">
                   <Label htmlFor="code" className="text-foreground font-medium">
@@ -191,7 +215,10 @@ export function ForgotPasswordForm() {
 
                 {/* New Password Field */}
                 <div className="space-y-2">
-                  <Label htmlFor="newPassword" className="text-foreground font-medium">
+                  <Label
+                    htmlFor="newPassword"
+                    className="text-foreground font-medium"
+                  >
                     New Password
                   </Label>
                   <div className="relative">
@@ -241,7 +268,7 @@ export function ForgotPasswordForm() {
                 <button
                   type="button"
                   onClick={() => {
-                    setStep("request")
+                    setStep('request')
                     setError(null)
                   }}
                   className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center justify-center gap-1"

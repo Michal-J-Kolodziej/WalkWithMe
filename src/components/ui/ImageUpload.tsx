@@ -9,7 +9,7 @@ interface ImageUploadProps {
   /** Current image URL (from storage or external) */
   currentImageUrl?: string
   /** Callback when a new image is uploaded, returns the storage ID */
-  onUpload: (storageId: Id<"_storage">) => void
+  onUpload: (storageId: Id<'_storage'>) => void
   /** Callback when the image is removed */
   onRemove?: () => void
   /** Optional class name for the container */
@@ -33,57 +33,60 @@ export function ImageUpload({
   const { t } = useTranslation()
   const generateUploadUrl = useMutation(api.files.generateUploadUrl)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  
+
   const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [isDragOver, setIsDragOver] = useState(false)
 
-  const handleFileSelect = useCallback(async (file: File) => {
-    setError(null)
+  const handleFileSelect = useCallback(
+    async (file: File) => {
+      setError(null)
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      setError(t('imageUpload.invalidType', 'Please select an image file'))
-      return
-    }
-
-    // Validate file size
-    if (file.size > MAX_FILE_SIZE) {
-      setError(t('imageUpload.maxSize', 'File must be less than 5MB'))
-      return
-    }
-
-    // Create preview
-    const objectUrl = URL.createObjectURL(file)
-    setPreviewUrl(objectUrl)
-    setIsUploading(true)
-
-    try {
-      // Get upload URL from Convex
-      const uploadUrl = await generateUploadUrl()
-
-      // Upload the file
-      const response = await fetch(uploadUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': file.type },
-        body: file,
-      })
-
-      if (!response.ok) {
-        throw new Error('Upload failed')
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError(t('imageUpload.invalidType', 'Please select an image file'))
+        return
       }
 
-      const { storageId } = await response.json()
-      onUpload(storageId as Id<"_storage">)
-    } catch (err) {
-      setError(t('imageUpload.uploadFailed', 'Failed to upload image'))
-      setPreviewUrl(null)
-      console.error('Upload error:', err)
-    } finally {
-      setIsUploading(false)
-    }
-  }, [generateUploadUrl, onUpload, t])
+      // Validate file size
+      if (file.size > MAX_FILE_SIZE) {
+        setError(t('imageUpload.maxSize', 'File must be less than 5MB'))
+        return
+      }
+
+      // Create preview
+      const objectUrl = URL.createObjectURL(file)
+      setPreviewUrl(objectUrl)
+      setIsUploading(true)
+
+      try {
+        // Get upload URL from Convex
+        const uploadUrl = await generateUploadUrl()
+
+        // Upload the file
+        const response = await fetch(uploadUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': file.type },
+          body: file,
+        })
+
+        if (!response.ok) {
+          throw new Error('Upload failed')
+        }
+
+        const { storageId } = await response.json()
+        onUpload(storageId as Id<'_storage'>)
+      } catch (err) {
+        setError(t('imageUpload.uploadFailed', 'Failed to upload image'))
+        setPreviewUrl(null)
+        console.error('Upload error:', err)
+      } finally {
+        setIsUploading(false)
+      }
+    },
+    [generateUploadUrl, onUpload, t],
+  )
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -92,14 +95,17 @@ export function ImageUpload({
     }
   }
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    setIsDragOver(false)
-    const file = e.dataTransfer.files?.[0]
-    if (file) {
-      handleFileSelect(file)
-    }
-  }, [handleFileSelect])
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault()
+      setIsDragOver(false)
+      const file = e.dataTransfer.files?.[0]
+      if (file) {
+        handleFileSelect(file)
+      }
+    },
+    [handleFileSelect],
+  )
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault()
@@ -148,12 +154,16 @@ export function ImageUpload({
 
         {displayUrl ? (
           // Preview mode
-          <div className={`relative w-full h-full ${shapeClass} overflow-hidden bg-muted`}>
+          <div
+            className={`relative w-full h-full ${shapeClass} overflow-hidden bg-muted`}
+          >
             <img
               src={displayUrl}
               alt="Preview"
               className="w-full h-full object-cover"
-              onError={() => setError(t('imageUpload.loadError', 'Failed to load image'))}
+              onError={() =>
+                setError(t('imageUpload.loadError', 'Failed to load image'))
+              }
             />
             {isUploading && (
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
@@ -176,13 +186,15 @@ export function ImageUpload({
           </div>
         ) : (
           // Empty state / drop zone
-          <div className={`
+          <div
+            className={`
             flex flex-col items-center justify-center gap-3
             border-2 border-dashed border-border/50 rounded-xl
             bg-muted/30 hover:bg-muted/50 hover:border-primary/50
             transition-all duration-200 py-6
             ${isDragOver ? 'border-primary bg-primary/5' : ''}
-          `}>
+          `}
+          >
             {isUploading ? (
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
             ) : (
@@ -192,7 +204,10 @@ export function ImageUpload({
                 </div>
                 <div className="text-center">
                   <p className="text-sm font-medium">
-                    {t('imageUpload.dragDrop', 'Drag and drop or click to upload')}
+                    {t(
+                      'imageUpload.dragDrop',
+                      'Drag and drop or click to upload',
+                    )}
                   </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     {t('imageUpload.formats', 'PNG, JPG, GIF up to 5MB')}

@@ -4,22 +4,25 @@ import { Dog, Loader2, Plus } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
-import { EmptyState, GlassCard } from '../../components/dashboard/DashboardWidgets'
+import {
+  EmptyState,
+  GlassCard,
+} from '../../components/dashboard/DashboardWidgets'
 import { DogCard } from '../../components/dashboard/DogCard'
 import { DogForm } from '../../components/dashboard/DogForm'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
 import { Button } from '../../components/ui/Button'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 // Type for dog data used in edit flow
 interface DogData {
-  _id: Id<"dogs">
+  _id: Id<'dogs'>
   name: string
   breed: string
   age: number
   bio: string
   imageUrl: string
-  imageUrls?: string[]
+  imageUrls?: Array<string>
   createdAt: number
 }
 
@@ -61,12 +64,10 @@ function DogsPage() {
               <Dog className="w-8 h-8 text-primary" />
               {t('dogs.title')}
             </h1>
-            <p className="text-muted-foreground mt-1">
-              {t('dogs.subtitle')}
-            </p>
+            <p className="text-muted-foreground mt-1">{t('dogs.subtitle')}</p>
           </div>
-          <Button 
-            className="gap-2 cursor-pointer" 
+          <Button
+            className="gap-2 cursor-pointer"
             onClick={() => setIsAddFormOpen(true)}
           >
             <Plus className="w-4 h-4" />
@@ -78,9 +79,9 @@ function DogsPage() {
         {dogs.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {dogs.map((dog) => (
-              <DogCard 
-                key={dog._id} 
-                dog={dog} 
+              <DogCard
+                key={dog._id}
+                dog={dog}
                 onEdit={(d) => setEditingDog(d)}
               />
             ))}
@@ -92,7 +93,7 @@ function DogsPage() {
               title={t('dogs.noDogs')}
               description={t('dogs.noDogsDesc')}
               action={
-                <Button 
+                <Button
                   className="gap-2 cursor-pointer"
                   onClick={() => setIsAddFormOpen(true)}
                 >
@@ -109,7 +110,9 @@ function DogsPage() {
           <GlassCard hover={false}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">{t('dashboard.statsMyDogs')}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('dashboard.statsMyDogs')}
+                </p>
                 <p className="text-3xl font-bold text-primary">{dogs.length}</p>
               </div>
               <div className="p-4 rounded-2xl bg-primary/10">

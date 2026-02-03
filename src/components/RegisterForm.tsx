@@ -1,11 +1,11 @@
-import { useAuthActions } from "@convex-dev/auth/react"
-import { Link, useNavigate } from "@tanstack/react-router"
-import { ArrowRight, Lock, Mail, PawPrint, User } from "lucide-react"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Button } from "./ui/Button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
+import { useAuthActions } from '@convex-dev/auth/react'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { ArrowRight, Lock, Mail, PawPrint, User } from 'lucide-react'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button } from './ui/Button'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
 
 export function RegisterForm() {
   const { t } = useTranslation()
@@ -20,12 +20,16 @@ export function RegisterForm() {
     setError(null)
 
     const formData = new FormData(event.currentTarget)
-    
+
     try {
-      await signIn("password", formData)
-      navigate({ to: "/complete-profile" })
+      await signIn('password', formData)
+      navigate({ to: '/complete-profile' })
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('auth.registerError', 'Registration failed. Please try again.'))
+      setError(
+        err instanceof Error
+          ? err.message
+          : t('auth.registerError', 'Registration failed. Please try again.'),
+      )
     } finally {
       setIsLoading(false)
     }
@@ -65,7 +69,7 @@ export function RegisterForm() {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <input name="flow" type="hidden" value="signUp" />
-            
+
             {/* Name Field */}
             <div className="space-y-2">
               <Label htmlFor="name" className="text-foreground font-medium">
@@ -177,12 +181,18 @@ export function RegisterForm() {
 
         {/* Footer */}
         <p className="text-center text-xs text-muted-foreground mt-6">
-          {t('auth.termsAgreement', 'By creating an account, you agree to our')}{" "}
-          <a href="#" className="underline hover:text-foreground transition-colors">
+          {t('auth.termsAgreement', 'By creating an account, you agree to our')}{' '}
+          <a
+            href="#"
+            className="underline hover:text-foreground transition-colors"
+          >
             {t('footer.terms')}
-          </a>{" "}
-          {t('common.and')}{" "}
-          <a href="#" className="underline hover:text-foreground transition-colors">
+          </a>{' '}
+          {t('common.and')}{' '}
+          <a
+            href="#"
+            className="underline hover:text-foreground transition-colors"
+          >
             {t('footer.privacy')}
           </a>
         </p>

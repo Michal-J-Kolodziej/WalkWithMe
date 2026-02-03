@@ -29,20 +29,23 @@ export function HeroSection() {
               </a>
             </div>
           </div>
-          
+
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl mb-6">
             Find your perfect <br />
-            <span className="text-primary">
-              dog walking buddy
-            </span>
+            <span className="text-primary">dog walking buddy</span>
           </h1>
-          
+
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Connect with local dog owners, arrange meetups, and make walking your dog the highlight of your day. Join thousands of happy tails in your city.
+            Connect with local dog owners, arrange meetups, and make walking
+            your dog the highlight of your day. Join thousands of happy tails in
+            your city.
           </p>
-          
+
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button size="lg" className="rounded-full text-lg px-8 shadow-lg shadow-primary/20">
+            <Button
+              size="lg"
+              className="rounded-full text-lg px-8 shadow-lg shadow-primary/20"
+            >
               Start Walking
             </Button>
             <Button variant="ghost" size="lg" className="rounded-full gap-2">
@@ -53,31 +56,35 @@ export function HeroSection() {
           {/* Floating UI Elements / Mockups */}
           <div className="mt-16 flow-root sm:mt-24 pointer-events-none select-none">
             <div className="-m-2 rounded-xl bg-background/50 p-2 ring-1 ring-inset ring-border lg:-m-4 lg:rounded-2xl lg:p-4 backdrop-blur-sm">
-               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  {/* Mock Stat Card 1 */}
-                  <Card className="flex flex-col items-center p-6 border-0 shadow-sm">
-                    <MapPin className="h-8 w-8 text-primary mb-2" />
-                    <div className="text-2xl font-bold text-foreground">50+</div>
-                    <div className="text-sm text-muted-foreground">Parks Near You</div>
-                  </Card>
-                  {/* Mock Stat Card 2 */}
-                  <Card className="flex flex-col items-center p-6 scale-110 shadow-md border-primary/20 bg-background">
-                    <Search className="h-8 w-8 text-secondary mb-2" />
-                    <div className="text-2xl font-bold text-foreground">2k+</div>
-                    <div className="text-sm text-muted-foreground">Active Walkers</div>
-                  </Card>
-                  {/* Mock Stat Card 3 */}
-                  <Card className="flex flex-col items-center p-6 border-0 shadow-sm">
-                    <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-secondary to-primary mb-2" />
-                    <div className="text-2xl font-bold text-foreground">100%</div>
-                    <div className="text-sm text-muted-foreground">Tail Wags</div>
-                  </Card>
-               </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {/* Mock Stat Card 1 */}
+                <Card className="flex flex-col items-center p-6 border-0 shadow-sm">
+                  <MapPin className="h-8 w-8 text-primary mb-2" />
+                  <div className="text-2xl font-bold text-foreground">50+</div>
+                  <div className="text-sm text-muted-foreground">
+                    Parks Near You
+                  </div>
+                </Card>
+                {/* Mock Stat Card 2 */}
+                <Card className="flex flex-col items-center p-6 scale-110 shadow-md border-primary/20 bg-background">
+                  <Search className="h-8 w-8 text-secondary mb-2" />
+                  <div className="text-2xl font-bold text-foreground">2k+</div>
+                  <div className="text-sm text-muted-foreground">
+                    Active Walkers
+                  </div>
+                </Card>
+                {/* Mock Stat Card 3 */}
+                <Card className="flex flex-col items-center p-6 border-0 shadow-sm">
+                  <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-secondary to-primary mb-2" />
+                  <div className="text-2xl font-bold text-foreground">100%</div>
+                  <div className="text-sm text-muted-foreground">Tail Wags</div>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* Bottom gradient */}
       <div
         className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"

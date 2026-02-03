@@ -2,7 +2,7 @@ import { useMutation, useQuery } from 'convex/react'
 import { Calendar, Check, Clock, Loader2, MapPin, Users, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import { Id } from '../../../convex/_generated/dataModel'
+import type { Id } from '../../../convex/_generated/dataModel'
 import { GlassCard } from './DashboardWidgets'
 
 interface MeetingInvitation {
@@ -34,13 +34,15 @@ interface MeetingInvitationCardProps {
   invitation: MeetingInvitation
 }
 
-export function MeetingInvitationCard({ invitation }: MeetingInvitationCardProps) {
+export function MeetingInvitationCard({
+  invitation,
+}: MeetingInvitationCardProps) {
   const dogs = useQuery(api.dogs.listByOwner)
   const acceptInvitation = useMutation(api.meetingInvitations.accept)
   const declineInvitation = useMutation(api.meetingInvitations.decline)
 
   const [showDogSelection, setShowDogSelection] = useState(false)
-  const [selectedDogs, setSelectedDogs] = useState<Id<'dogs'>[]>([])
+  const [selectedDogs, setSelectedDogs] = useState<Array<Id<'dogs'>>>([])
   const [isAccepting, setIsAccepting] = useState(false)
   const [isDeclining, setIsDeclining] = useState(false)
   const [error, setError] = useState('')
@@ -72,7 +74,7 @@ export function MeetingInvitationCard({ invitation }: MeetingInvitationCardProps
     setSelectedDogs((prev) =>
       prev.includes(dogId)
         ? prev.filter((id) => id !== dogId)
-        : [...prev, dogId]
+        : [...prev, dogId],
     )
   }
 
@@ -91,7 +93,9 @@ export function MeetingInvitationCard({ invitation }: MeetingInvitationCardProps
         dogIds: selectedDogs,
       })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to accept invitation')
+      setError(
+        err instanceof Error ? err.message : 'Failed to accept invitation',
+      )
     } finally {
       setIsAccepting(false)
     }
@@ -106,7 +110,9 @@ export function MeetingInvitationCard({ invitation }: MeetingInvitationCardProps
         invitationId: invitation._id,
       })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to decline invitation')
+      setError(
+        err instanceof Error ? err.message : 'Failed to decline invitation',
+      )
     } finally {
       setIsDeclining(false)
     }
@@ -118,7 +124,9 @@ export function MeetingInvitationCard({ invitation }: MeetingInvitationCardProps
         {/* Header */}
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h3 className="font-semibold text-lg line-clamp-1">{meeting.title}</h3>
+            <h3 className="font-semibold text-lg line-clamp-1">
+              {meeting.title}
+            </h3>
             {fromUser && (
               <p className="text-sm text-muted-foreground">
                 Invited by {fromUser.name || 'Unknown'}
@@ -150,6 +158,13 @@ export function MeetingInvitationCard({ invitation }: MeetingInvitationCardProps
             <Users className="w-4 h-4" />
             <span>{participantCount} already attending</span>
           </div>
+          <MeetingWeather
+            lat={meeting.location.lat}
+            lng={meeting.location.lng}
+            dateTime={meeting.dateTime}
+            compact
+            className="pt-1"
+          />
         </div>
 
         {meeting.description && (
@@ -181,9 +196,10 @@ export function MeetingInvitationCard({ invitation }: MeetingInvitationCardProps
                     onClick={() => toggleDog(dog._id)}
                     className={`
                       flex items-center gap-2 p-2 rounded-lg border transition-all cursor-pointer text-left
-                      ${selectedDogs.includes(dog._id)
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border hover:border-primary/50'
+                      ${
+                        selectedDogs.includes(dog._id)
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-border hover:border-primary/50'
                       }
                     `}
                   >
@@ -200,7 +216,9 @@ export function MeetingInvitationCard({ invitation }: MeetingInvitationCardProps
                         </div>
                       )}
                     </div>
-                    <span className="font-medium text-sm truncate">{dog.name}</span>
+                    <span className="font-medium text-sm truncate">
+                      {dog.name}
+                    </span>
                   </button>
                 ))}
               </div>

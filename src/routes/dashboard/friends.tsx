@@ -4,7 +4,10 @@ import { Inbox, Loader2, Send, UserCheck, Users } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import { EmptyState, GlassCard } from '../../components/dashboard/DashboardWidgets'
+import {
+  EmptyState,
+  GlassCard,
+} from '../../components/dashboard/DashboardWidgets'
 import { FriendCard } from '../../components/dashboard/FriendCard'
 import { FriendRequestCard } from '../../components/dashboard/FriendRequestCard'
 import { SentRequestCard } from '../../components/dashboard/SentRequestCard'
@@ -25,7 +28,12 @@ function FriendsPage() {
   const [activeTab, setActiveTab] = useState<TabType>('friends')
 
   // Loading state
-  if (user === undefined || friends === undefined || receivedRequests === undefined || sentRequests === undefined) {
+  if (
+    user === undefined ||
+    friends === undefined ||
+    receivedRequests === undefined ||
+    sentRequests === undefined
+  ) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center space-y-4">
@@ -41,10 +49,30 @@ function FriendsPage() {
     return null
   }
 
-  const tabs: { id: TabType; labelKey: string; icon: typeof Users; count?: number }[] = [
-    { id: 'friends', labelKey: 'friends.tabFriends', icon: Users, count: friends.length },
-    { id: 'requests', labelKey: 'friends.tabRequests', icon: Inbox, count: receivedRequests.length },
-    { id: 'sent', labelKey: 'friends.tabSent', icon: Send, count: sentRequests.length },
+  const tabs: Array<{
+    id: TabType
+    labelKey: string
+    icon: typeof Users
+    count?: number
+  }> = [
+    {
+      id: 'friends',
+      labelKey: 'friends.tabFriends',
+      icon: Users,
+      count: friends.length,
+    },
+    {
+      id: 'requests',
+      labelKey: 'friends.tabRequests',
+      icon: Inbox,
+      count: receivedRequests.length,
+    },
+    {
+      id: 'sent',
+      labelKey: 'friends.tabSent',
+      icon: Send,
+      count: sentRequests.length,
+    },
   ]
 
   return (
@@ -56,9 +84,7 @@ function FriendsPage() {
             <UserCheck className="w-8 h-8 text-primary" />
             {t('friends.title')}
           </h1>
-          <p className="text-muted-foreground mt-1">
-            {t('friends.subtitle')}
-          </p>
+          <p className="text-muted-foreground mt-1">{t('friends.subtitle')}</p>
         </div>
 
         {/* Tabs */}
@@ -70,23 +96,27 @@ function FriendsPage() {
               className={`
                 flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm
                 transition-all duration-200 cursor-pointer
-                ${activeTab === tab.id 
-                  ? 'bg-background text-foreground shadow-sm' 
-                  : 'text-muted-foreground hover:text-foreground'
+                ${
+                  activeTab === tab.id
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
                 }
               `}
             >
               <tab.icon className="w-4 h-4" />
               {t(tab.labelKey)}
               {tab.count !== undefined && tab.count > 0 && (
-                <span className={`
+                <span
+                  className={`
                   px-2 py-0.5 rounded-full text-xs font-semibold
-                  ${activeTab === tab.id 
-                    ? 'bg-primary/10 text-primary' 
-                    : 'bg-muted text-muted-foreground'
+                  ${
+                    activeTab === tab.id
+                      ? 'bg-primary/10 text-primary'
+                      : 'bg-muted text-muted-foreground'
                   }
                   ${tab.id === 'requests' && tab.count > 0 ? 'bg-primary text-primary-foreground' : ''}
-                `}>
+                `}
+                >
                   {tab.count}
                 </span>
               )}
@@ -100,9 +130,9 @@ function FriendsPage() {
             {friends.length > 0 ? (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {friends.map((friendData) => (
-                  <FriendCard 
-                    key={friendData.friendshipId} 
-                    data={friendData} 
+                  <FriendCard
+                    key={friendData.friendshipId}
+                    data={friendData}
                     currentLocation={user.geo_location}
                   />
                 ))}
@@ -164,17 +194,25 @@ function FriendsPage() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-8">
               <div>
-                <p className="text-sm text-muted-foreground">{t('dashboard.statsFriends')}</p>
-                <p className="text-2xl font-bold text-primary">{friends.length}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('dashboard.statsFriends')}
+                </p>
+                <p className="text-2xl font-bold text-primary">
+                  {friends.length}
+                </p>
               </div>
               <div className="h-10 w-px bg-border/50" />
               <div>
-                <p className="text-sm text-muted-foreground">{t('friends.tabRequests')}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('friends.tabRequests')}
+                </p>
                 <p className="text-2xl font-bold">{receivedRequests.length}</p>
               </div>
               <div className="h-10 w-px bg-border/50" />
               <div>
-                <p className="text-sm text-muted-foreground">{t('friends.tabSent')}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('friends.tabSent')}
+                </p>
                 <p className="text-2xl font-bold">{sentRequests.length}</p>
               </div>
             </div>
@@ -184,4 +222,3 @@ function FriendsPage() {
     </DashboardLayout>
   )
 }
-

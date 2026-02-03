@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @theme {
   --font-display: 'Fira Sans', 'Inter', sans-serif;
@@ -41,13 +41,13 @@
 /* Define the actual values */
 :root {
   /* Warm Sand / Cream */
-  --background: oklch(0.98 0.02 80); 
+  --background: oklch(0.98 0.02 80);
   --foreground: oklch(0.15 0.02 80);
 
   /* Warm White */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.15 0.02 80);
-  
+
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.15 0.02 80);
 
@@ -116,13 +116,13 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 
+  box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.05),
     0 2px 4px -2px rgba(0, 0, 0, 0.03);
 }
 
 .glass-card:hover {
-  box-shadow: 
+  box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.08),
     0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }
@@ -172,7 +172,9 @@ body {
   left: 0;
   height: 100vh;
   z-index: 40;
-  transition: width 0.3s ease, transform 0.3s ease;
+  transition:
+    width 0.3s ease,
+    transform 0.3s ease;
 }
 
 .dashboard-sidebar.collapsed {
@@ -211,8 +213,14 @@ body {
 
 /* Stat Card Animation */
 @keyframes countUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .stat-value {
@@ -233,7 +241,13 @@ body {
 }
 
 @keyframes pulse-ring {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.5); opacity: 0; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
 }
-

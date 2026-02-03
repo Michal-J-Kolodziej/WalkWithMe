@@ -5,15 +5,24 @@ export function Footer() {
     <footer className="relative border-t bg-background">
       <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
         <div className="flex justify-center space-x-6 md:order-2">
-          <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+          <a
+            href="#"
+            className="text-muted-foreground hover:text-primary transition-colors"
+          >
             <span className="sr-only">GitHub</span>
             <Github className="h-6 w-6" />
           </a>
-          <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+          <a
+            href="#"
+            className="text-muted-foreground hover:text-primary transition-colors"
+          >
             <span className="sr-only">Twitter</span>
             <Twitter className="h-6 w-6" />
           </a>
-          <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+          <a
+            href="#"
+            className="text-muted-foreground hover:text-primary transition-colors"
+          >
             <span className="sr-only">Instagram</span>
             <Instagram className="h-6 w-6" />
           </a>

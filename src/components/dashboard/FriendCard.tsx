@@ -1,17 +1,24 @@
 import { useNavigate } from '@tanstack/react-router'
 import { useMutation } from 'convex/react'
-import { Loader2, MapPin, MessageSquare, User, UserMinus, X } from 'lucide-react'
+import {
+  Loader2,
+  MapPin,
+  MessageSquare,
+  User,
+  UserMinus,
+  X,
+} from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { calculateDistance } from '../../lib/geo'
 import { Button } from '../ui/Button'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface FriendData {
-  friendshipId: Id<"friendships">
+  friendshipId: Id<'friendships'>
   friendSince: number
   friend: {
-    _id: Id<"users">
+    _id: Id<'users'>
     name?: string
     image?: string
     bio?: string
@@ -49,7 +56,9 @@ export function FriendCard({ data, currentLocation }: FriendCardProps) {
   const handleStartChat = async () => {
     setIsStartingChat(true)
     try {
-      const conversationId = await getOrCreateConversation({ friendId: data.friend._id })
+      const conversationId = await getOrCreateConversation({
+        friendId: data.friend._id,
+      })
       navigate({
         to: '/dashboard/chat/$conversationId',
         params: { conversationId },
@@ -60,10 +69,13 @@ export function FriendCard({ data, currentLocation }: FriendCardProps) {
     }
   }
 
-  const friendSinceDate = new Date(data.friendSince).toLocaleDateString('en-US', {
-    month: 'short',
-    year: 'numeric',
-  })
+  const friendSinceDate = new Date(data.friendSince).toLocaleDateString(
+    'en-US',
+    {
+      month: 'short',
+      year: 'numeric',
+    },
+  )
 
   return (
     <div className="glass-card rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] relative group">
@@ -71,7 +83,11 @@ export function FriendCard({ data, currentLocation }: FriendCardProps) {
       {showUnfriendConfirm && (
         <div className="absolute inset-0 bg-background/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-10 p-4">
           <p className="text-center font-medium mb-4">
-            Unfriend <span className="text-primary">{data.friend.name || 'this user'}</span>?
+            Unfriend{' '}
+            <span className="text-primary">
+              {data.friend.name || 'this user'}
+            </span>
+            ?
           </p>
           <div className="flex gap-3">
             <Button
@@ -105,8 +121,8 @@ export function FriendCard({ data, currentLocation }: FriendCardProps) {
         {/* Avatar */}
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
           {data.friend.image ? (
-            <img 
-              src={data.friend.image} 
+            <img
+              src={data.friend.image}
               alt={data.friend.name || 'User'}
               className="w-full h-full object-cover"
             />
@@ -117,12 +133,14 @@ export function FriendCard({ data, currentLocation }: FriendCardProps) {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <h3 className="font-semibold text-lg truncate">{data.friend.name || 'Unknown User'}</h3>
+            <h3 className="font-semibold text-lg truncate">
+              {data.friend.name || 'Unknown User'}
+            </h3>
             <span className="text-xs text-muted-foreground whitespace-nowrap">
               Since {friendSinceDate}
             </span>
           </div>
-          
+
           {data.friend.location && (
             <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
               <MapPin className="w-3.5 h-3.5" />
@@ -130,18 +148,22 @@ export function FriendCard({ data, currentLocation }: FriendCardProps) {
                 {data.friend.location}
                 {currentLocation && data.friend.geo_location && (
                   <span className="ml-1">
-                    ({calculateDistance(
-                      currentLocation.latitude,
-                      currentLocation.longitude,
-                      data.friend.geo_location.latitude,
-                      data.friend.geo_location.longitude
-                    ).formatted} away)
+                    (
+                    {
+                      calculateDistance(
+                        currentLocation.latitude,
+                        currentLocation.longitude,
+                        data.friend.geo_location.latitude,
+                        data.friend.geo_location.longitude,
+                      ).formatted
+                    }{' '}
+                    away)
                   </span>
                 )}
               </span>
             </div>
           )}
-          
+
           {data.friend.bio && (
             <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
               {data.friend.bio}
@@ -181,4 +203,3 @@ export function FriendCard({ data, currentLocation }: FriendCardProps) {
     </div>
   )
 }
-

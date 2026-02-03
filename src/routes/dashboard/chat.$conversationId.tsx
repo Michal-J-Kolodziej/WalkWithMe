@@ -1,17 +1,11 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
-import {
-    ArrowLeft,
-    Loader2,
-    MapPin,
-    Send,
-    User
-} from 'lucide-react'
+import { ArrowLeft, Loader2, MapPin, Send, User } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { Button } from '../../components/ui/Button'
 import { ChatEmptyState } from './chat'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 export const Route = createFileRoute('/dashboard/chat/$conversationId')({
   component: ConversationPage,
@@ -20,12 +14,12 @@ export const Route = createFileRoute('/dashboard/chat/$conversationId')({
 function ConversationPage() {
   const { conversationId } = Route.useParams()
   const navigate = useNavigate()
-  
+
   const conversation = useQuery(api.conversations.get, {
-    conversationId: conversationId as Id<"conversations">,
+    conversationId: conversationId as Id<'conversations'>,
   })
   const messages = useQuery(api.messages.list, {
-    conversationId: conversationId as Id<"conversations">,
+    conversationId: conversationId as Id<'conversations'>,
   })
   const sendMessage = useMutation(api.messages.send)
   const markAsRead = useMutation(api.messages.markAsRead)
@@ -43,7 +37,7 @@ function ConversationPage() {
   // Mark messages as read when viewing conversation
   useEffect(() => {
     if (conversation) {
-      markAsRead({ conversationId: conversationId as Id<"conversations"> })
+      markAsRead({ conversationId: conversationId as Id<'conversations'> })
     }
   }, [conversation, conversationId, markAsRead])
 
@@ -54,7 +48,7 @@ function ConversationPage() {
 
   const handleSend = async (e?: React.FormEvent) => {
     e?.preventDefault()
-    
+
     const text = messageText.trim()
     if (!text || isSending) return
 
@@ -63,7 +57,7 @@ function ConversationPage() {
 
     try {
       await sendMessage({
-        conversationId: conversationId as Id<"conversations">,
+        conversationId: conversationId as Id<'conversations'>,
         text,
       })
     } catch (error) {
@@ -141,9 +135,9 @@ function ConversationPage() {
         {messages.length > 0 ? (
           <>
             {messages.map((message, index) => {
-              const showAvatar = !message.isOwn && 
-                (index === 0 || messages[index - 1].isOwn)
-              
+              const showAvatar =
+                !message.isOwn && (index === 0 || messages[index - 1].isOwn)
+
               return (
                 <MessageBubble
                   key={message._id}
@@ -203,7 +197,7 @@ function ConversationPage() {
 
 interface MessageBubbleProps {
   message: {
-    _id: Id<"messages">
+    _id: Id<'messages'>
     text: string
     createdAt: number
     isOwn: boolean
@@ -213,7 +207,12 @@ interface MessageBubbleProps {
   friendName?: string
 }
 
-function MessageBubble({ message, showAvatar, friendImage, friendName }: MessageBubbleProps) {
+function MessageBubble({
+  message,
+  showAvatar,
+  friendImage,
+  friendName,
+}: MessageBubbleProps) {
   const formatTime = (timestamp: number) => {
     return new Date(timestamp).toLocaleTimeString('en-US', {
       hour: 'numeric',
@@ -227,7 +226,9 @@ function MessageBubble({ message, showAvatar, friendImage, friendName }: Message
     >
       {/* Avatar for received messages */}
       {!message.isOwn && (
-        <div className={`w-8 h-8 rounded-full flex-shrink-0 ${showAvatar ? '' : 'invisible'}`}>
+        <div
+          className={`w-8 h-8 rounded-full flex-shrink-0 ${showAvatar ? '' : 'invisible'}`}
+        >
           {showAvatar && (
             <div className="w-full h-full rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center overflow-hidden">
               {friendImage ? (
@@ -248,16 +249,19 @@ function MessageBubble({ message, showAvatar, friendImage, friendName }: Message
       <div
         className={`
           max-w-[75%] px-4 py-2.5 rounded-2xl
-          ${message.isOwn
-            ? 'bg-primary text-primary-foreground rounded-br-md'
-            : 'bg-muted rounded-bl-md'
+          ${
+            message.isOwn
+              ? 'bg-primary text-primary-foreground rounded-br-md'
+              : 'bg-muted rounded-bl-md'
           }
         `}
       >
         <p className="break-words">{message.text}</p>
         <p
           className={`text-xs mt-1 ${
-            message.isOwn ? 'text-primary-foreground/70' : 'text-muted-foreground'
+            message.isOwn
+              ? 'text-primary-foreground/70'
+              : 'text-muted-foreground'
           }`}
         >
           {formatTime(message.createdAt)}

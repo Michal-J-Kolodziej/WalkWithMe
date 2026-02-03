@@ -2,17 +2,17 @@ import { useMutation } from 'convex/react'
 import { Check, Loader2, MapPin, User, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { Button } from '../ui/Button'
 import { RejectRequestModal } from './RejectRequestModal'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface FriendRequest {
-  _id: Id<"friendRequests">
-  fromUserId: Id<"users">
+  _id: Id<'friendRequests'>
+  fromUserId: Id<'users'>
   message?: string
   createdAt: number
   fromUser: {
-    _id: Id<"users">
+    _id: Id<'users'>
     name?: string
     image?: string
     bio?: string
@@ -52,8 +52,8 @@ export function FriendRequestCard({ request }: FriendRequestCardProps) {
           {/* Avatar */}
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
             {request.fromUser.image ? (
-              <img 
-                src={request.fromUser.image} 
+              <img
+                src={request.fromUser.image}
                 alt={request.fromUser.name || 'User'}
                 className="w-full h-full object-cover"
               />
@@ -81,7 +81,9 @@ export function FriendRequestCard({ request }: FriendRequestCardProps) {
 
             {request.message && (
               <div className="mt-3 p-3 rounded-xl bg-muted/50 border border-border/50">
-                <p className="text-sm text-foreground italic">"{request.message}"</p>
+                <p className="text-sm text-foreground italic">
+                  "{request.message}"
+                </p>
               </div>
             )}
 
@@ -131,7 +133,7 @@ function getTimeAgo(timestamp: number): string {
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`
   if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`
-  
+
   return new Date(timestamp).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',

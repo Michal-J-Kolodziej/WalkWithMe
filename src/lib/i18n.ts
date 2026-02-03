@@ -15,17 +15,17 @@ i18n
     },
     fallbackLng: 'en',
     supportedLngs: ['en', 'pl'],
-    
+
     detection: {
       order: ['localStorage', 'navigator'],
       caches: ['localStorage'],
       lookupLocalStorage: 'i18nextLng',
     },
-    
+
     interpolation: {
       escapeValue: false, // React already escapes
     },
-    
+
     react: {
       useSuspense: false,
     },

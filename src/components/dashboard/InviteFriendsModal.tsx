@@ -2,17 +2,23 @@ import { useMutation, useQuery } from 'convex/react'
 import { Check, Loader2, Search, UserPlus, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import { Id } from '../../../convex/_generated/dataModel'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface InviteFriendsModalProps {
   meetingId: Id<'meetings'>
   onClose: () => void
 }
 
-export function InviteFriendsModal({ meetingId, onClose }: InviteFriendsModalProps) {
-  const invitableFriends = useQuery(api.meetingInvitations.getInvitableFriends, {
-    meetingId,
-  })
+export function InviteFriendsModal({
+  meetingId,
+  onClose,
+}: InviteFriendsModalProps) {
+  const invitableFriends = useQuery(
+    api.meetingInvitations.getInvitableFriends,
+    {
+      meetingId,
+    },
+  )
   const inviteFriend = useMutation(api.meetingInvitations.invite)
 
   const [searchQuery, setSearchQuery] = useState('')
@@ -42,7 +48,7 @@ export function InviteFriendsModal({ meetingId, onClose }: InviteFriendsModalPro
   }
 
   const filteredFriends = invitableFriends?.filter((friend) =>
-    friend.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    friend.name?.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   return (
@@ -121,7 +127,9 @@ export function InviteFriendsModal({ meetingId, onClose }: InviteFriendsModalPro
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{friend.name || 'Unknown'}</p>
+                      <p className="font-medium truncate">
+                        {friend.name || 'Unknown'}
+                      </p>
                       <p className="text-sm text-muted-foreground">
                         {friend.dogCount} dog{friend.dogCount !== 1 ? 's' : ''}
                         {friend.location && ` • ${friend.location}`}
@@ -133,9 +141,10 @@ export function InviteFriendsModal({ meetingId, onClose }: InviteFriendsModalPro
                       className={`
                         px-3 py-1.5 rounded-lg font-medium text-sm
                         transition-colors cursor-pointer
-                        ${isInvited
-                          ? 'bg-green-500/10 text-green-600'
-                          : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                        ${
+                          isInvited
+                            ? 'bg-green-500/10 text-green-600'
+                            : 'bg-primary text-primary-foreground hover:bg-primary/90'
                         }
                         disabled:opacity-50 disabled:cursor-not-allowed
                       `}

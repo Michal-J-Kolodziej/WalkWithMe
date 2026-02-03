@@ -14,9 +14,6 @@ export default function AppConvexProvider({
   children: React.ReactNode
 }) {
   return (
-    <ConvexAuthProvider client={convexClient}>
-      {children}
-    </ConvexAuthProvider>
+    <ConvexAuthProvider client={convexClient}>{children}</ConvexAuthProvider>
   )
 }
-

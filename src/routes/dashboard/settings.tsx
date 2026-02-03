@@ -1,26 +1,26 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
-    Bell,
-    Calendar,
-    Check,
-    Globe,
-    Loader2,
-    Mail,
-    MapPin,
-    Save,
-    Settings,
-    User,
-    X
+  Bell,
+  Calendar,
+  Check,
+  Globe,
+  Loader2,
+  Mail,
+  MapPin,
+  Save,
+  Settings,
+  User,
+  X,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { GlassCard } from '../../components/dashboard/DashboardWidgets'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
 import { Button } from '../../components/ui/Button'
 import { ImageUpload } from '../../components/ui/ImageUpload'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 export const Route = createFileRoute('/dashboard/settings')({
   component: SettingsPage,
@@ -30,7 +30,9 @@ function SettingsPage() {
   const { t, i18n } = useTranslation()
   const user = useQuery(api.users.current)
   const updateProfile = useMutation(api.users.updateProfile)
-  const toggleLocationVisibility = useMutation(api.users.toggleLocationVisibility)
+  const toggleLocationVisibility = useMutation(
+    api.users.toggleLocationVisibility,
+  )
 
   // Form state
   const [name, setName] = useState('')
@@ -38,12 +40,13 @@ function SettingsPage() {
   const [location, setLocation] = useState('')
   const [image, setImage] = useState('')
   const [age, setAge] = useState<number | ''>()
-  const [pendingStorageId, setPendingStorageId] = useState<Id<"_storage"> | null>(null)
+  const [pendingStorageId, setPendingStorageId] =
+    useState<Id<'_storage'> | null>(null)
 
   // We need to get the URL for uploaded images
   const uploadedImageUrl = useQuery(
     api.files.getUrl,
-    pendingStorageId ? { storageId: pendingStorageId } : "skip"
+    pendingStorageId ? { storageId: pendingStorageId } : 'skip',
   )
 
   // UI state
@@ -66,7 +69,7 @@ function SettingsPage() {
   // Track changes
   useEffect(() => {
     if (user) {
-      const changed = 
+      const changed =
         name !== (user.name || '') ||
         bio !== (user.bio || '') ||
         location !== (user.location || '') ||
@@ -112,9 +115,10 @@ function SettingsPage() {
 
     try {
       // If we have an uploaded image, use that URL instead
-      const imageToSave = pendingStorageId && uploadedImageUrl 
-        ? uploadedImageUrl 
-        : image.trim() || undefined
+      const imageToSave =
+        pendingStorageId && uploadedImageUrl
+          ? uploadedImageUrl
+          : image.trim() || undefined
 
       await updateProfile({
         name: name.trim() || undefined,
@@ -123,13 +127,13 @@ function SettingsPage() {
         image: imageToSave,
         age: age !== '' ? age : undefined,
       })
-      
+
       // Clear pending upload and update local state
       if (pendingStorageId && uploadedImageUrl) {
         setImage(uploadedImageUrl)
         setPendingStorageId(null)
       }
-      
+
       setSuccess(true)
       setTimeout(() => setSuccess(false), 3000)
     } catch (err) {
@@ -152,9 +156,7 @@ function SettingsPage() {
             <Settings className="w-8 h-8 text-primary" />
             {t('settings.title')}
           </h1>
-          <p className="text-muted-foreground mt-1">
-            {t('settings.subtitle')}
-          </p>
+          <p className="text-muted-foreground mt-1">{t('settings.subtitle')}</p>
         </div>
 
         {/* Success Message */}
@@ -181,7 +183,9 @@ function SettingsPage() {
                 <User className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h2 className="font-semibold">{t('settings.profileSettings')}</h2>
+                <h2 className="font-semibold">
+                  {t('settings.profileSettings')}
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   {t('settings.profileSettingsDesc')}
                 </p>
@@ -228,7 +232,10 @@ function SettingsPage() {
 
             {/* Location */}
             <div className="space-y-2">
-              <label htmlFor="location" className="text-sm font-medium flex items-center gap-2">
+              <label
+                htmlFor="location"
+                className="text-sm font-medium flex items-center gap-2"
+              >
                 <MapPin className="w-4 h-4" />
                 {t('settings.location')}
               </label>
@@ -246,7 +253,10 @@ function SettingsPage() {
 
             {/* Age */}
             <div className="space-y-2">
-              <label htmlFor="age" className="text-sm font-medium flex items-center gap-2">
+              <label
+                htmlFor="age"
+                className="text-sm font-medium flex items-center gap-2"
+              >
                 <Calendar className="w-4 h-4" />
                 {t('settings.age')}
               </label>
@@ -256,7 +266,9 @@ function SettingsPage() {
                 min="13"
                 max="120"
                 value={age}
-                onChange={(e) => setAge(e.target.value ? parseInt(e.target.value, 10) : '')}
+                onChange={(e) =>
+                  setAge(e.target.value ? parseInt(e.target.value, 10) : '')
+                }
                 placeholder={t('settings.agePlaceholder')}
                 className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50
                   focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50
@@ -271,7 +283,11 @@ function SettingsPage() {
               </label>
               <div className="flex items-start gap-6">
                 <ImageUpload
-                  currentImageUrl={pendingStorageId && uploadedImageUrl ? uploadedImageUrl : image}
+                  currentImageUrl={
+                    pendingStorageId && uploadedImageUrl
+                      ? uploadedImageUrl
+                      : image
+                  }
                   onUpload={(storageId) => setPendingStorageId(storageId)}
                   onRemove={() => {
                     setPendingStorageId(null)
@@ -307,12 +323,20 @@ function SettingsPage() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">{t('settings.email')}</p>
-                <p className="font-medium">{user.email || t('settings.notSet')}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('settings.email')}
+                </p>
+                <p className="font-medium">
+                  {user.email || t('settings.notSet')}
+                </p>
               </div>
               <div className="space-y-1">
-                <p className="text-sm text-muted-foreground">{t('settings.role')}</p>
-                <p className="font-medium capitalize">{user.role || t('profile.dogOwner')}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('settings.role')}
+                </p>
+                <p className="font-medium capitalize">
+                  {user.role || t('profile.dogOwner')}
+                </p>
               </div>
             </div>
           </div>
@@ -338,7 +362,9 @@ function SettingsPage() {
               <div className="flex items-center gap-3">
                 <Bell className="w-5 h-5 text-muted-foreground" />
                 <div>
-                  <p className="font-medium">{t('settings.emailNotifications')}</p>
+                  <p className="font-medium">
+                    {t('settings.emailNotifications')}
+                  </p>
                   <p className="text-sm text-muted-foreground">
                     {t('settings.emailNotificationsDesc')}
                   </p>
@@ -389,7 +415,9 @@ function SettingsPage() {
                 <MapPin className="w-5 h-5 text-green-500" />
               </div>
               <div>
-                <h2 className="font-semibold">{t('settings.locationServices')}</h2>
+                <h2 className="font-semibold">
+                  {t('settings.locationServices')}
+                </h2>
                 <p className="text-sm text-muted-foreground">
                   {t('settings.locationServicesDesc')}
                 </p>
@@ -411,13 +439,15 @@ function SettingsPage() {
                   relative w-12 h-6 rounded-full transition-colors cursor-pointer
                   ${user.isLocationEnabled ? 'bg-primary' : 'bg-muted'}
                 `}
-                onClick={() => toggleLocationVisibility({ enabled: !user.isLocationEnabled })}
+                onClick={() =>
+                  toggleLocationVisibility({ enabled: !user.isLocationEnabled })
+                }
               >
-                <div 
+                <div
                   className={`
                     absolute top-1 w-4 h-4 rounded-full bg-white transition-all
                     ${user.isLocationEnabled ? 'left-7' : 'left-1'}
-                  `} 
+                  `}
                 />
               </button>
             </div>

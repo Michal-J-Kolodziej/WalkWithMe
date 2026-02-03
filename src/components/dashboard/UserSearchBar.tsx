@@ -9,7 +9,11 @@ interface UserSearchBarProps {
   isSearching: boolean
 }
 
-export function UserSearchBar({ onSearch, onClear, isSearching }: UserSearchBarProps) {
+export function UserSearchBar({
+  onSearch,
+  onClear,
+  isSearching,
+}: UserSearchBarProps) {
   const [searchTerm, setSearchTerm] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -52,9 +56,9 @@ export function UserSearchBar({ onSearch, onClear, isSearching }: UserSearchBarP
           </button>
         )}
       </div>
-      
-      <Button 
-        type="submit" 
+
+      <Button
+        type="submit"
         disabled={!searchTerm.trim()}
         className="gap-2 cursor-pointer"
       >
@@ -63,7 +67,7 @@ export function UserSearchBar({ onSearch, onClear, isSearching }: UserSearchBarP
       </Button>
 
       {isSearching && (
-        <Button 
+        <Button
           type="button"
           variant="outline"
           onClick={handleClear}

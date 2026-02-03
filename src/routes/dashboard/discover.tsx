@@ -4,7 +4,10 @@ import { Compass, Loader2, SearchX, Users } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import { EmptyState, GlassCard } from '../../components/dashboard/DashboardWidgets'
+import {
+  EmptyState,
+  GlassCard,
+} from '../../components/dashboard/DashboardWidgets'
 import { UserCard } from '../../components/dashboard/UserCard'
 import { UserSearchBar } from '../../components/dashboard/UserSearchBar'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
@@ -23,7 +26,7 @@ function DiscoverPage() {
   const allUsers = useQuery(api.discover.listUsers, { limit: 50 })
   const searchResults = useQuery(
     api.discover.searchUsers,
-    isSearchMode && searchTerm ? { searchTerm, limit: 50 } : "skip"
+    isSearchMode && searchTerm ? { searchTerm, limit: 50 } : 'skip',
   )
 
   const users = isSearchMode ? searchResults : allUsers
@@ -74,7 +77,7 @@ function DiscoverPage() {
         </div>
 
         {/* Search Bar */}
-        <UserSearchBar 
+        <UserSearchBar
           onSearch={handleSearch}
           onClear={handleClearSearch}
           isSearching={isSearchMode}
@@ -84,7 +87,9 @@ function DiscoverPage() {
         {isSearchMode && (
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>
-              {isLoading ? t('common.loading') : `${users?.length ?? 0} ${t('common.noResults').toLowerCase().includes('no') ? '' : ''}`}
+              {isLoading
+                ? t('common.loading')
+                : `${users?.length ?? 0} ${t('common.noResults').toLowerCase().includes('no') ? '' : ''}`}
             </span>
           </div>
         )}
@@ -115,9 +120,9 @@ function DiscoverPage() {
         ) : users && users.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {users.map((discoverUser) => (
-              <UserCard 
-                key={discoverUser._id} 
-                user={discoverUser} 
+              <UserCard
+                key={discoverUser._id}
+                user={discoverUser}
                 currentLocation={user.geo_location}
               />
             ))}

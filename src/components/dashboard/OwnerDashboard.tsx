@@ -7,7 +7,7 @@ import {
     Footprints,
     Plus,
     Search,
-    Users
+    Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -16,6 +16,7 @@ import { Button } from '../ui/Button'
 import { EmptyState, GlassCard, StatCard } from './DashboardWidgets'
 import { DogCard } from './DogCard'
 import { AddDogForm } from './DogForm'
+import { WeatherWidget } from './WeatherWidget'
 
 interface OwnerDashboardProps {
   user: {
@@ -31,11 +32,11 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
   const friendCount = useQuery(api.friendships.count)
   const pendingRequests = useQuery(api.friendRequests.countPending)
   const [isAddFormOpen, setIsAddFormOpen] = useState(false)
-  
+
   const hasDogs = dogs && dogs.length > 0
   const dogCount = dogs?.length ?? 0
 
-  const welcomeMessage = user?.name 
+  const welcomeMessage = user?.name
     ? t('dashboard.welcomeBack', { name: user.name.split(' ')[0] })
     : t('dashboard.welcomeDefault')
 
@@ -59,32 +60,39 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
         </Link>
       </div>
 
+      {/* Weather Widget */}
+      <WeatherWidget />
+
       {/* Stats Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard 
-          icon={Dog} 
-          label={t('dashboard.statsMyDogs')} 
+        <StatCard
+          icon={Dog}
+          label={t('dashboard.statsMyDogs')}
           value={dogCount}
           iconColor="text-primary"
         />
         <Link to="/dashboard/friends">
-          <StatCard 
-            icon={Users} 
-            label={t('dashboard.statsFriends')} 
+          <StatCard
+            icon={Users}
+            label={t('dashboard.statsFriends')}
             value={friendCount ?? 0}
             iconColor="text-blue-500"
-            trend={pendingRequests && pendingRequests > 0 ? { value: pendingRequests, positive: true } : undefined}
+            trend={
+              pendingRequests && pendingRequests > 0
+                ? { value: pendingRequests, positive: true }
+                : undefined
+            }
           />
         </Link>
-        <StatCard 
-          icon={Clock} 
-          label={t('dashboard.statsTotalWalkTime')} 
+        <StatCard
+          icon={Clock}
+          label={t('dashboard.statsTotalWalkTime')}
           value={`0 ${t('dashboard.hours')}`}
           iconColor="text-amber-500"
         />
-        <StatCard 
-          icon={Calendar} 
-          label={t('dashboard.statsUpcoming')} 
+        <StatCard
+          icon={Calendar}
+          label={t('dashboard.statsUpcoming')}
           value={0}
           iconColor="text-purple-500"
         />
@@ -96,9 +104,9 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold">{t('dashboard.myDogs')}</h2>
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               className="gap-2 cursor-pointer"
               onClick={() => setIsAddFormOpen(true)}
             >
@@ -135,7 +143,7 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
                 title={t('dashboard.noDogs')}
                 description={t('dashboard.noDogsDesc')}
                 action={
-                  <Button 
+                  <Button
                     className="gap-2 cursor-pointer"
                     onClick={() => setIsAddFormOpen(true)}
                   >
@@ -150,8 +158,10 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
 
         {/* Activity Feed - 1 column */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold">{t('dashboard.recentActivity')}</h2>
-          
+          <h2 className="text-xl font-semibold">
+            {t('dashboard.recentActivity')}
+          </h2>
+
           <GlassCard hover={false}>
             <EmptyState
               icon={Footprints}
@@ -161,8 +171,10 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
           </GlassCard>
 
           {/* Upcoming Events */}
-          <h2 className="text-xl font-semibold">{t('dashboard.upcomingEvents')}</h2>
-          
+          <h2 className="text-xl font-semibold">
+            {t('dashboard.upcomingEvents')}
+          </h2>
+
           <GlassCard hover={false}>
             <EmptyState
               icon={Calendar}
@@ -179,7 +191,9 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
                   <Dog className="w-6 h-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold">{t('dashboard.manageYourDogs')}</h3>
+                  <h3 className="font-semibold">
+                    {t('dashboard.manageYourDogs')}
+                  </h3>
                   <p className="text-sm text-muted-foreground">
                     {t('dashboard.manageYourDogsDesc')}
                   </p>

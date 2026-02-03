@@ -1,17 +1,22 @@
-import { createFileRoute, Link, Outlet, useParams } from '@tanstack/react-router'
+import {
+  Link,
+  Outlet,
+  createFileRoute,
+  useParams,
+} from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
 import {
   Loader2,
   MessageCircle,
   MessageSquare,
   Search,
-  User
+  User,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 export const Route = createFileRoute('/dashboard/chat')({
   component: ChatPage,
@@ -42,7 +47,7 @@ function ChatPage() {
 
   // Filter conversations by search
   const filteredConversations = conversations.filter((conv) =>
-    conv.friend?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    conv.friend?.name?.toLowerCase().includes(searchQuery.toLowerCase()),
   )
 
   return (
@@ -54,9 +59,7 @@ function ChatPage() {
             <MessageSquare className="w-8 h-8 text-primary" />
             {t('chat.title')}
           </h1>
-          <p className="text-muted-foreground mt-1">
-            {t('chat.subtitle')}
-          </p>
+          <p className="text-muted-foreground mt-1">{t('chat.subtitle')}</p>
         </div>
 
         {/* Chat Container */}
@@ -84,21 +87,22 @@ function ChatPage() {
               {filteredConversations.length > 0 ? (
                 <div className="divide-y divide-border/30">
                   {filteredConversations.map((conv) => (
-                    <ConversationItem
-                      key={conv._id}
-                      conversation={conv}
-                    />
+                    <ConversationItem key={conv._id} conversation={conv} />
                   ))}
                 </div>
               ) : conversations.length > 0 ? (
                 <div className="flex flex-col items-center justify-center h-full p-6 text-center">
                   <Search className="w-10 h-10 text-muted-foreground/50 mb-3" />
-                  <p className="text-muted-foreground">{t('common.noResults')}</p>
+                  <p className="text-muted-foreground">
+                    {t('common.noResults')}
+                  </p>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full p-6 text-center">
                   <MessageCircle className="w-12 h-12 text-muted-foreground/50 mb-4" />
-                  <h3 className="font-semibold mb-2">{t('chat.noConversations')}</h3>
+                  <h3 className="font-semibold mb-2">
+                    {t('chat.noConversations')}
+                  </h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     {t('chat.noConversationsDesc')}
                   </p>
@@ -125,15 +129,15 @@ function ChatPage() {
 
 interface ConversationItemProps {
   conversation: {
-    _id: Id<"conversations">
+    _id: Id<'conversations'>
     friend: {
-      _id: Id<"users">
+      _id: Id<'users'>
       name?: string
       image?: string
     } | null
     lastMessage: {
       text: string
-      senderId: Id<"users">
+      senderId: Id<'users'>
       createdAt: number
     } | null
     unreadCount: number
@@ -143,17 +147,23 @@ interface ConversationItemProps {
 function ConversationItem({ conversation }: ConversationItemProps) {
   const { i18n } = useTranslation()
   const params = useParams({ strict: false })
-  const currentConversationId = (params as { conversationId?: string })?.conversationId
+  const currentConversationId = (params as { conversationId?: string })
+    ?.conversationId
   const isActive = currentConversationId === conversation._id
 
   const formatTime = (timestamp: number) => {
     const now = new Date()
     const date = new Date(timestamp)
-    const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
+    const diffDays = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24),
+    )
     const locale = i18n.language === 'pl' ? 'pl-PL' : 'en-US'
 
     if (diffDays === 0) {
-      return date.toLocaleTimeString(locale, { hour: 'numeric', minute: '2-digit' })
+      return date.toLocaleTimeString(locale, {
+        hour: 'numeric',
+        minute: '2-digit',
+      })
     } else if (diffDays === 1) {
       return i18n.language === 'pl' ? 'Wczoraj' : 'Yesterday'
     } else if (diffDays < 7) {
@@ -193,7 +203,9 @@ function ConversationItem({ conversation }: ConversationItemProps) {
       {/* Content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-2">
-          <span className={`font-medium truncate ${conversation.unreadCount > 0 ? 'text-foreground' : 'text-foreground/80'}`}>
+          <span
+            className={`font-medium truncate ${conversation.unreadCount > 0 ? 'text-foreground' : 'text-foreground/80'}`}
+          >
             {conversation.friend?.name || 'Unknown User'}
           </span>
           {conversation.lastMessage && (
@@ -203,7 +215,9 @@ function ConversationItem({ conversation }: ConversationItemProps) {
           )}
         </div>
         {conversation.lastMessage ? (
-          <p className={`text-sm truncate ${conversation.unreadCount > 0 ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
+          <p
+            className={`text-sm truncate ${conversation.unreadCount > 0 ? 'text-foreground font-medium' : 'text-muted-foreground'}`}
+          >
             {conversation.lastMessage.text}
           </p>
         ) : (
@@ -225,9 +239,7 @@ export function ChatEmptyState() {
         <MessageSquare className="w-10 h-10 text-primary" />
       </div>
       <h3 className="text-xl font-semibold mb-2">{t('chat.title')}</h3>
-      <p className="text-muted-foreground max-w-sm">
-        {t('chat.subtitle')}
-      </p>
+      <p className="text-muted-foreground max-w-sm">{t('chat.subtitle')}</p>
     </div>
   )
 }

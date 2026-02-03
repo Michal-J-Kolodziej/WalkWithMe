@@ -1,26 +1,29 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
-    Calendar,
-    CalendarCheck,
-    CalendarClock,
-    Clock,
-    History,
-    Loader2,
-    Mail,
-    MapPin,
-    Plus,
-    Trash2,
-    Users,
+  Calendar,
+  CalendarCheck,
+  CalendarClock,
+  Clock,
+  History,
+  Loader2,
+  Mail,
+  MapPin,
+  Plus,
+  Trash2,
+  Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import { Id } from '../../../convex/_generated/dataModel'
 import { CreateMeetingModal } from '../../components/dashboard/CreateMeetingModal'
-import { EmptyState, GlassCard } from '../../components/dashboard/DashboardWidgets'
+import {
+  EmptyState,
+  GlassCard,
+} from '../../components/dashboard/DashboardWidgets'
 import { MeetingInvitationCard } from '../../components/dashboard/MeetingInvitationCard'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 type TabType = 'upcoming' | 'past' | 'invitations'
 
@@ -60,10 +63,30 @@ function MeetingsIndexPage() {
     return null
   }
 
-  const tabs: { id: TabType; label: string; icon: typeof Calendar; count?: number }[] = [
-    { id: 'upcoming', label: t('meetings.tabUpcoming'), icon: CalendarClock, count: upcomingMeetings.length },
-    { id: 'past', label: t('meetings.tabPast'), icon: History, count: pastMeetings.length },
-    { id: 'invitations', label: t('meetings.tabInvitations'), icon: Mail, count: receivedInvitations.length },
+  const tabs: Array<{
+    id: TabType
+    label: string
+    icon: typeof Calendar
+    count?: number
+  }> = [
+    {
+      id: 'upcoming',
+      label: t('meetings.tabUpcoming'),
+      icon: CalendarClock,
+      count: upcomingMeetings.length,
+    },
+    {
+      id: 'past',
+      label: t('meetings.tabPast'),
+      icon: History,
+      count: pastMeetings.length,
+    },
+    {
+      id: 'invitations',
+      label: t('meetings.tabInvitations'),
+      icon: Mail,
+      count: receivedInvitations.length,
+    },
   ]
 
   const formatDateTime = (timestamp: number) => {
@@ -82,7 +105,14 @@ function MeetingsIndexPage() {
   }
 
   const handleDelete = async (meetingId: Id<'meetings'>) => {
-    if (confirm(t('meetings.deleteConfirm', 'Are you sure you want to delete this meeting?'))) {
+    if (
+      confirm(
+        t(
+          'meetings.deleteConfirm',
+          'Are you sure you want to delete this meeting?',
+        ),
+      )
+    ) {
       await deleteMeeting({ meetingId })
     }
   }
@@ -122,9 +152,10 @@ function MeetingsIndexPage() {
               className={`
                 flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm
                 transition-all duration-200 cursor-pointer
-                ${activeTab === tab.id
-                  ? 'bg-background text-foreground shadow-sm'
-                  : 'text-muted-foreground hover:text-foreground'
+                ${
+                  activeTab === tab.id
+                    ? 'bg-background text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
                 }
               `}
             >
@@ -134,9 +165,10 @@ function MeetingsIndexPage() {
                 <span
                   className={`
                   px-2 py-0.5 rounded-full text-xs font-semibold
-                  ${activeTab === tab.id
-                    ? 'bg-primary/10 text-primary'
-                    : 'bg-muted text-muted-foreground'
+                  ${
+                    activeTab === tab.id
+                      ? 'bg-primary/10 text-primary'
+                      : 'bg-muted text-muted-foreground'
                   }
                   ${tab.id === 'invitations' && tab.count > 0 ? 'bg-primary text-primary-foreground' : ''}
                 `}
@@ -166,7 +198,9 @@ function MeetingsIndexPage() {
 
                       <div className="space-y-4">
                         <div>
-                          <h3 className="font-semibold text-lg line-clamp-1">{meeting.title}</h3>
+                          <h3 className="font-semibold text-lg line-clamp-1">
+                            {meeting.title}
+                          </h3>
                           {meeting.owner && (
                             <p className="text-sm text-muted-foreground">
                               {t('meetings.by', 'by')} {meeting.owner.name}
@@ -186,12 +220,18 @@ function MeetingsIndexPage() {
                           {meeting.location?.address && (
                             <div className="flex items-center gap-2 text-muted-foreground">
                               <MapPin className="w-4 h-4 flex-shrink-0" />
-                              <span className="line-clamp-1">{meeting.location.address}</span>
+                              <span className="line-clamp-1">
+                                {meeting.location.address}
+                              </span>
                             </div>
                           )}
                           <div className="flex items-center gap-2 text-muted-foreground">
                             <Users className="w-4 h-4" />
-                            <span>{t('meetings.participants', { count: meeting.participantCount })}</span>
+                            <span>
+                              {t('meetings.participants', {
+                                count: meeting.participantCount,
+                              })}
+                            </span>
                           </div>
                         </div>
 
@@ -248,7 +288,9 @@ function MeetingsIndexPage() {
                     <GlassCard key={meeting._id} className="opacity-75">
                       <div className="space-y-4">
                         <div>
-                          <h3 className="font-semibold text-lg line-clamp-1">{meeting.title}</h3>
+                          <h3 className="font-semibold text-lg line-clamp-1">
+                            {meeting.title}
+                          </h3>
                           {meeting.owner && (
                             <p className="text-sm text-muted-foreground">
                               {t('meetings.by', 'by')} {meeting.owner.name}
@@ -267,7 +309,11 @@ function MeetingsIndexPage() {
                           </div>
                           <div className="flex items-center gap-2 text-muted-foreground">
                             <Users className="w-4 h-4" />
-                            <span>{t('meetings.attended', { count: meeting.participantCount })}</span>
+                            <span>
+                              {t('meetings.attended', {
+                                count: meeting.participantCount,
+                              })}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -292,7 +338,10 @@ function MeetingsIndexPage() {
             {receivedInvitations.length > 0 ? (
               <div className="grid sm:grid-cols-2 gap-4">
                 {receivedInvitations.map((invitation) => (
-                  <MeetingInvitationCard key={invitation._id} invitation={invitation} />
+                  <MeetingInvitationCard
+                    key={invitation._id}
+                    invitation={invitation}
+                  />
                 ))}
               </div>
             ) : (
@@ -312,18 +361,28 @@ function MeetingsIndexPage() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-8">
               <div>
-                <p className="text-sm text-muted-foreground">{t('meetings.tabUpcoming')}</p>
-                <p className="text-2xl font-bold text-primary">{upcomingMeetings.length}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('meetings.tabUpcoming')}
+                </p>
+                <p className="text-2xl font-bold text-primary">
+                  {upcomingMeetings.length}
+                </p>
               </div>
               <div className="h-10 w-px bg-border/50" />
               <div>
-                <p className="text-sm text-muted-foreground">{t('meetings.tabPast')}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('meetings.tabPast')}
+                </p>
                 <p className="text-2xl font-bold">{pastMeetings.length}</p>
               </div>
               <div className="h-10 w-px bg-border/50" />
               <div>
-                <p className="text-sm text-muted-foreground">{t('meetings.tabInvitations')}</p>
-                <p className="text-2xl font-bold">{receivedInvitations.length}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('meetings.tabInvitations')}
+                </p>
+                <p className="text-2xl font-bold">
+                  {receivedInvitations.length}
+                </p>
               </div>
             </div>
           </div>

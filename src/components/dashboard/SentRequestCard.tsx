@@ -2,16 +2,16 @@ import { useMutation } from 'convex/react'
 import { Loader2, MapPin, User, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { Button } from '../ui/Button'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface SentRequest {
-  _id: Id<"friendRequests">
-  toUserId: Id<"users">
+  _id: Id<'friendRequests'>
+  toUserId: Id<'users'>
   message?: string
   createdAt: number
   toUser: {
-    _id: Id<"users">
+    _id: Id<'users'>
     name?: string
     image?: string
     bio?: string
@@ -51,7 +51,11 @@ export function SentRequestCard({ request }: SentRequestCardProps) {
       {showConfirm && (
         <div className="absolute inset-0 bg-background/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-10 p-4">
           <p className="text-center font-medium mb-4">
-            Cancel request to <span className="text-primary">{request.toUser.name || 'this user'}</span>?
+            Cancel request to{' '}
+            <span className="text-primary">
+              {request.toUser.name || 'this user'}
+            </span>
+            ?
           </p>
           <div className="flex gap-3">
             <Button
@@ -85,8 +89,8 @@ export function SentRequestCard({ request }: SentRequestCardProps) {
         {/* Avatar */}
         <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
           {request.toUser.image ? (
-            <img 
-              src={request.toUser.image} 
+            <img
+              src={request.toUser.image}
               alt={request.toUser.name || 'User'}
               className="w-full h-full object-cover"
             />
@@ -116,13 +120,19 @@ export function SentRequestCard({ request }: SentRequestCardProps) {
 
           {request.message && (
             <div className="mt-3 p-3 rounded-xl bg-muted/50 border border-border/50">
-              <p className="text-xs text-muted-foreground mb-1">Your message:</p>
-              <p className="text-sm text-foreground italic">"{request.message}"</p>
+              <p className="text-xs text-muted-foreground mb-1">
+                Your message:
+              </p>
+              <p className="text-sm text-foreground italic">
+                "{request.message}"
+              </p>
             </div>
           )}
 
           <div className="flex items-center justify-between mt-4">
-            <span className="text-xs text-muted-foreground">Sent {timeAgo}</span>
+            <span className="text-xs text-muted-foreground">
+              Sent {timeAgo}
+            </span>
             <Button
               size="sm"
               variant="ghost"
@@ -146,7 +156,7 @@ function getTimeAgo(timestamp: number): string {
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`
   if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`
-  
+
   return new Date(timestamp).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',

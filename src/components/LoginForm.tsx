@@ -1,11 +1,11 @@
-import { useAuthActions } from "@convex-dev/auth/react"
-import { Link, useNavigate } from "@tanstack/react-router"
-import { ArrowRight, Lock, Mail, PawPrint } from "lucide-react"
-import { useState } from "react"
-import { useTranslation } from "react-i18next"
-import { Button } from "./ui/Button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
+import { useAuthActions } from '@convex-dev/auth/react'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { ArrowRight, Lock, Mail, PawPrint } from 'lucide-react'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Button } from './ui/Button'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
 
 export function LoginForm() {
   const { t } = useTranslation()
@@ -20,12 +20,19 @@ export function LoginForm() {
     setError(null)
 
     const formData = new FormData(event.currentTarget)
-    
+
     try {
-      await signIn("password", formData)
-      navigate({ to: "/" })
+      await signIn('password', formData)
+      navigate({ to: '/' })
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('auth.loginError', 'Invalid email or password. Please try again.'))
+      setError(
+        err instanceof Error
+          ? err.message
+          : t(
+              'auth.loginError',
+              'Invalid email or password. Please try again.',
+            ),
+      )
     } finally {
       setIsLoading(false)
     }
@@ -58,14 +65,12 @@ export function LoginForm() {
             <h1 className="text-3xl font-bold text-foreground mb-2">
               {t('auth.loginTitle')}
             </h1>
-            <p className="text-muted-foreground">
-              {t('auth.loginSubtitle')}
-            </p>
+            <p className="text-muted-foreground">{t('auth.loginSubtitle')}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <input name="flow" type="hidden" value="signIn" />
-            
+
             {/* Email Field */}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-foreground font-medium">
@@ -87,11 +92,14 @@ export function LoginForm() {
             {/* Password Field */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="text-foreground font-medium">
+                <Label
+                  htmlFor="password"
+                  className="text-foreground font-medium"
+                >
                   {t('auth.password')}
                 </Label>
-                <Link 
-                  to="/forgot-password" 
+                <Link
+                  to="/forgot-password"
                   className="text-sm text-primary hover:text-primary/80 transition-colors"
                 >
                   {t('auth.forgotPassword')}

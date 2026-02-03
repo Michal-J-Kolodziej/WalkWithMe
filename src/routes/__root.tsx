@@ -1,7 +1,7 @@
 import {
-    HeadContent,
-    Scripts,
-    createRootRouteWithContext,
+  HeadContent,
+  Scripts,
+  createRootRouteWithContext,
 } from '@tanstack/react-router'
 
 import ConvexProvider from '../integrations/convex/provider'
@@ -49,9 +49,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ConvexProvider>
-          <ProfileGuard>
-            {children}
-          </ProfileGuard>
+          <ProfileGuard>{children}</ProfileGuard>
         </ConvexProvider>
         <Scripts />
       </body>

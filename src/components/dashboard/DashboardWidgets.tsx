@@ -1,5 +1,5 @@
-import { LucideIcon } from 'lucide-react'
-import { ReactNode } from 'react'
+import type { LucideIcon } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 interface GlassCardProps {
   children: ReactNode
@@ -7,9 +7,13 @@ interface GlassCardProps {
   hover?: boolean
 }
 
-export function GlassCard({ children, className = '', hover = true }: GlassCardProps) {
+export function GlassCard({
+  children,
+  className = '',
+  hover = true,
+}: GlassCardProps) {
   return (
-    <div 
+    <div
       className={`
         glass-card rounded-2xl p-6 
         transition-all duration-300 ease-out
@@ -33,7 +37,13 @@ interface StatCardProps {
   iconColor?: string
 }
 
-export function StatCard({ icon: Icon, label, value, trend, iconColor = 'text-primary' }: StatCardProps) {
+export function StatCard({
+  icon: Icon,
+  label,
+  value,
+  trend,
+  iconColor = 'text-primary',
+}: StatCardProps) {
   return (
     <GlassCard className="flex items-start gap-4">
       <div className={`p-3 rounded-xl bg-primary/10 ${iconColor}`}>
@@ -43,7 +53,9 @@ export function StatCard({ icon: Icon, label, value, trend, iconColor = 'text-pr
         <p className="text-sm font-medium text-muted-foreground">{label}</p>
         <p className="text-2xl font-bold stat-value">{value}</p>
         {trend && (
-          <p className={`text-xs font-medium mt-1 ${trend.positive ? 'text-green-600' : 'text-red-500'}`}>
+          <p
+            className={`text-xs font-medium mt-1 ${trend.positive ? 'text-green-600' : 'text-red-500'}`}
+          >
             {trend.positive ? '↑' : '↓'} {Math.abs(trend.value)}% from last week
           </p>
         )}
@@ -61,17 +73,25 @@ export function PulseStatus({ status, label }: PulseStatusProps) {
   const colors = {
     active: 'bg-green-500',
     idle: 'bg-yellow-500',
-    offline: 'bg-gray-400'
+    offline: 'bg-gray-400',
   }
 
   return (
     <div className="flex items-center gap-2">
-      <div className={`w-2.5 h-2.5 rounded-full ${colors[status]} ${status === 'active' ? 'pulse-dot' : ''}`}>
+      <div
+        className={`w-2.5 h-2.5 rounded-full ${colors[status]} ${status === 'active' ? 'pulse-dot' : ''}`}
+      >
         {status === 'active' && (
-          <div className={`absolute inset-0 rounded-full ${colors[status]} animate-ping`} />
+          <div
+            className={`absolute inset-0 rounded-full ${colors[status]} animate-ping`}
+          />
         )}
       </div>
-      {label && <span className="text-sm text-muted-foreground capitalize">{label || status}</span>}
+      {label && (
+        <span className="text-sm text-muted-foreground capitalize">
+          {label || status}
+        </span>
+      )}
     </div>
   )
 }
@@ -83,14 +103,21 @@ interface EmptyStateProps {
   action?: ReactNode
 }
 
-export function EmptyState({ icon: Icon, title, description, action }: EmptyStateProps) {
+export function EmptyState({
+  icon: Icon,
+  title,
+  description,
+  action,
+}: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
       <div className="p-4 rounded-full bg-muted mb-4">
         <Icon className="w-8 h-8 text-muted-foreground" />
       </div>
       <h3 className="text-lg font-semibold mb-1">{title}</h3>
-      <p className="text-muted-foreground text-sm max-w-sm mb-4">{description}</p>
+      <p className="text-muted-foreground text-sm max-w-sm mb-4">
+        {description}
+      </p>
       {action}
     </div>
   )

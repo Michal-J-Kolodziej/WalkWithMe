@@ -1,44 +1,46 @@
-import { getAuthUserId } from "@convex-dev/auth/server";
-import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { getAuthUserId } from '@convex-dev/auth/server'
+import { v } from 'convex/values'
+import { mutation, query } from './_generated/server'
 
 /**
  * List messages for a conversation (real-time, ordered by time)
  */
 export const list = query({
   args: {
-    conversationId: v.id("conversations"),
+    conversationId: v.id('conversations'),
     limit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
+    const userId = await getAuthUserId(ctx)
     if (!userId) {
-      return [];
+      return []
     }
 
     // Verify user is part of this conversation
-    const conv = await ctx.db.get(args.conversationId);
+    const conv = await ctx.db.get(args.conversationId)
     if (!conv) {
-      return [];
+      return []
     }
 
     if (conv.user1Id !== userId && conv.user2Id !== userId) {
-      return [];
+      return []
     }
 
-    const limit = args.limit ?? 100;
+    const limit = args.limit ?? 100
 
     // Get messages ordered by creation time
     const messages = await ctx.db
-      .query("messages")
-      .withIndex("by_conversation", (q) => q.eq("conversationId", args.conversationId))
-      .order("asc")
-      .take(limit);
+      .query('messages')
+      .withIndex('by_conversation', (q) =>
+        q.eq('conversationId', args.conversationId),
+      )
+      .order('asc')
+      .take(limit)
 
     // Fetch sender details for each message
     const messagesWithDetails = await Promise.all(
       messages.map(async (msg) => {
-        const sender = await ctx.db.get(msg.senderId);
+        const sender = await ctx.db.get(msg.senderId)
         return {
           _id: msg._id,
           text: msg.text,
@@ -52,107 +54,109 @@ export const list = query({
                 image: sender.image,
               }
             : null,
-        };
-      })
-    );
+        }
+      }),
+    )
 
-    return messagesWithDetails;
+    return messagesWithDetails
   },
-});
+})
 
 /**
  * Send a message to a conversation
  */
 export const send = mutation({
   args: {
-    conversationId: v.id("conversations"),
+    conversationId: v.id('conversations'),
     text: v.string(),
   },
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
+    const userId = await getAuthUserId(ctx)
     if (!userId) {
-      throw new Error("Not authenticated");
+      throw new Error('Not authenticated')
     }
 
     // Validate text
-    const text = args.text.trim();
+    const text = args.text.trim()
     if (!text) {
-      throw new Error("Message cannot be empty");
+      throw new Error('Message cannot be empty')
     }
 
     // Verify user is part of this conversation
-    const conv = await ctx.db.get(args.conversationId);
+    const conv = await ctx.db.get(args.conversationId)
     if (!conv) {
-      throw new Error("Conversation not found");
+      throw new Error('Conversation not found')
     }
 
     if (conv.user1Id !== userId && conv.user2Id !== userId) {
-      throw new Error("Not authorized to send messages in this conversation");
+      throw new Error('Not authorized to send messages in this conversation')
     }
 
-    const now = Date.now();
+    const now = Date.now()
 
     // Create the message
-    const messageId = await ctx.db.insert("messages", {
+    const messageId = await ctx.db.insert('messages', {
       conversationId: args.conversationId,
       senderId: userId,
       text,
       createdAt: now,
-    });
+    })
 
     // Update conversation's lastMessageAt
     await ctx.db.patch(args.conversationId, {
       lastMessageAt: now,
-    });
+    })
 
-    return messageId;
+    return messageId
   },
-});
+})
 
 /**
  * Mark all messages in a conversation as read
  */
 export const markAsRead = mutation({
   args: {
-    conversationId: v.id("conversations"),
+    conversationId: v.id('conversations'),
   },
   handler: async (ctx, args) => {
-    const userId = await getAuthUserId(ctx);
+    const userId = await getAuthUserId(ctx)
     if (!userId) {
-      throw new Error("Not authenticated");
+      throw new Error('Not authenticated')
     }
 
     // Verify user is part of this conversation
-    const conv = await ctx.db.get(args.conversationId);
+    const conv = await ctx.db.get(args.conversationId)
     if (!conv) {
-      throw new Error("Conversation not found");
+      throw new Error('Conversation not found')
     }
 
     if (conv.user1Id !== userId && conv.user2Id !== userId) {
-      throw new Error("Not authorized");
+      throw new Error('Not authorized')
     }
 
     // Get unread messages from the other user
-    const friendId = conv.user1Id === userId ? conv.user2Id : conv.user1Id;
-    
+    const friendId = conv.user1Id === userId ? conv.user2Id : conv.user1Id
+
     const unreadMessages = await ctx.db
-      .query("messages")
-      .withIndex("by_conversation", (q) => q.eq("conversationId", args.conversationId))
+      .query('messages')
+      .withIndex('by_conversation', (q) =>
+        q.eq('conversationId', args.conversationId),
+      )
       .filter((q) =>
         q.and(
-          q.eq(q.field("senderId"), friendId),
-          q.eq(q.field("readAt"), undefined)
-        )
+          q.eq(q.field('senderId'), friendId),
+          q.eq(q.field('readAt'), undefined),
+        ),
       )
-      .collect();
+      .collect()
 
-    const now = Date.now();
+    const now = Date.now()
 
     // Mark all as read
     for (const msg of unreadMessages) {
-      await ctx.db.patch(msg._id, { readAt: now });
+      await ctx.db.patch(msg._id, { readAt: now })
     }
 
-    return { markedCount: unreadMessages.length };
+    return { markedCount: unreadMessages.length }
   },
-});
+})

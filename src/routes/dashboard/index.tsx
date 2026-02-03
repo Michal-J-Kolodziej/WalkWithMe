@@ -11,7 +11,7 @@ export const Route = createFileRoute('/dashboard/')({
 
 function DashboardIndexPage() {
   const user = useQuery(api.users.current)
-  
+
   // Loading state
   if (user === undefined) {
     return (

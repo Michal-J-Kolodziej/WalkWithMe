@@ -1,4 +1,18 @@
 {
+  "weather": {
+    "clearSky": "Bezchmurnie",
+    "partlyCloudy": "Częściowe zachmurzenie",
+    "fog": "Mgła",
+    "drizzle": "Mżawka",
+    "rain": "Deszcz",
+    "snow": "Śnieg",
+    "showers": "Przelotne opady",
+    "snowShowers": "Przelotny śnieg",
+    "thunderstorm": "Burza",
+    "unknown": "Nieznana",
+    "loading": "Ładowanie pogody...",
+    "precipChance": "{{chance}}% szans na deszcz"
+  },
   "common": {
     "loading": "Ładowanie...",
     "save": "Zapisz",

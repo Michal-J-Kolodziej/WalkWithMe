@@ -27,9 +27,9 @@ The issue is a **race condition** between registration and profile completion:
 
 ### Affected Files
 
-| Action | File |
-|--------|------|
-| MODIFY | [RegisterForm.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/RegisterForm.tsx) |
+| Action | File                                                                                                               |
+| ------ | ------------------------------------------------------------------------------------------------------------------ |
+| MODIFY | [RegisterForm.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/RegisterForm.tsx)               |
 | MODIFY | [CompleteProfileForm.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/CompleteProfileForm.tsx) |
 
 ### Implementation Steps
@@ -59,6 +59,7 @@ The issue is in [`Navbar.tsx`](file:///Users/michal/Documents/MyApps/WalkWithMe/
 4. `user` could be `undefined` (loading) or `null` (query executed before session established)
 
 The current Navbar code:
+
 ```tsx
 const user = useQuery(api.users.current)
 // ...
@@ -75,9 +76,9 @@ This treats `undefined` (loading) the same as `null` (not authenticated), showin
 
 ### Affected Files
 
-| Action | File |
-|--------|------|
-| MODIFY | [Navbar.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/Navbar.tsx) |
+| Action | File                                                                                           |
+| ------ | ---------------------------------------------------------------------------------------------- |
+| MODIFY | [Navbar.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/Navbar.tsx)       |
 | MODIFY | [LoginForm.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/LoginForm.tsx) |
 
 ### Implementation Steps
@@ -104,6 +105,7 @@ This treats `undefined` (loading) the same as `null` (not authenticated), showin
 The route file exists at [`src/routes/dashboard.tsx`](file:///Users/michal/Documents/MyApps/WalkWithMe/src/routes/dashboard.tsx) and appears correctly configured with TanStack Router's file-based routing.
 
 Possible causes:
+
 1. Route not being picked up by TanStack Router's code generation
 2. Build/dev server cache issue
 3. Route generation configuration problem
@@ -117,15 +119,16 @@ Possible causes:
 
 ### Affected Files
 
-| Action | File |
-|--------|------|
+| Action | File                                                                                       |
+| ------ | ------------------------------------------------------------------------------------------ |
 | VERIFY | [dashboard.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/routes/dashboard.tsx) |
-| VERIFY | [vite.config.ts](file:///Users/michal/Documents/MyApps/WalkWithMe/vite.config.ts) |
-| VERIFY | `.tanstack/routes.gen.ts` (generated file) |
+| VERIFY | [vite.config.ts](file:///Users/michal/Documents/MyApps/WalkWithMe/vite.config.ts)          |
+| VERIFY | `.tanstack/routes.gen.ts` (generated file)                                                 |
 
 ### Implementation Steps
 
 1. Verify `dashboard.tsx` exports the route correctly:
+
    ```tsx
    export const Route = createFileRoute('/dashboard')({...})
    ```
@@ -133,6 +136,7 @@ Possible causes:
 2. Check `.tanstack` directory for generated routes
 
 3. Restart dev server to force route regeneration:
+
    ```bash
    # Stop dev server
    # Delete .tanstack directory
@@ -154,17 +158,15 @@ Possible causes:
 The email inputs in [`LoginForm.tsx`](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/LoginForm.tsx) and [`RegisterForm.tsx`](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/RegisterForm.tsx) use `type="email"`.
 
 The browser's native email validation for `type="email"` **should** accept `+` characters as they are valid per RFC 5322. The issue might be:
+
 1. Custom validation pattern on the input
 2. Backend validation rejecting the `+`
 3. Form encoding issue where `+` is being converted to space
 
 Looking at the current code:
+
 ```tsx
-<Input
-  type="email"
-  placeholder="you@example.com"
-  required
-/>
+<Input type="email" placeholder="you@example.com" required />
 ```
 
 No custom pattern is set, so this is likely a backend or encoding issue.
@@ -178,17 +180,18 @@ No custom pattern is set, so this is likely a backend or encoding issue.
 
 ### Affected Files
 
-| Action | File |
-|--------|------|
-| VERIFY | [LoginForm.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/LoginForm.tsx) |
-| VERIFY | [RegisterForm.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/RegisterForm.tsx) |
-| POSSIBLY MODIFY | [auth.ts](file:///Users/michal/Documents/MyApps/WalkWithMe/convex/auth.ts) |
+| Action          | File                                                                                                 |
+| --------------- | ---------------------------------------------------------------------------------------------------- |
+| VERIFY          | [LoginForm.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/LoginForm.tsx)       |
+| VERIFY          | [RegisterForm.tsx](file:///Users/michal/Documents/MyApps/WalkWithMe/src/components/RegisterForm.tsx) |
+| POSSIBLY MODIFY | [auth.ts](file:///Users/michal/Documents/MyApps/WalkWithMe/convex/auth.ts)                           |
 
 ### Implementation Steps
 
 1. Test in browser DevTools to identify where validation fails
 
 2. If client-side, add explicit pattern that allows `+`:
+
    ```tsx
    <Input
      type="email"
@@ -197,10 +200,11 @@ No custom pattern is set, so this is likely a backend or encoding issue.
    ```
 
 3. If Convex Auth Password provider issue, configure email validation:
+
    ```tsx
    // convex/auth.ts
-   import { Password } from "@convex-dev/auth/providers/Password";
-   
+   import { Password } from '@convex-dev/auth/providers/Password'
+
    export const { auth, signIn, signOut, store } = convexAuth({
      providers: [
        Password({
@@ -208,11 +212,11 @@ No custom pattern is set, so this is likely a backend or encoding issue.
            return {
              email: params.email, // Ensure raw email is passed
              name: params.name,
-           };
+           }
          },
        }),
      ],
-   });
+   })
    ```
 
 4. Consider URL-encoding form data if `+` is being converted to space
@@ -233,15 +237,16 @@ This is a configuration issue with Convex Auth's OIDC setup. The error indicates
 4. Time synchronization issues (token appears expired)
 
 Current config:
+
 ```ts
 export default {
   providers: [
     {
       domain: process.env.CONVEX_SITE_URL,
-      applicationID: "convex",
+      applicationID: 'convex',
     },
   ],
-};
+}
 ```
 
 ### Proposed Solution
@@ -253,25 +258,29 @@ export default {
 
 ### Affected Files
 
-| Action | File |
-|--------|------|
-| VERIFY | [auth.config.ts](file:///Users/michal/Documents/MyApps/WalkWithMe/convex/auth.config.ts) |
-| VERIFY | [.env.local](file:///Users/michal/Documents/MyApps/WalkWithMe/.env.local) |
-| POSSIBLY MODIFY | Convex dashboard environment variables |
+| Action          | File                                                                                     |
+| --------------- | ---------------------------------------------------------------------------------------- |
+| VERIFY          | [auth.config.ts](file:///Users/michal/Documents/MyApps/WalkWithMe/convex/auth.config.ts) |
+| VERIFY          | [.env.local](file:///Users/michal/Documents/MyApps/WalkWithMe/.env.local)                |
+| POSSIBLY MODIFY | Convex dashboard environment variables                                                   |
 
 ### Implementation Steps
 
 1. Verify `.env.local` contains:
+
    ```
    CONVEX_SITE_URL=https://your-deployment.convex.site
    ```
+
    The URL should be the Convex HTTP Actions URL, not the frontend URL.
 
 2. Set up JWT private key for consistent token signing:
+
    ```bash
    # Generate a secure random key
    openssl rand -base64 32
    ```
+
    Add to Convex dashboard as `AUTH_JWT_PRIVATE_KEY`.
 
 3. In Convex dashboard, verify environment variables:
@@ -279,15 +288,16 @@ export default {
    - `AUTH_JWT_PRIVATE_KEY`
 
 4. Update `auth.config.ts` if needed:
+
    ```ts
    export default {
      providers: [
        {
          domain: process.env.CONVEX_SITE_URL,
-         applicationID: "convex",
+         applicationID: 'convex',
        },
      ],
-   };
+   }
    ```
 
 5. Redeploy Convex functions:
@@ -328,6 +338,7 @@ None - this is caused by browser extensions.
 2. **For debugging**: Test in an incognito window without extensions to confirm the app works correctly.
 
 3. **Optional suppression** (not recommended):
+
    ```tsx
    // In development only, suppress specific hydration warnings
    // This is generally not recommended as it may hide real issues
@@ -339,14 +350,14 @@ None - this is caused by browser extensions.
 
 ## Summary Table
 
-| Bug # | Severity | Category | Estimated Effort |
-|-------|----------|----------|------------------|
-| 1 | Critical | Auth Race Condition | Medium |
-| 2 | Critical | State Management | Low-Medium |
-| 3 | Major | Route Configuration | Low |
-| 4 | Minor | Validation | Low |
-| 5 | Critical | OIDC Configuration | Medium |
-| 6 | Moderate | External (Browser) | None |
+| Bug # | Severity | Category            | Estimated Effort |
+| ----- | -------- | ------------------- | ---------------- |
+| 1     | Critical | Auth Race Condition | Medium           |
+| 2     | Critical | State Management    | Low-Medium       |
+| 3     | Major    | Route Configuration | Low              |
+| 4     | Minor    | Validation          | Low              |
+| 5     | Critical | OIDC Configuration  | Medium           |
+| 6     | Moderate | External (Browser)  | None             |
 
 ## Recommended Fix Order
 

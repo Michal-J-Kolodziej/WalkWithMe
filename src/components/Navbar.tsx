@@ -21,7 +21,11 @@ export function Navbar() {
   const renderAuthButtons = (isMobile: boolean = false) => {
     if (isLoading) {
       return (
-        <div className={isMobile ? "flex justify-center py-2" : "flex items-center"}>
+        <div
+          className={
+            isMobile ? 'flex justify-center py-2' : 'flex items-center'
+          }
+        >
           <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
         </div>
       )
@@ -31,16 +35,24 @@ export function Navbar() {
       return (
         <>
           <Link to="/dashboard">
-            <Button 
-              variant="ghost" 
-              className={isMobile ? "w-full justify-start" : "text-muted-foreground hover:text-foreground"}
+            <Button
+              variant="ghost"
+              className={
+                isMobile
+                  ? 'w-full justify-start'
+                  : 'text-muted-foreground hover:text-foreground'
+              }
             >
               {t('nav.dashboard')}
             </Button>
           </Link>
-          <Button 
-            variant="ghost" 
-            className={isMobile ? "w-full justify-start" : "text-muted-foreground hover:text-foreground"}
+          <Button
+            variant="ghost"
+            className={
+              isMobile
+                ? 'w-full justify-start'
+                : 'text-muted-foreground hover:text-foreground'
+            }
             onClick={() => signOut()}
           >
             {t('nav.signOut')}
@@ -53,15 +65,19 @@ export function Navbar() {
     return (
       <>
         <Link to="/login">
-          <Button 
-            variant="ghost" 
-            className={isMobile ? "w-full justify-start" : "text-muted-foreground hover:text-foreground"}
+          <Button
+            variant="ghost"
+            className={
+              isMobile
+                ? 'w-full justify-start'
+                : 'text-muted-foreground hover:text-foreground'
+            }
           >
             {t('auth.signIn')}
           </Button>
         </Link>
         <Link to="/register">
-          <Button variant="default" className={isMobile ? "w-full" : ""}>
+          <Button variant="default" className={isMobile ? 'w-full' : ''}>
             {t('landing.getStarted')}
           </Button>
         </Link>
@@ -83,17 +99,20 @@ export function Navbar() {
               </span>
             </Link>
           </div>
-          
+
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
-              <a href="#features" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              <a
+                href="#features"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
                 {t('landing.featuresTitle').split('?')[0]}
               </a>
-              
+
               {renderAuthButtons(false)}
             </div>
           </div>
-          
+
           <div className="-mr-2 flex md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -114,7 +133,10 @@ export function Navbar() {
       {isOpen && (
         <div className="border-t bg-background md:hidden">
           <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-            <a href="#features" className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-muted hover:text-foreground">
+            <a
+              href="#features"
+              className="block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+            >
               {t('landing.featuresTitle').split('?')[0]}
             </a>
             <div className="mt-4 flex flex-col space-y-2 px-3">

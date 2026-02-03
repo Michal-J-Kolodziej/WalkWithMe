@@ -7,9 +7,9 @@ import type { Id } from '../../../convex/_generated/dataModel'
 
 interface MultiImageUploadProps {
   /** Array of current image URLs */
-  currentImageUrls: string[]
+  currentImageUrls: Array<string>
   /** Callback when images change (add/remove) */
-  onImagesChange: (urls: string[]) => void
+  onImagesChange: (urls: Array<string>) => void
   /** Maximum number of images allowed */
   maxImages?: number
   /** Optional class name for the container */
@@ -30,66 +30,78 @@ export function MultiImageUpload({
   const { t } = useTranslation()
   const generateUploadUrl = useMutation(api.files.generateUploadUrl)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  
+
   const [uploadingCount, setUploadingCount] = useState(0)
   const [error, setError] = useState<string | null>(null)
 
-  const handleFileSelect = useCallback(async (files: FileList) => {
-    setError(null)
-    const filesToUpload = Array.from(files).slice(0, maxImages - currentImageUrls.length)
+  const handleFileSelect = useCallback(
+    async (files: FileList) => {
+      setError(null)
+      const filesToUpload = Array.from(files).slice(
+        0,
+        maxImages - currentImageUrls.length,
+      )
 
-    if (filesToUpload.length === 0) {
-      setError(t('imageUpload.maxImages', `Maximum ${maxImages} images allowed`))
-      return
-    }
-
-    // Validate all files
-    for (const file of filesToUpload) {
-      if (!file.type.startsWith('image/')) {
-        setError(t('imageUpload.invalidType', 'Please select image files only'))
+      if (filesToUpload.length === 0) {
+        setError(
+          t('imageUpload.maxImages', `Maximum ${maxImages} images allowed`),
+        )
         return
       }
-      if (file.size > MAX_FILE_SIZE) {
-        setError(t('imageUpload.maxSize', 'Files must be less than 5MB each'))
-        return
-      }
-    }
 
-    setUploadingCount(filesToUpload.length)
-
-    try {
-      const uploadedUrls: string[] = []
-
+      // Validate all files
       for (const file of filesToUpload) {
-        const uploadUrl = await generateUploadUrl()
-        const response = await fetch(uploadUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': file.type },
-          body: file,
-        })
-
-        if (!response.ok) throw new Error('Upload failed')
-
-        const { storageId } = await response.json()
-        // Get the URL for this storage ID
-        const url = await getStorageUrl(storageId)
-        if (url) uploadedUrls.push(url)
+        if (!file.type.startsWith('image/')) {
+          setError(
+            t('imageUpload.invalidType', 'Please select image files only'),
+          )
+          return
+        }
+        if (file.size > MAX_FILE_SIZE) {
+          setError(t('imageUpload.maxSize', 'Files must be less than 5MB each'))
+          return
+        }
       }
 
-      onImagesChange([...currentImageUrls, ...uploadedUrls])
-    } catch (err) {
-      setError(t('imageUpload.uploadFailed', 'Failed to upload images'))
-      console.error('Upload error:', err)
-    } finally {
-      setUploadingCount(0)
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
+      setUploadingCount(filesToUpload.length)
+
+      try {
+        const uploadedUrls: Array<string> = []
+
+        for (const file of filesToUpload) {
+          const uploadUrl = await generateUploadUrl()
+          const response = await fetch(uploadUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': file.type },
+            body: file,
+          })
+
+          if (!response.ok) throw new Error('Upload failed')
+
+          const { storageId } = await response.json()
+          // Get the URL for this storage ID
+          const url = await getStorageUrl(storageId)
+          if (url) uploadedUrls.push(url)
+        }
+
+        onImagesChange([...currentImageUrls, ...uploadedUrls])
+      } catch (err) {
+        setError(t('imageUpload.uploadFailed', 'Failed to upload images'))
+        console.error('Upload error:', err)
+      } finally {
+        setUploadingCount(0)
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
       }
-    }
-  }, [currentImageUrls, generateUploadUrl, maxImages, onImagesChange, t])
+    },
+    [currentImageUrls, generateUploadUrl, maxImages, onImagesChange, t],
+  )
 
   // Helper to get URL from storage ID - we'll need to use a query for this
-  const getStorageUrl = async (storageId: Id<"_storage">): Promise<string | null> => {
+  const getStorageUrl = async (
+    storageId: Id<'_storage'>,
+  ): Promise<string | null> => {
     // For now, we'll construct the URL pattern
     // In production, you'd want to use the query
     return `https://storage.convex.cloud/${storageId}`
@@ -182,7 +194,10 @@ export function MultiImageUpload({
 
       {/* Info text */}
       <p className="text-xs text-muted-foreground">
-        {t('imageUpload.multiPhotoHint', `${currentImageUrls.length}/${maxImages} photos. First photo is the main one.`)}
+        {t(
+          'imageUpload.multiPhotoHint',
+          `${currentImageUrls.length}/${maxImages} photos. First photo is the main one.`,
+        )}
       </p>
 
       {/* Error message */}
