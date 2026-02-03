@@ -3,6 +3,7 @@ import { Calendar, Clock, Loader2, MapPin, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
 import type { Id } from '../../../convex/_generated/dataModel'
+import { LocationPicker } from '../common/LocationPicker'
 
 interface CreateMeetingModalProps {
   onClose: () => void
@@ -23,16 +24,7 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
-  // Simple geocoding placeholder - in production, use a proper geocoding service
-  const handleAddressChange = (value: string) => {
-    setAddress(value)
-    // For now, set default coordinates (can be enhanced with real geocoding)
-    if (!lat || !lng) {
-      // Default to Warsaw, Poland as placeholder
-      setLat(52.2297)
-      setLng(21.0122)
-    }
-  }
+
 
   const toggleDog = (dogId: Id<'dogs'>) => {
     setSelectedDogs((prev) =>
@@ -180,23 +172,24 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
           </div>
 
           {/* Location */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">
               <MapPin className="w-4 h-4 inline mr-2" />
               Location *
             </label>
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => handleAddressChange(e.target.value)}
-              placeholder="e.g., Central Park, Main Street entrance"
-              className="w-full px-4 py-2.5 rounded-xl bg-background border border-border
-                focus:outline-none focus:ring-2 focus:ring-primary/50
-                placeholder:text-muted-foreground"
+            <LocationPicker
+              onLocationSelect={(loc) => {
+                setLat(loc.lat)
+                setLng(loc.lng)
+                setAddress(loc.address || '')
+              }}
             />
-            <p className="text-xs text-muted-foreground mt-1">
-              Enter a recognizable location or address
-            </p>
+            {address && (
+              <div className="text-sm text-muted-foreground p-3 bg-muted/50 rounded-lg">
+                <span className="font-medium">Selected: </span>
+                {address}
+              </div>
+            )}
           </div>
 
           {/* Select Dogs */}

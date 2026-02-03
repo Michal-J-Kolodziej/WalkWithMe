@@ -16,6 +16,8 @@ import { api } from '../../../convex/_generated/api'
 import type { Id } from '../../../convex/_generated/dataModel'
 import { GlassCard } from '../../components/dashboard/DashboardWidgets'
 import { InviteFriendsModal } from '../../components/dashboard/InviteFriendsModal'
+import { MeetingMap } from '../../components/dashboard/MeetingMap'
+import { MeetingWeather } from '../../components/dashboard/MeetingWeather'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
 
 export const Route = createFileRoute('/dashboard/meetings/$meetingId')({
@@ -243,6 +245,15 @@ function MeetingDetailsPage() {
                       {meeting.location.lng.toFixed(4)}
                     </p>
                   </div>
+                </div>
+
+                <div className="pt-4 border-t border-border/50">
+                  <MeetingMap
+                    lat={meeting.location.lat}
+                    lng={meeting.location.lng}
+                    title={meeting.title}
+                    address={meeting.location.address}
+                  />
                 </div>
 
                 <div className="pt-4 border-t border-border/50">

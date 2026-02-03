@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
-import { Dog, Loader2, Mail, MapPin, PawPrint, User } from 'lucide-react'
+import { Dog, Edit, Loader2, Mail, MapPin, PawPrint, User } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
 import { GlassCard } from '../../components/dashboard/DashboardWidgets'
@@ -38,14 +38,22 @@ function ProfilePage() {
     <DashboardLayout user={user}>
       <div className="space-y-8 max-w-3xl mx-auto">
         {/* Header */}
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
-            <User className="w-8 h-8 text-primary" />
-            {t('profile.title')}
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            {t('settings.profileSettingsDesc')}
-          </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight flex items-center gap-3">
+              <User className="w-8 h-8 text-primary" />
+              {t('profile.title')}
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              {t('settings.profileSettingsDesc')}
+            </p>
+          </div>
+          <Link to="/dashboard/settings">
+            <Button variant="outline" className="gap-2 cursor-pointer">
+              <Edit className="w-4 h-4" />
+              {t('settings.profileSettings')}
+            </Button>
+          </Link>
         </div>
 
         {/* Profile Card */}

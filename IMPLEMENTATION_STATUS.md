@@ -235,6 +235,7 @@ A comprehensive overview of all implemented features in the WalkWithMe dog walki
 - ✅ `CreateMeetingModal` component
 - ✅ `InviteFriendsModal` component
 - ✅ `MeetingInvitationCard` component
+- ✅ User Auto-Location (Blue dot on map)
 
 ---
 
