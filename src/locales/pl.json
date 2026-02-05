@@ -11,7 +11,9 @@
     "thunderstorm": "Burza",
     "unknown": "Nieznana",
     "loading": "Ładowanie pogody...",
-    "precipChance": "{{chance}}% szans na deszcz"
+    "precipChance": "{{chance}}% szans na deszcz",
+    "hotPavement": "Uwaga: Gorący Asfalt! 🐾",
+    "hotPavementDesc": "Temperatura przekracza 25°C. Nawierzchnia może być zbyt gorąca dla psich łap. Sprawdź dłonią przed spacerem!"
   },
   "common": {
     "loading": "Ładowanie...",
@@ -58,6 +60,7 @@
     "discover": "Odkrywaj",
     "profile": "Profil",
     "settings": "Ustawienia",
+    "map": "Psie Miejscówki",
     "signOut": "Wyloguj się"
   },
   "dashboard": {

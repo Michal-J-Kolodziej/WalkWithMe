@@ -20,8 +20,10 @@ import type * as http from "../http.js";
 import type * as meetingInvitations from "../meetingInvitations.js";
 import type * as meetings from "../meetings.js";
 import type * as messages from "../messages.js";
+import type * as spots from "../spots.js";
 import type * as todos from "../todos.js";
 import type * as users from "../users.js";
+import type * as weather from "../weather.js";
 
 import type {
   ApiFromModules,
@@ -42,8 +44,10 @@ declare const fullApi: ApiFromModules<{
   meetingInvitations: typeof meetingInvitations;
   meetings: typeof meetings;
   messages: typeof messages;
+  spots: typeof spots;
   todos: typeof todos;
   users: typeof users;
+  weather: typeof weather;
 }>;
 
 /**

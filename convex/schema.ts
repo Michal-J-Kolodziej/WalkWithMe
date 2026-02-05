@@ -136,4 +136,28 @@ export default defineSchema({
     text: v.string(),
     completed: v.boolean(),
   }),
+  // Dog-Friendly Spots
+  spots: defineTable({
+    name: v.string(),
+    type: v.string(), // "park" | "vet" | "store" | "cafe"
+    description: v.optional(v.string()),
+    location: v.object({
+      lat: v.number(),
+      lng: v.number(),
+    }),
+    address: v.string(),
+    createdBy: v.id('users'),
+    isVerified: v.boolean(),
+  }).index('by_type', ['type']),
+  // Reviews for spots
+  reviews: defineTable({
+    spotId: v.id('spots'),
+    userId: v.id('users'),
+    rating: v.number(), // 1-5
+    text: v.string(),
+    tags: v.array(v.string()), // e.g. "fenced", "water available"
+    createdAt: v.number(),
+  })
+    .index('by_spot', ['spotId'])
+    .index('by_user', ['userId']),
 })

@@ -36,6 +36,7 @@ export const toggleBeacon = mutation({
           lastHeartbeat: user.beacon?.lastHeartbeat,
           privacy: user.beacon?.privacy || 'friends',
         },
+        isLocationEnabled: false, // Also disable location tracking
       })
     }
   },

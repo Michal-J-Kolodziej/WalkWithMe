@@ -1,8 +1,10 @@
 import { useAuthActions } from '@convex-dev/auth/react'
 import { Link, useNavigate } from '@tanstack/react-router'
+import { useQuery } from 'convex/react'
 import { ArrowRight, Lock, Mail, PawPrint } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { api } from '../../convex/_generated/api'
 import { Button } from './ui/Button'
 import { Input } from './ui/input'
 import { Label } from './ui/label'
@@ -13,6 +15,19 @@ export function LoginForm() {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  
+  // Check auth state
+  const user = useQuery(api.users.current)
+  
+  // Track if we successfully signed in and are waiting for auth session
+  const [isWaitingForAuth, setIsWaitingForAuth] = useState(false)
+
+  // Navigate only when we have a confirmed user session after login
+  useEffect(() => {
+    if (isWaitingForAuth && user) {
+      navigate({ to: '/dashboard' })
+    }
+  }, [isWaitingForAuth, user, navigate])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -23,7 +38,8 @@ export function LoginForm() {
 
     try {
       await signIn('password', formData)
-      navigate({ to: '/' })
+      // Successful login, now wait for auth session to propagate
+      setIsWaitingForAuth(true)
     } catch (err) {
       setError(
         err instanceof Error
@@ -33,9 +49,10 @@ export function LoginForm() {
               'Invalid email or password. Please try again.',
             ),
       )
-    } finally {
       setIsLoading(false)
-    }
+    } 
+    // Note: We don't set isLoading(false) on success because we want to keep 
+    // the loading state while waiting for the user session + navigation
   }
 
   return (
@@ -84,6 +101,7 @@ export function LoginForm() {
                   type="email"
                   placeholder={t('auth.emailPlaceholder')}
                   required
+                  pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
                   className="pl-10 h-12 rounded-xl bg-background border-border focus:border-primary transition-colors"
                 />
               </div>

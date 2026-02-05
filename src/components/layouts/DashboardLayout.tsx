@@ -7,6 +7,7 @@ import {
     Dog,
     Home,
     LogOut,
+    MapPin,
     Menu,
     MessageSquare,
     PawPrint,
@@ -14,22 +15,35 @@ import {
     Settings,
     User,
     Users,
-    X,
+    X
 } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocationTracker } from '../../hooks/useLocationTracker'
 import { BeaconToggle } from '../dashboard/beacon/BeaconToggle'
 
+export const DashboardContext = createContext<{
+  setMobileOpen: (open: boolean) => void
+  collapsed: boolean
+  setCollapsed: (collapsed: boolean) => void
+}>({
+  setMobileOpen: () => {},
+  collapsed: false,
+  setCollapsed: () => {},
+})
+
 interface DashboardLayoutProps {
   children: ReactNode
-  user: {
+  user?: {
     name?: string
     email?: string
     role?: string
   } | null
+  immersive?: boolean
 }
+
+// ... imports remain the same, just need to import createContext and useContext if not implicit
 
 interface NavItem {
   icon: typeof Home
@@ -44,11 +58,12 @@ const navItems: Array<NavItem> = [
   { icon: MessageSquare, labelKey: 'nav.chat', href: '/dashboard/chat' },
   { icon: Calendar, labelKey: 'nav.meetings', href: '/dashboard/meetings' },
   { icon: Search, labelKey: 'nav.discover', href: '/dashboard/discover' },
+  { icon: MapPin, labelKey: 'nav.map', href: '/dashboard/map' },
   { icon: User, labelKey: 'nav.profile', href: '/dashboard/profile' },
   { icon: Settings, labelKey: 'nav.settings', href: '/dashboard/settings' },
 ]
 
-export function DashboardLayout({ children, user }: DashboardLayoutProps) {
+export function DashboardLayout({ children, user, immersive = false }: DashboardLayoutProps) {
   const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -63,23 +78,25 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
   useLocationTracker()
 
   return (
-    <div className="dashboard-layout bg-gradient-to-br from-background via-background to-muted/30">
-      {/* Mobile Overlay */}
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 md:hidden"
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
+    <DashboardContext.Provider value={{ setMobileOpen, collapsed, setCollapsed }}>
+      <div className="dashboard-layout bg-gradient-to-br from-background via-background to-muted/30">
+        {/* Mobile Overlay */}
+        {mobileOpen && (
+          <div
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 md:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
+        )}
 
-      {/* Sidebar */}
-      <aside
-        className={`
-          dashboard-sidebar glass-sidebar
-          ${collapsed ? 'collapsed' : ''}
-          ${mobileOpen ? 'open' : ''}
-        `}
-      >
+        {/* Sidebar */}
+        <aside
+          className={`
+            dashboard-sidebar glass-sidebar
+            ${collapsed ? 'collapsed' : ''}
+            ${mobileOpen ? 'open' : ''}
+            z-40
+          `}
+        >
         <div className="flex flex-col h-full p-4">
           {/* Logo */}
           <div className="flex items-center justify-between mb-8">
@@ -175,30 +192,35 @@ export function DashboardLayout({ children, user }: DashboardLayoutProps) {
             )}
           </button>
         </div>
-      </aside>
+        </aside>
 
-      {/* Main Content */}
-      <main
-        className={`dashboard-main ${collapsed ? 'sidebar-collapsed' : ''}`}
-      >
-        {/* Mobile Header */}
-        <header className="md:hidden sticky top-0 z-20 glass px-4 py-3 flex items-center justify-between">
-          <button
-            onClick={() => setMobileOpen(true)}
-            className="p-2 hover:bg-muted rounded-lg cursor-pointer"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-          <Link to="/" className="flex items-center gap-2">
-            <PawPrint className="h-5 w-5 text-primary" />
-            <span className="font-bold">WalkWithMe</span>
-          </Link>
-          <div className="w-9" /> {/* Spacer for centering */}
-        </header>
+        {/* Main Content */}
+        <main
+          className={`dashboard-main ${collapsed ? 'sidebar-collapsed' : ''} ${immersive ? 'h-screen overflow-hidden' : ''}`}
+        >
+          {/* Mobile Header - Hide in immersive mode */}
+          {!immersive && (
+            <header className="md:hidden sticky top-0 z-20 glass px-4 py-3 flex items-center justify-between">
+              <button
+                onClick={() => setMobileOpen(true)}
+                className="p-2 hover:bg-muted rounded-lg cursor-pointer"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+              <Link to="/" className="flex items-center gap-2">
+                <PawPrint className="h-5 w-5 text-primary" />
+                <span className="font-bold">WalkWithMe</span>
+              </Link>
+              <div className="w-9" /> {/* Spacer for centering */}
+            </header>
+          )}
 
-        {/* Page Content */}
-        <div className="p-4 md:p-8">{children}</div>
-      </main>
-    </div>
+          {/* Page Content */}
+          <div className={immersive ? 'p-0 h-full w-full' : 'p-4 md:p-8'}>
+            {children}
+          </div>
+        </main>
+      </div>
+    </DashboardContext.Provider>
   )
 }

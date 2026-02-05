@@ -267,6 +267,120 @@ A comprehensive overview of all implemented features in the WalkWithMe dog walki
 | `/dashboard/chat/:id`     | Chat view               |
 | `/dashboard/meetings`     | Meetings list           |
 | `/dashboard/meetings/:id` | Meeting details         |
+| `/dashboard/map`          | Dog spots map           |
+
+---
+
+## Dog-Friendly Spots Map 🗺️
+
+### Backend API (`convex/spots.ts`)
+
+- ✅ `createSpot` - Create new dog-friendly location
+- ✅ `addReview` - Add review with rating and tags
+- ✅ `listSpots` - Get all spots
+- ✅ `getSpotDetails` - Get spot with enriched reviews
+
+### Spots Schema
+
+- `name` (required)
+- `type` - "park" | "vet" | "store" | "cafe" (required)
+- `description` (optional)
+- `location` - { lat, lng } (required)
+- `address` (required)
+- `createdBy` - User ID (required)
+- `isVerified` - Boolean (default: false)
+
+### Reviews Schema
+
+- `spotId` - Reference to spot (required)
+- `userId` - Reviewer ID (required)
+- `rating` - 1-5 stars (required)
+- `text` - Review content (required)
+- `tags` - Array of strings (e.g., "fenced", "water available") (required)
+- `createdAt` - Timestamp (required)
+
+### Frontend Components
+
+- ✅ `SpotsMap` (`src/components/dashboard/map/SpotsMap.tsx`)
+  - Interactive Leaflet map with OpenStreetMap tiles
+  - Filter chips for Parks, Vets, Stores, and Cafes
+  - Click-to-add spot functionality
+  - "Locate Me" button for user geolocation
+  - Custom markers for different spot types
+  - Real-time spot data via Convex
+
+- ✅ `AddSpotModal` (`src/components/dashboard/map/AddSpotModal.tsx`)
+  - Form for creating new spots
+  - Interactive map for location selection
+  - Type selection (park/vet/store/cafe)
+  - Address and description fields
+  - Form validation
+
+- ✅ `SpotDetailsSheet` (`src/components/dashboard/map/SpotDetailsSheet.tsx`)
+  - Spot information display
+  - Reviews list with user avatars and ratings
+  - Review submission form
+  - Star rating system
+  - Tag selection (fenced, water, shade, etc.)
+  - "Get Directions" button
+
+### Custom Hooks
+
+- ✅ `useSpots` - Manage spots (list, create, add review)
+- ✅ `useSpotDetails` - Get detailed spot information
+
+---
+
+## "Walking Now" Beacon 📢
+
+### Backend API (`convex/beacon.ts`)
+
+- ✅ `toggleBeacon` - Start/stop broadcasting walking status
+- ✅ `sendHeartbeat` - Update active beacon timestamp
+- ✅ `setBeaconPrivacy` - Set visibility (friends/public/none)
+- ✅ `listActiveBeacons` - Get all active walkers
+
+### Beacon Schema (User field)
+
+User schema includes optional `beacon` object:
+- `isActive` - Boolean status (required)
+- `startedAt` - Start timestamp (required)
+- `lastHeartbeat` - Last activity timestamp (optional)
+- `privacy` - "friends" | "public" | "none" (required)
+
+### Features
+
+- ✅ Toggle "Walking Now" status
+- ✅ Automatic heartbeat mechanism (safety timeout)
+- ✅ Privacy settings (Ghost Mode)
+  - Friends only
+  - Public
+  - None (invisible)
+- ✅ Active walkers list with real-time updates
+- ✅ Integration with user location tracking
+
+### Frontend Components
+
+- ✅ `BeaconToggle` (`src/components/dashboard/beacon/BeaconToggle.tsx`)
+  - Prominent toggle button in sidebar
+  - Visual feedback (green when active)
+  - Automatic heartbeat timer
+  - Safety timeout after inactivity
+
+- ✅ `ActiveWalkersList` (`src/components/dashboard/beacon/ActiveWalkersList.tsx`)
+  - Real-time list of walking friends
+  - User avatars and names
+  - "Walking for X minutes" status
+  - Click to view on map or chat
+
+- ✅ Beacon Settings (in Settings page)
+  - Privacy control toggle
+  - Visibility options
+  - Feature explanation
+
+### Custom Hooks
+
+- ✅ `useBeacon` - Manage beacon state (toggle, heartbeat, privacy)
 
 ---
 
@@ -346,15 +460,21 @@ WalkWithMe/
 │   ├── conversations.ts  # Chat conversations API
 │   ├── messages.ts       # Chat messages API
 │   ├── meetings.ts       # Meetings API
-│   └── meetingInvitations.ts # Meeting invites API
+│   ├── meetingInvitations.ts # Meeting invites API
+│   ├── spots.ts          # Dog-friendly spots API
+│   └── beacon.ts         # Walking Now beacon API
 ├── src/
 │   ├── components/       # React components
 │   │   ├── dashboard/    # Dashboard-specific
+│   │   │   ├── beacon/   # Beacon components
+│   │   │   └── map/      # Map and spots components
 │   │   ├── ui/           # shadcn/ui components
 │   │   └── layouts/      # Layout components
 │   ├── routes/           # TanStack Router routes
 │   │   └── dashboard/    # Dashboard routes
 │   ├── hooks/            # Custom React hooks
+│   │   ├── useBeacon.ts  # Beacon hook
+│   │   └── useSpots.ts   # Spots hook
 │   ├── locales/          # i18n translations
 │   └── lib/              # Utilities
 └── public/               # Static assets
@@ -374,6 +494,10 @@ WalkWithMe/
 - ✅ Real-time chat between friends
 - ✅ Meetings/events with invitations
 - ✅ Location tracking and sharing
+- ✅ Dog-Friendly Spots Map (parks, vets, stores, cafes)
+- ✅ Reviews and ratings for dog spots
+- ✅ "Walking Now" Beacon with live status broadcasting
+- ✅ Beacon privacy controls (Ghost Mode)
 - ✅ Bilingual support (EN/PL)
 - ✅ Dark mode glassmorphism UI
 - ✅ Responsive design

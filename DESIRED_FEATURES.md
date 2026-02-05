@@ -9,12 +9,12 @@ As a dog owner using this app, I'm really enjoying the core features! To strictl
 - **History Log:** A calendar or list view showing past walks (e.g., "Last week you walked 15km!").
 - **Heatmap:** Visual representation of our most frequented routes.
 
-## 2. 📍 Dog-Friendly Spots Map
+## 2. 📍 Dog-Friendly Spots Map ✅ **IMPLEMENTED**
 **Why:** Finding new places to go is hard, and I need to know if they are safe/verifyed.
 **Features:**
-- **Map Layers:** Toggle view for Dog Parks, Vet Clinics, Pet Stores, and Dog-friendly Cafes.
-- **User Reviews:** Specifically for dog owners (e.g., "Is this park fully fenced?", "Is there water available?", "High traffic area?").
-- **Add Spot:** Allow users to submit new locations.
+- ✅ **Map Layers:** Toggle view for Dog Parks, Vet Clinics, Pet Stores, and Dog-friendly Cafes.
+- ✅ **User Reviews:** Specifically for dog owners (e.g., "Is this park fully fenced?", "Is there water available?", "High traffic area?").
+- ✅ **Add Spot:** Allow users to submit new locations.
 
 ## 3. ⚠️ Safety & Community Alerts
 **Why:** Keeping my community safe is the #1 priority.
@@ -35,11 +35,11 @@ As a dog owner using this app, I'm really enjoying the core features! To strictl
 - **Pavement Heat Check:** Warning if the temperature suggests the pavement might be too hot for paws (> 25°C).
 - **Rain/Storm Alerts:** "Rain imminent" alert 15 mins before a scheduled meetup.
 
-## 6. 📢 "Walking Now" Beacon
+## 6. 📢 "Walking Now" Beacon ✅ **IMPLEMENTED**
 **Why:** Spontaneous meetups are often the best ones.
 **Features:**
-- **Live Status:** Toggle "I'm Walking Now" to notify close friends.
-- **Ghost Mode:** Ability to be visible only to "Best Friends" or go completely invisible.
+- ✅ **Live Status:** Toggle "I'm Walking Now" to notify close friends.
+- ✅ **Ghost Mode:** Ability to be visible only to "Best Friends" or go completely invisible.
 
 ## 7. 📸 Doggy Scrapbook / Media Gallery
 **Why:** I take 100 photos a walk anyway, I want them organized by dog.

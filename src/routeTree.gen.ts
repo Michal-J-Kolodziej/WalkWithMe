@@ -23,6 +23,7 @@ import { Route as DemoConvexRouteImport } from './routes/demo/convex'
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardMeetingsRouteImport } from './routes/dashboard/meetings'
+import { Route as DashboardMapRouteImport } from './routes/dashboard/map'
 import { Route as DashboardFriendsRouteImport } from './routes/dashboard/friends'
 import { Route as DashboardDogsRouteImport } from './routes/dashboard/dogs'
 import { Route as DashboardDiscoverRouteImport } from './routes/dashboard/discover'
@@ -110,6 +111,11 @@ const DashboardProfileRoute = DashboardProfileRouteImport.update({
 const DashboardMeetingsRoute = DashboardMeetingsRouteImport.update({
   id: '/meetings',
   path: '/meetings',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardMapRoute = DashboardMapRouteImport.update({
+  id: '/map',
+  path: '/map',
   getParentRoute: () => DashboardRoute,
 } as any)
 const DashboardFriendsRoute = DashboardFriendsRouteImport.update({
@@ -216,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/discover': typeof DashboardDiscoverRoute
   '/dashboard/dogs': typeof DashboardDogsRoute
   '/dashboard/friends': typeof DashboardFriendsRoute
+  '/dashboard/map': typeof DashboardMapRoute
   '/dashboard/meetings': typeof DashboardMeetingsRouteWithChildren
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -248,6 +255,7 @@ export interface FileRoutesByTo {
   '/dashboard/discover': typeof DashboardDiscoverRoute
   '/dashboard/dogs': typeof DashboardDogsRoute
   '/dashboard/friends': typeof DashboardFriendsRoute
+  '/dashboard/map': typeof DashboardMapRoute
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
   '/demo/convex': typeof DemoConvexRoute
@@ -282,6 +290,7 @@ export interface FileRoutesById {
   '/dashboard/discover': typeof DashboardDiscoverRoute
   '/dashboard/dogs': typeof DashboardDogsRoute
   '/dashboard/friends': typeof DashboardFriendsRoute
+  '/dashboard/map': typeof DashboardMapRoute
   '/dashboard/meetings': typeof DashboardMeetingsRouteWithChildren
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
@@ -318,6 +327,7 @@ export interface FileRouteTypes {
     | '/dashboard/discover'
     | '/dashboard/dogs'
     | '/dashboard/friends'
+    | '/dashboard/map'
     | '/dashboard/meetings'
     | '/dashboard/profile'
     | '/dashboard/settings'
@@ -350,6 +360,7 @@ export interface FileRouteTypes {
     | '/dashboard/discover'
     | '/dashboard/dogs'
     | '/dashboard/friends'
+    | '/dashboard/map'
     | '/dashboard/profile'
     | '/dashboard/settings'
     | '/demo/convex'
@@ -383,6 +394,7 @@ export interface FileRouteTypes {
     | '/dashboard/discover'
     | '/dashboard/dogs'
     | '/dashboard/friends'
+    | '/dashboard/map'
     | '/dashboard/meetings'
     | '/dashboard/profile'
     | '/dashboard/settings'
@@ -528,6 +540,13 @@ declare module '@tanstack/react-router' {
       path: '/meetings'
       fullPath: '/dashboard/meetings'
       preLoaderRoute: typeof DashboardMeetingsRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/map': {
+      id: '/dashboard/map'
+      path: '/map'
+      fullPath: '/dashboard/map'
+      preLoaderRoute: typeof DashboardMapRouteImport
       parentRoute: typeof DashboardRoute
     }
     '/dashboard/friends': {
@@ -691,6 +710,7 @@ interface DashboardRouteChildren {
   DashboardDiscoverRoute: typeof DashboardDiscoverRoute
   DashboardDogsRoute: typeof DashboardDogsRoute
   DashboardFriendsRoute: typeof DashboardFriendsRoute
+  DashboardMapRoute: typeof DashboardMapRoute
   DashboardMeetingsRoute: typeof DashboardMeetingsRouteWithChildren
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
@@ -702,6 +722,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardDiscoverRoute: DashboardDiscoverRoute,
   DashboardDogsRoute: DashboardDogsRoute,
   DashboardFriendsRoute: DashboardFriendsRoute,
+  DashboardMapRoute: DashboardMapRoute,
   DashboardMeetingsRoute: DashboardMeetingsRouteWithChildren,
   DashboardProfileRoute: DashboardProfileRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,

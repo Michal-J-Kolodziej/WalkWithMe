@@ -44,6 +44,7 @@
     "discover": "Discover",
     "profile": "Profile",
     "settings": "Settings",
+    "map": "Dog Spots",
     "signOut": "Sign Out"
   },
   "dashboard": {
@@ -312,6 +313,8 @@
     "thunderstorm": "Thunderstorm",
     "unknown": "Unknown",
     "loading": "Loading weather...",
-    "precipChance": "{{chance}}% chance of rain"
+    "precipChance": "{{chance}}% chance of rain",
+    "hotPavement": "Hot Pavement Warning! 🐾",
+    "hotPavementDesc": "Temperature is above 25°C. Pavement might be too hot for paws. Check with your hand before walking!"
   }
 }

@@ -1,6 +1,6 @@
 import { useAuthActions } from '@convex-dev/auth/react'
 import { Link } from '@tanstack/react-router'
-import { useQuery } from 'convex/react'
+import { useConvexAuth, useQuery } from 'convex/react'
 import { Loader2, Menu, PawPrint, X } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -10,12 +10,14 @@ import { Button } from './ui/Button'
 export function Navbar() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
+  const { isAuthenticated, isLoading } = useConvexAuth()
   const user = useQuery(api.users.current)
   const { signOut } = useAuthActions()
 
-  // Determine auth state: loading, authenticated, or unauthenticated
-  const isLoading = user === undefined
-  const isAuthenticated = user !== undefined && user !== null
+  // Note: We use useConvexAuth for the primary auth state check
+  // as it updates immediately upon token changes, whereas useQuery
+  // might have a slight delay or initially return undefined.
+
 
   // Render auth buttons based on state
   const renderAuthButtons = (isMobile: boolean = false) => {
