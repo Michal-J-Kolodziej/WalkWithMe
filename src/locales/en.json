@@ -303,6 +303,8 @@
     "terms": "Terms"
   },
   "weather": {
+    "title": "Weather",
+    "enableLocationForWeather": "Enable location services to see weather for your area.",
     "clearSky": "Clear sky",
     "partlyCloudy": "Partly cloudy",
     "fog": "Foggy",

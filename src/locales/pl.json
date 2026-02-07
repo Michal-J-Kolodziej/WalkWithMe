@@ -1,5 +1,7 @@
 {
   "weather": {
+    "title": "Pogoda",
+    "enableLocationForWeather": "Włącz usługi lokalizacji, aby zobaczyć pogodę dla Twojego obszaru.",
     "clearSky": "Bezchmurnie",
     "partlyCloudy": "Częściowe zachmurzenie",
     "fog": "Mgła",

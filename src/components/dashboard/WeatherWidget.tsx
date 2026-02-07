@@ -43,12 +43,12 @@ export function WeatherWidget() {
         <CardHeader className="pb-2">
           <CardTitle className="text-sm font-medium flex items-center gap-2">
             <Sun className="h-4 w-4 text-yellow-500" />
-            {t('nav.dashboard')}
+            {t('weather.title')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-white/60">
-            {t('settings.locationServicesDesc')}
+            {t('weather.enableLocationForWeather')}
           </p>
         </CardContent>
       </Card>
