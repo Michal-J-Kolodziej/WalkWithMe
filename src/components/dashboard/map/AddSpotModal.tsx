@@ -1,11 +1,23 @@
+import L from 'leaflet'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useSpots } from '@/hooks/useSpots'
-import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
@@ -38,7 +50,13 @@ interface FormData {
   address: string
 }
 
-function LocationMarker({ position, setPosition }: { position: { lat: number, lng: number }, setPosition: (pos: { lat: number, lng: number }) => void }) {
+function LocationMarker({
+  position,
+  setPosition,
+}: {
+  position: { lat: number; lng: number }
+  setPosition: (pos: { lat: number; lng: number }) => void
+}) {
   useMapEvents({
     click(e) {
       setPosition(e.latlng)
@@ -47,7 +65,11 @@ function LocationMarker({ position, setPosition }: { position: { lat: number, ln
   return <Marker position={position} />
 }
 
-export function AddSpotModal({ isOpen, onClose, initialLocation }: AddSpotModalProps) {
+export function AddSpotModal({
+  isOpen,
+  onClose,
+  initialLocation,
+}: AddSpotModalProps) {
   const { createSpot } = useSpots()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [location, setLocation] = useState(initialLocation)
@@ -84,10 +106,10 @@ export function AddSpotModal({ isOpen, onClose, initialLocation }: AddSpotModalP
               <Label htmlFor="name" className="flex items-center gap-2">
                 Name <span className="text-destructive">*</span>
               </Label>
-              <Input 
-                id="name" 
-                {...register('name', { required: true })} 
-                placeholder="e.g. Sunny Park" 
+              <Input
+                id="name"
+                {...register('name', { required: true })}
+                placeholder="e.g. Sunny Park"
                 className="bg-muted/30 border-muted-foreground/20 focus:bg-background transition-colors"
                 autoFocus
               />
@@ -115,10 +137,10 @@ export function AddSpotModal({ isOpen, onClose, initialLocation }: AddSpotModalP
             <Label htmlFor="address" className="flex items-center gap-2">
               Address <span className="text-destructive">*</span>
             </Label>
-            <Input 
-              id="address" 
-              {...register('address', { required: true })} 
-              placeholder="Street address or distinct landmark" 
+            <Input
+              id="address"
+              {...register('address', { required: true })}
+              placeholder="Street address or distinct landmark"
               className="bg-muted/30 border-muted-foreground/20 focus:bg-background transition-colors"
             />
           </div>
@@ -129,28 +151,47 @@ export function AddSpotModal({ isOpen, onClose, initialLocation }: AddSpotModalP
               <span className="text-xs opacity-70">Click map to adjust</span>
             </Label>
             <div className="h-[220px] rounded-xl overflow-hidden border border-primary/20 shadow-inner relative group">
-               <MapContainer center={location} zoom={15} style={{ height: '100%', width: '100%' }}>
-                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                  <LocationMarker position={location} setPosition={setLocation} />
-               </MapContainer>
-               <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/10 rounded-xl" />
+              <MapContainer
+                center={location}
+                zoom={15}
+                style={{ height: '100%', width: '100%' }}
+              >
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <LocationMarker position={location} setPosition={setLocation} />
+              </MapContainer>
+              <div className="absolute inset-0 pointer-events-none ring-1 ring-inset ring-black/10 rounded-xl" />
             </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="description">Description (Optional)</Label>
-            <Textarea 
-              id="description" 
-              {...register('description')} 
-              placeholder="Share details about fencing, water availability, or rules..." 
+            <Textarea
+              id="description"
+              {...register('description')}
+              placeholder="Share details about fencing, water availability, or rules..."
               className="bg-muted/30 border-muted-foreground/20 focus:bg-background transition-colors min-h-[80px] resize-none"
             />
           </div>
 
           <DialogFooter className="pt-2">
-            <Button type="button" variant="ghost" onClick={onClose} className="hover:bg-destructive/10 hover:text-destructive">Cancel</Button>
-            <Button type="submit" disabled={isSubmitting} className="min-w-[120px]">
-              {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Create Spot'}
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onClose}
+              className="hover:bg-destructive/10 hover:text-destructive"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="min-w-[120px]"
+            >
+              {isSubmitting ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                'Create Spot'
+              )}
             </Button>
           </DialogFooter>
         </form>

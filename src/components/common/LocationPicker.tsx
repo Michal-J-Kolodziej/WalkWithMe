@@ -2,7 +2,14 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Loader2, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { CircleMarker, MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet'
+import {
+  CircleMarker,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  useMapEvents,
+} from 'react-leaflet'
 
 // Fix for default Leaflet markers in React/Vite
 import icon from 'leaflet/dist/images/marker-icon.png'
@@ -69,16 +76,16 @@ function MapController({
   zoom: number
 }) {
   const map = useMapEvents({})
-  
+
   useEffect(() => {
     map.flyTo(center, zoom)
   }, [center, zoom, map])
-  
+
   return null
 }
 
 export function LocationPicker({
-// ... (rest of props)
+  // ... (rest of props)
   initialLat,
   initialLng,
   onLocationSelect,
@@ -168,7 +175,7 @@ export function LocationPicker({
           console.error('Geolocation error:', error)
           setIsSearching(false)
         },
-        { timeout: 10000 }
+        { timeout: 10000 },
       )
     }
   }, [initialLat, initialLng])
@@ -189,10 +196,10 @@ export function LocationPicker({
             className="w-full pl-10 pr-4 py-2 rounded-xl bg-background border border-border
               focus:outline-none focus:ring-2 focus:ring-primary/50"
             onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleSearch(e);
-                }
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                handleSearch(e)
+              }
             }}
           />
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -204,7 +211,11 @@ export function LocationPicker({
           className="px-4 py-2 rounded-xl bg-primary/10 text-primary font-medium
             hover:bg-primary/20 transition-colors disabled:opacity-50"
         >
-          {isSearching ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Search'}
+          {isSearching ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : (
+            'Search'
+          )}
         </button>
       </div>
 

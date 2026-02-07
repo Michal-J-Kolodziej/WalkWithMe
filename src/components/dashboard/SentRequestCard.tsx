@@ -46,7 +46,7 @@ export function SentRequestCard({ request }: SentRequestCardProps) {
   }
 
   return (
-    <div className="glass-card rounded-2xl p-5 transition-all duration-300 hover:scale-[1.01] relative">
+    <div className="glass-card rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] relative">
       {/* Cancel Confirmation Overlay */}
       {showConfirm && (
         <div className="absolute inset-0 bg-background/95 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-10 p-4">

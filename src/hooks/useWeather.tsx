@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { fetchWeather } from '../lib/weather'
-import type { WeatherData} from '../lib/weather';
+import type { WeatherData } from '../lib/weather'
 
 const CACHE_DURATION = 30 * 60 * 1000 // 30 minutes
 const CACHE_KEY_PREFIX = 'weather_cache_'

@@ -126,7 +126,7 @@ export const listActiveBeacons = query({
 
         // Check privacy
         if (b.privacy === 'none') return false
-        
+
         return true
       })
       .map((f) => ({

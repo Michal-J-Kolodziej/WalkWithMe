@@ -3,15 +3,10 @@ import { Calendar, Clock, Dog, Loader2, MapPin, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../../convex/_generated/api'
-import type { Id } from '../../../../convex/_generated/dataModel'
 import { Button } from '../../ui/Button'
-import {
-    Sheet,
-    SheetContent,
-    SheetHeader,
-    SheetTitle,
-} from '../../ui/sheet'
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../../ui/sheet'
 import { WalkRouteMap } from './WalkRouteMap'
+import type { Id } from '../../../../convex/_generated/dataModel'
 
 interface WalkDetailsSheetProps {
   walkId: Id<'walks'>
@@ -19,7 +14,11 @@ interface WalkDetailsSheetProps {
   onClose: () => void
 }
 
-export function WalkDetailsSheet({ walkId, isOpen, onClose }: WalkDetailsSheetProps) {
+export function WalkDetailsSheet({
+  walkId,
+  isOpen,
+  onClose,
+}: WalkDetailsSheetProps) {
   const { t } = useTranslation()
   const walkDetails = useQuery(api.walks.getWalkDetails, { walkId })
   const deleteMutation = useMutation(api.walks.remove)
@@ -43,7 +42,11 @@ export function WalkDetailsSheet({ walkId, isOpen, onClose }: WalkDetailsSheetPr
     })
   }
 
-  const formatDuration = (startedAt: number, endedAt?: number, pausedDuration = 0) => {
+  const formatDuration = (
+    startedAt: number,
+    endedAt?: number,
+    pausedDuration = 0,
+  ) => {
     if (!endedAt) return '--'
     const durationMs = endedAt - startedAt - pausedDuration
     const seconds = Math.floor(durationMs / 1000)
@@ -65,7 +68,7 @@ export function WalkDetailsSheet({ walkId, isOpen, onClose }: WalkDetailsSheetPr
 
   const handleDelete = async () => {
     if (!confirm(t('walks.deleteConfirm'))) return
-    
+
     setIsDeleting(true)
     try {
       await deleteMutation({ walkId })
@@ -109,10 +112,13 @@ export function WalkDetailsSheet({ walkId, isOpen, onClose }: WalkDetailsSheetPr
               <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
                 <Calendar className="w-5 h-5 text-primary" />
                 <div>
-                  <p className="font-medium">{formatDate(walkDetails.startedAt)}</p>
+                  <p className="font-medium">
+                    {formatDate(walkDetails.startedAt)}
+                  </p>
                   <p className="text-sm text-muted-foreground">
                     {formatTime(walkDetails.startedAt)}
-                    {walkDetails.endedAt && ` - ${formatTime(walkDetails.endedAt)}`}
+                    {walkDetails.endedAt &&
+                      ` - ${formatTime(walkDetails.endedAt)}`}
                   </p>
                 </div>
               </div>
@@ -121,7 +127,9 @@ export function WalkDetailsSheet({ walkId, isOpen, onClose }: WalkDetailsSheetPr
               <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
                 <Clock className="w-5 h-5 text-amber-500" />
                 <div>
-                  <p className="text-sm text-muted-foreground">{t('walks.duration')}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {t('walks.duration')}
+                  </p>
                   <p className="font-medium">
                     {formatDuration(
                       walkDetails.startedAt,
@@ -136,8 +144,12 @@ export function WalkDetailsSheet({ walkId, isOpen, onClose }: WalkDetailsSheetPr
               <div className="flex items-center gap-3 p-3 rounded-xl bg-muted/50">
                 <MapPin className="w-5 h-5 text-blue-500" />
                 <div>
-                  <p className="text-sm text-muted-foreground">{t('walks.distance')}</p>
-                  <p className="font-medium">{formatDistance(walkDetails.distanceMeters)}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {t('walks.distance')}
+                  </p>
+                  <p className="font-medium">
+                    {formatDistance(walkDetails.distanceMeters)}
+                  </p>
                 </div>
               </div>
             </div>

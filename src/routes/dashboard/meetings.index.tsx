@@ -1,30 +1,30 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
-    Calendar,
-    CalendarCheck,
-    CalendarClock,
-    Clock,
-    History,
-    Loader2,
-    Mail,
-    MapPin,
-    Plus,
-    Trash2,
-    Users,
+  Calendar,
+  CalendarCheck,
+  CalendarClock,
+  Clock,
+  History,
+  Loader2,
+  Mail,
+  MapPin,
+  Plus,
+  Trash2,
+  Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { CreateMeetingModal } from '../../components/dashboard/CreateMeetingModal'
 import {
-    EmptyState,
-    GlassCard,
+  EmptyState,
+  GlassCard,
 } from '../../components/dashboard/DashboardWidgets'
 import { MeetingInvitationCard } from '../../components/dashboard/MeetingInvitationCard'
 import { MeetingWeather } from '../../components/dashboard/MeetingWeather'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 type TabType = 'upcoming' | 'past' | 'invitations'
 

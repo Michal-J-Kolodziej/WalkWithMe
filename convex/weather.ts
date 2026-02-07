@@ -1,5 +1,5 @@
-import { v } from 'convex/values';
-import { action } from './_generated/server';
+import { v } from 'convex/values'
+import { action } from './_generated/server'
 
 // Open-Meteo WMO Weather interpretation codes (WW)
 // https://open-meteo.com/en/docs
@@ -51,7 +51,8 @@ export const getWeather = action({
     const current = {
       temp: data.current_weather.temperature,
       code: data.current_weather.weathercode,
-      condition: weatherCodes[data.current_weather.weathercode]?.label || 'Unknown',
+      condition:
+        weatherCodes[data.current_weather.weathercode]?.label || 'Unknown',
       icon: weatherCodes[data.current_weather.weathercode]?.icon || '❓',
       isHotPavement: data.current_weather.temperature > 25,
     }

@@ -47,7 +47,7 @@ export function FriendRequestCard({ request }: FriendRequestCardProps) {
 
   return (
     <>
-      <div className="glass-card rounded-2xl p-5 transition-all duration-300 hover:scale-[1.01]">
+      <div className="glass-card rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02]">
         <div className="flex items-start gap-4">
           {/* Avatar */}
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0 overflow-hidden">

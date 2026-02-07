@@ -54,7 +54,7 @@ export function StatCard({
         <p className="text-2xl font-bold stat-value">{value}</p>
         {trend && (
           <p
-            className={`text-xs font-medium mt-1 ${trend.positive ? 'text-green-600' : 'text-red-500'}`}
+            className={`text-xs font-medium mt-1 ${trend.positive ? 'text-green-600' : 'text-destructive'}`}
           >
             {trend.positive ? '↑' : '↓'} {Math.abs(trend.value)}% from last week
           </p>
@@ -73,7 +73,7 @@ export function PulseStatus({ status, label }: PulseStatusProps) {
   const colors = {
     active: 'bg-green-500',
     idle: 'bg-yellow-500',
-    offline: 'bg-gray-400',
+    offline: 'bg-muted-foreground',
   }
 
   return (

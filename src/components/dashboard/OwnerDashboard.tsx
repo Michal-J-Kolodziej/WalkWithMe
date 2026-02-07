@@ -1,13 +1,13 @@
 import { Link } from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
 import {
-    Calendar,
-    Clock,
-    Dog,
-    Footprints,
-    Plus,
-    Search,
-    Users
+  Calendar,
+  Clock,
+  Dog,
+  Footprints,
+  Plus,
+  Search,
+  Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -110,7 +110,11 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
           <StatCard
             icon={Clock}
             label={t('dashboard.statsTotalWalkTime')}
-            value={walkStats ? formatDuration(walkStats.totalDuration) : `0 ${t('dashboard.hours')}`}
+            value={
+              walkStats
+                ? formatDuration(walkStats.totalDuration)
+                : `0 ${t('dashboard.hours')}`
+            }
             iconColor="text-amber-500"
           />
         </Link>

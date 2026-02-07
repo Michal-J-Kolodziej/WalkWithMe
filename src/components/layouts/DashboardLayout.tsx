@@ -1,28 +1,28 @@
 import { useAuthActions } from '@convex-dev/auth/react'
 import { Link, useLocation } from '@tanstack/react-router'
 import {
-    Calendar,
-    ChevronLeft,
-    ChevronRight,
-    Dog,
-    Footprints,
-    Home,
-    LogOut,
-    MapPin,
-    Menu,
-    MessageSquare,
-    PawPrint,
-    Search,
-    Settings,
-    User,
-    Users,
-    X
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  Dog,
+  Footprints,
+  Home,
+  LogOut,
+  MapPin,
+  Menu,
+  MessageSquare,
+  PawPrint,
+  Search,
+  Settings,
+  User,
+  Users,
+  X,
 } from 'lucide-react'
-import type { ReactNode } from 'react'
 import { createContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocationTracker } from '../../hooks/useLocationTracker'
 import { BeaconToggle } from '../dashboard/beacon/BeaconToggle'
+import type { ReactNode } from 'react'
 
 export const DashboardContext = createContext<{
   setMobileOpen: (open: boolean) => void
@@ -65,7 +65,11 @@ const navItems: Array<NavItem> = [
   { icon: Settings, labelKey: 'nav.settings', href: '/dashboard/settings' },
 ]
 
-export function DashboardLayout({ children, user, immersive = false }: DashboardLayoutProps) {
+export function DashboardLayout({
+  children,
+  user,
+  immersive = false,
+}: DashboardLayoutProps) {
   const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -80,7 +84,9 @@ export function DashboardLayout({ children, user, immersive = false }: Dashboard
   useLocationTracker()
 
   return (
-    <DashboardContext.Provider value={{ setMobileOpen, collapsed, setCollapsed }}>
+    <DashboardContext.Provider
+      value={{ setMobileOpen, collapsed, setCollapsed }}
+    >
       <div className="dashboard-layout bg-gradient-to-br from-background via-background to-muted/30">
         {/* Mobile Overlay */}
         {mobileOpen && (
@@ -99,38 +105,38 @@ export function DashboardLayout({ children, user, immersive = false }: Dashboard
             z-40
           `}
         >
-        <div className="flex flex-col h-full p-4">
-          {/* Logo */}
-          <div className="flex items-center justify-between mb-8">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-transform group-hover:scale-105">
-                <PawPrint className="h-5 w-5" />
-              </div>
-              {!collapsed && (
-                <span className="text-lg font-bold tracking-tight">
-                  WalkWithMe
-                </span>
-              )}
-            </Link>
+          <div className="flex flex-col h-full p-4">
+            {/* Logo */}
+            <div className="flex items-center justify-between mb-8">
+              <Link to="/" className="flex items-center gap-3 group">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-transform group-hover:scale-105">
+                  <PawPrint className="h-5 w-5" />
+                </div>
+                {!collapsed && (
+                  <span className="text-lg font-bold tracking-tight">
+                    WalkWithMe
+                  </span>
+                )}
+              </Link>
 
-            {/* Mobile Close */}
-            <button
-              className="md:hidden p-2 hover:bg-muted rounded-lg"
-              onClick={() => setMobileOpen(false)}
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+              {/* Mobile Close */}
+              <button
+                className="md:hidden p-2 hover:bg-muted rounded-lg"
+                onClick={() => setMobileOpen(false)}
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 space-y-1">
-            {navItems.map((item) => {
-              const isActive = location.pathname === item.href
-              return (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={`
+            {/* Navigation */}
+            <nav className="flex-1 space-y-1">
+              {navItems.map((item) => {
+                const isActive = location.pathname === item.href
+                return (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className={`
                     flex items-center gap-3 px-3 py-2.5 rounded-xl
                     transition-all duration-200 cursor-pointer
                     ${
@@ -139,61 +145,61 @@ export function DashboardLayout({ children, user, immersive = false }: Dashboard
                         : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                     }
                   `}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  <item.icon
-                    className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-primary' : ''}`}
-                  />
-                  {!collapsed && <span>{t(item.labelKey)}</span>}
-                </Link>
-              )
-            })}
-          </nav>
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <item.icon
+                      className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-primary' : ''}`}
+                    />
+                    {!collapsed && <span>{t(item.labelKey)}</span>}
+                  </Link>
+                )
+              })}
+            </nav>
 
-          {/* User Section */}
-          <div className="border-t border-border/50 pt-4 mt-4 space-y-2">
-            {!collapsed && <BeaconToggle />}
-            {!collapsed && user && (
-              <div className="flex items-center gap-3 px-3 py-2 mb-2">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <User className="w-5 h-5 text-primary" />
+            {/* User Section */}
+            <div className="border-t border-border/50 pt-4 mt-4 space-y-2">
+              {!collapsed && <BeaconToggle />}
+              {!collapsed && user && (
+                <div className="flex items-center gap-3 px-3 py-2 mb-2">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <User className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium truncate">
+                      {user.name || 'User'}
+                    </p>
+                    <p className="text-xs text-muted-foreground capitalize">
+                      {user.role || 'Member'}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium truncate">
-                    {user.name || 'User'}
-                  </p>
-                  <p className="text-xs text-muted-foreground capitalize">
-                    {user.role || 'Member'}
-                  </p>
-                </div>
-              </div>
-            )}
+              )}
 
-            <button
-              onClick={handleSignOut}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl w-full
+              <button
+                onClick={handleSignOut}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-xl w-full
                 text-muted-foreground hover:bg-destructive/10 hover:text-destructive
                 transition-colors cursor-pointer"
-            >
-              <LogOut className="w-5 h-5 flex-shrink-0" />
-              {!collapsed && <span>{t('nav.signOut')}</span>}
-            </button>
-          </div>
+              >
+                <LogOut className="w-5 h-5 flex-shrink-0" />
+                {!collapsed && <span>{t('nav.signOut')}</span>}
+              </button>
+            </div>
 
-          {/* Collapse Toggle - Desktop Only */}
-          <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="hidden md:flex items-center justify-center p-2 mt-4 
+            {/* Collapse Toggle - Desktop Only */}
+            <button
+              onClick={() => setCollapsed(!collapsed)}
+              className="hidden md:flex items-center justify-center p-2 mt-4 
               rounded-xl border border-border/50 hover:bg-muted
               transition-colors cursor-pointer"
-          >
-            {collapsed ? (
-              <ChevronRight className="w-4 h-4" />
-            ) : (
-              <ChevronLeft className="w-4 h-4" />
-            )}
-          </button>
-        </div>
+            >
+              {collapsed ? (
+                <ChevronRight className="w-4 h-4" />
+              ) : (
+                <ChevronLeft className="w-4 h-4" />
+              )}
+            </button>
+          </div>
         </aside>
 
         {/* Main Content */}

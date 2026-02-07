@@ -2,8 +2,8 @@ import { useMutation, useQuery } from 'convex/react'
 import { Calendar, Clock, Loader2, MapPin, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { LocationPicker } from '../common/LocationPicker'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface CreateMeetingModalProps {
   onClose: () => void
@@ -23,8 +23,6 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
   const [selectedDogs, setSelectedDogs] = useState<Array<Id<'dogs'>>>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
-
-
 
   const toggleDog = (dogId: Id<'dogs'>) => {
     setSelectedDogs((prev) =>
@@ -90,7 +88,7 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={onClose}
       />
 

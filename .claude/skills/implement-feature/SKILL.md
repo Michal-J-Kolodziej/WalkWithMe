@@ -1,7 +1,7 @@
 ---
 name: implement-feature
 description: Guide through rigorous feature implementation with planning, backend, frontend, polish, and verification phases
-argument-hint: "[feature description]"
+argument-hint: '[feature description]'
 ---
 
 # Feature Implementation Workflow
@@ -52,7 +52,7 @@ A rigorous, multi-phase process for implementing new features in the WalkWithMe 
    - Routes (`src/routes/**/*.tsx`)
    - Translations (`src/locales/en.json`, `src/locales/pl.json`)
 
-*Ask yourself: "Can I describe exactly what data flows from the database to the UI for this feature? If not, I need to study the codebase more."*
+_Ask yourself: "Can I describe exactly what data flows from the database to the UI for this feature? If not, I need to study the codebase more."_
 
 ## Phase 2: Implementation Plan (Triple-Verified)
 
@@ -97,7 +97,7 @@ A rigorous, multi-phase process for implementing new features in the WalkWithMe 
 4. **Check for scope creep** — Is the plan doing more than what was requested? Remove anything unnecessary.
 5. **Final edit** if any issues found. Save the final plan file.
 
-*Ask yourself: "Have I actually edited the plan file three times, or did I skip a pass because it 'looked fine'? Every pass must produce a re-read and explicit confirmation."*
+_Ask yourself: "Have I actually edited the plan file three times, or did I skip a pass because it 'looked fine'? Every pass must produce a re-read and explicit confirmation."_
 
 ### Step 5: User Approval
 
@@ -124,7 +124,7 @@ A rigorous, multi-phase process for implementing new features in the WalkWithMe 
    - Match the code style: no semicolons, single quotes, trailing commas, arrow functions
 3. **Verify backend compiles** — Run `npx convex dev` (or check the running dev process) to confirm no type errors in `convex/` files.
 
-*Ask yourself: "Does every new query have a matching index in the schema? Does every mutation check auth?"*
+_Ask yourself: "Does every new query have a matching index in the schema? Does every mutation check auth?"_
 
 ## Phase 4: Frontend Implementation
 
@@ -151,7 +151,7 @@ A rigorous, multi-phase process for implementing new features in the WalkWithMe 
 5. **Check imports** — Verify every import resolves. If a `shadcn/ui` component is needed but not yet installed, run `npx shadcn@latest add <component>`.
 6. **Run lint and format** — Execute `npm run check` to auto-fix formatting and lint issues.
 
-*Ask yourself: "If I put my new component next to an existing one, would they look like they were written by the same person? If not, adjust the style."*
+_Ask yourself: "If I put my new component next to an existing one, would they look like they were written by the same person? If not, adjust the style."_
 
 ## Phase 5: Bug Tracking & Resolution
 
@@ -162,6 +162,7 @@ A rigorous, multi-phase process for implementing new features in the WalkWithMe 
 
    ```markdown
    ### BUG-001: [Short description]
+
    - **File:** [exact file path]
    - **Line:** [approximate line number]
    - **Severity:** critical | major | minor
@@ -177,7 +178,7 @@ A rigorous, multi-phase process for implementing new features in the WalkWithMe 
    - `npm run build` — production build succeeds
    - `npm run test` — all tests pass (if tests exist for the feature)
 
-*Ask yourself: "Did I actually write bugs down as I found them, or did I try to fix them inline and lose track?"*
+_Ask yourself: "Did I actually write bugs down as I found them, or did I try to fix them inline and lose track?"_
 
 ## Phase 6: Final Review & Browser Verification
 
@@ -281,14 +282,12 @@ export function MyComponent() {
   if (!data) return null
 
   return (
-    <div className={cn(
-      'rounded-xl border border-white/10 bg-card/80 backdrop-blur-sm p-4',
-    )}>
-      <Button
-        variant="outline"
-        className="gap-2"
-        onClick={() => doAction()}
-      >
+    <div
+      className={cn(
+        'rounded-xl border border-white/10 bg-card/80 backdrop-blur-sm p-4',
+      )}
+    >
+      <Button variant="outline" className="gap-2" onClick={() => doAction()}>
         <SomeIcon className="w-4 h-4" />
         Action Label
       </Button>
@@ -390,18 +389,18 @@ Created `BUGS_WALK_NOTES.md`:
 
 ## Anti-Patterns
 
-| Anti-Pattern | Why It Fails | Do This Instead |
-|---|---|---|
-| **Skipping plan verification passes** ("Plan looks fine, moving on") | Bugs that could be caught in planning slip into implementation, costing 10x more time to fix | Actually re-read the plan file three times. Each pass catches different categories of issues |
-| **Fixing bugs inline during implementation** | Loses track of what was fixed, may introduce new bugs while fixing old ones, disrupts implementation flow | Write bugs to the bug file immediately, fix them all after implementation is complete |
-| **Writing code in a different style** (semicolons, default exports, different naming) | Creates inconsistency that makes the codebase harder to maintain and review | Read 2-3 existing files in the same directory before writing. Match their patterns exactly |
-| **Skipping the final code review** ("I just wrote it, I know it works") | Fresh eyes (even your own) catch issues that flow state misses — wrong variable names, missing error handling, dead code | Read every file you touched in full after all bugs are fixed |
-| **Not testing in the browser** ("It compiles, ship it") | Compilation proves syntax, not behavior. Real bugs appear in user interaction — wrong layout, missing data, broken state transitions | Navigate to the feature and test the happy path, empty state, and edge cases |
-| **Vague plan entries** ("Create the component") | Cannot verify if the plan is correct or complete without concrete details | Specify exact file paths, function names, props, and data flow |
-| **Starting to code without user approval** | Risk building the wrong thing entirely. Rework costs more than waiting for confirmation | Always present the plan and wait for explicit approval |
-| **Forgetting translations** | Feature works in English but Polish users see raw translation keys | Add entries to both `en.json` and `pl.json` as part of implementation, not as an afterthought |
-| **Missing Convex indexes** | Queries work in dev with small data but time out in production | Every `.withIndex()` call must have a matching index in `convex/schema.ts` |
-| **Skipping auth checks in mutations** | Security vulnerability — any user can modify any other user's data | Every Convex mutation starts with `getAuthUserId(ctx)` and throws if null |
+| Anti-Pattern                                                                          | Why It Fails                                                                                                                         | Do This Instead                                                                               |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| **Skipping plan verification passes** ("Plan looks fine, moving on")                  | Bugs that could be caught in planning slip into implementation, costing 10x more time to fix                                         | Actually re-read the plan file three times. Each pass catches different categories of issues  |
+| **Fixing bugs inline during implementation**                                          | Loses track of what was fixed, may introduce new bugs while fixing old ones, disrupts implementation flow                            | Write bugs to the bug file immediately, fix them all after implementation is complete         |
+| **Writing code in a different style** (semicolons, default exports, different naming) | Creates inconsistency that makes the codebase harder to maintain and review                                                          | Read 2-3 existing files in the same directory before writing. Match their patterns exactly    |
+| **Skipping the final code review** ("I just wrote it, I know it works")               | Fresh eyes (even your own) catch issues that flow state misses — wrong variable names, missing error handling, dead code             | Read every file you touched in full after all bugs are fixed                                  |
+| **Not testing in the browser** ("It compiles, ship it")                               | Compilation proves syntax, not behavior. Real bugs appear in user interaction — wrong layout, missing data, broken state transitions | Navigate to the feature and test the happy path, empty state, and edge cases                  |
+| **Vague plan entries** ("Create the component")                                       | Cannot verify if the plan is correct or complete without concrete details                                                            | Specify exact file paths, function names, props, and data flow                                |
+| **Starting to code without user approval**                                            | Risk building the wrong thing entirely. Rework costs more than waiting for confirmation                                              | Always present the plan and wait for explicit approval                                        |
+| **Forgetting translations**                                                           | Feature works in English but Polish users see raw translation keys                                                                   | Add entries to both `en.json` and `pl.json` as part of implementation, not as an afterthought |
+| **Missing Convex indexes**                                                            | Queries work in dev with small data but time out in production                                                                       | Every `.withIndex()` call must have a matching index in `convex/schema.ts`                    |
+| **Skipping auth checks in mutations**                                                 | Security vulnerability — any user can modify any other user's data                                                                   | Every Convex mutation starts with `getAuthUserId(ctx)` and throws if null                     |
 
 ---
 

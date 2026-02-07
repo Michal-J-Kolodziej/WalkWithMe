@@ -73,9 +73,7 @@ function WalksIndexPage() {
               <Footprints className="w-8 h-8 text-primary" />
               {t('walks.title')}
             </h1>
-            <p className="text-muted-foreground mt-1">
-              {t('walks.subtitle')}
-            </p>
+            <p className="text-muted-foreground mt-1">{t('walks.subtitle')}</p>
           </div>
         </div>
 
@@ -83,7 +81,10 @@ function WalksIndexPage() {
         {walkStats && walkStats.weeklyDistanceMeters > 0 && (
           <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
             <p className="text-lg font-medium text-primary">
-              🎉 {t('walks.weeklyStats', { distance: formatDistance(walkStats.weeklyDistanceMeters) })}
+              🎉{' '}
+              {t('walks.weeklyStats', {
+                distance: formatDistance(walkStats.weeklyDistanceMeters),
+              })}
             </p>
           </div>
         )}

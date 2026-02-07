@@ -1,17 +1,21 @@
 # Feature: Dog-Friendly Spots Map 🗺️
 
 ## Description
+
 A verified map of dog-friendly locations including parks, vet clinics, pet stores, and cafes. Users can filter by type, view dog-owner specific reviews (e.g., "fully fenced?"), and add new spots.
 
 ## Progress
+
 **Overall Progress:** 100%
 
 ## Tasks Status
+
 - **All Tasks:** 11
 - **Completed:** 11
 - **In Progress:** 0
 
 ## Bugs Status
+
 - **All Bugs:** 0
 - **Completed:** 0
 - **In Progress:** 0

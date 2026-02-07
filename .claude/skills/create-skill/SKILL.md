@@ -2,7 +2,7 @@
 name: create-skill
 description: Meta-skill that guides through a rigorous process for creating high-quality workflow and skill files
 disable-model-invocation: true
-argument-hint: "[skill name or domain]"
+argument-hint: '[skill name or domain]'
 ---
 
 # Skill Creator
@@ -50,7 +50,7 @@ description: One-line summary of what the skill does and its scope
 - Use `## Phase N: Name` for major stages
 - Each phase MUST open with a `**Goal:**` statement (one bold sentence)
 - Numbered steps with actionable sub-bullets
-- Self-correction prompts at decision points: *Ask yourself: [specific question]*
+- Self-correction prompts at decision points: _Ask yourself: [specific question]_
 - Concrete file paths, commands, or artifact names — never vague references
 
 ### 5. Reference Tables (Required for skills with 4+ categories)
@@ -81,11 +81,11 @@ description: One-line summary of what the skill does and its scope
 
 ### Structure Sizing Guide
 
-| Skill Complexity | Phases | Length | Tables | Checklists |
-|---|---|---|---|---|
-| Simple (single task) | 3-4 | 60-100 lines | 0-1 | 1 |
-| Standard (multi-step process) | 4-6 | 100-200 lines | 1-3 | 1-2 |
-| Comprehensive (full domain) | 5-7 | 200-350 lines | 3-6 | 2-4 |
+| Skill Complexity              | Phases | Length        | Tables | Checklists |
+| ----------------------------- | ------ | ------------- | ------ | ---------- |
+| Simple (single task)          | 3-4    | 60-100 lines  | 0-1    | 1          |
+| Standard (multi-step process) | 4-6    | 100-200 lines | 1-3    | 1-2        |
+| Comprehensive (full domain)   | 5-7    | 200-350 lines | 3-6    | 2-4        |
 
 ---
 
@@ -99,7 +99,7 @@ description: One-line summary of what the skill does and its scope
 4. **Set scope boundaries** — Explicitly state what this skill does NOT cover. Unbounded skills are low-quality skills.
 5. **Check for overlap** — Read all files in `.claude/skills/` to avoid duplicating existing skills. Reference rather than repeat.
 
-*Ask yourself: "Can I describe the skill's purpose in one sentence? If not, the scope is too broad — split it."*
+_Ask yourself: "Can I describe the skill's purpose in one sentence? If not, the scope is too broad — split it."_
 
 ## Phase 2: Domain Research
 
@@ -112,7 +112,7 @@ description: One-line summary of what the skill does and its scope
 5. **Identify decision points** — Where does the agent need judgment? These become self-correction prompts.
 6. **Map the artifact chain** — What files are read, created, or modified? In what order?
 
-*Ask yourself: "Do I understand this domain well enough to list the 5 most common mistakes? If not, research more."*
+_Ask yourself: "Do I understand this domain well enough to list the 5 most common mistakes? If not, research more."_
 
 ## Phase 3: Structure Design
 
@@ -125,7 +125,7 @@ description: One-line summary of what the skill does and its scope
 5. **Identify checklist candidates** — Any set of verification criteria should be checkboxes.
 6. **Plan the example walkthrough** — Choose a realistic scenario now. It should exercise at least 80% of the phases.
 
-*Ask yourself: "If I delete any one phase, does the skill still produce a correct result? If yes, that phase is unnecessary."*
+_Ask yourself: "If I delete any one phase, does the skill still produce a correct result? If yes, that phase is unnecessary."_
 
 ## Phase 4: Content Creation
 
@@ -135,7 +135,7 @@ description: One-line summary of what the skill does and its scope
 2. **Write phases in order** — Each phase should be self-contained enough that an agent could resume from any phase if interrupted.
 3. **Write steps as imperatives** — "Create the schema file" not "The schema file should be created."
 4. **Embed specificity** — Every step must reference concrete file paths, commands, or decision criteria. No step should say "use best practices" or "as appropriate."
-5. **Add self-correction prompts** — At every decision point, add: *Ask yourself: [specific verification question]*
+5. **Add self-correction prompts** — At every decision point, add: _Ask yourself: [specific verification question]_
 6. **Write reference tables** — Use `| Rule | Do | Don't |` for anti-patterns. Use `| Scenario | Action | Example |` for decision guides.
 7. **Write the example walkthrough** — Walk through the chosen scenario step by step, showing actual commands, file contents, or decisions at each phase.
 8. **Write the pre-delivery checklist** — Every quality claim in the skill should have a corresponding checkbox.
@@ -143,14 +143,14 @@ description: One-line summary of what the skill does and its scope
 
 ### Writing Quality Rules
 
-| Rule | Good | Bad |
-|---|---|---|
-| Imperative voice | "Run the test suite" | "The test suite should be run" |
-| Specific file paths | "Edit `convex/schema.ts`" | "Edit the schema file" |
-| Concrete criteria | "Response time under 200ms" | "Should be fast" |
-| Bounded scope | "Covers API endpoints only" | "Covers the backend" |
-| Actionable steps | "Add index on `userId` field" | "Optimize the database" |
-| Verifiable items | "All queries have indexes" | "Performance is acceptable" |
+| Rule                | Good                          | Bad                            |
+| ------------------- | ----------------------------- | ------------------------------ |
+| Imperative voice    | "Run the test suite"          | "The test suite should be run" |
+| Specific file paths | "Edit `convex/schema.ts`"     | "Edit the schema file"         |
+| Concrete criteria   | "Response time under 200ms"   | "Should be fast"               |
+| Bounded scope       | "Covers API endpoints only"   | "Covers the backend"           |
+| Actionable steps    | "Add index on `userId` field" | "Optimize the database"        |
+| Verifiable items    | "All queries have indexes"    | "Performance is acceptable"    |
 
 ## Phase 5: Quality Validation
 
@@ -198,6 +198,7 @@ description: One-line summary of what the skill does and its scope
 ### Phase 3 Output
 
 Skeleton designed with 5 phases:
+
 1. Context Gathering (read PR diff, understand scope)
 2. Architecture Review (data model, API design, routing)
 3. Implementation Review (code quality, Convex patterns, security)
@@ -208,6 +209,7 @@ Skeleton designed with 5 phases:
 
 ```markdown
 ## Phase 3: Implementation Review
+
 **Goal:** Verify code correctness, security, and adherence to project conventions.
 
 1. **Convex function checks:**
@@ -222,7 +224,7 @@ Skeleton designed with 5 phases:
 
 ### Phase 5 Output
 
-Applied quality validation — found Phase 4 was missing a self-correction prompt. Added: *Ask yourself: "Are there any new database queries without indexes?"*
+Applied quality validation — found Phase 4 was missing a self-correction prompt. Added: _Ask yourself: "Are there any new database queries without indexes?"_
 
 ### Phase 6 Output
 
@@ -232,24 +234,25 @@ Directory created at `.claude/skills/code-review/`. File saved as `SKILL.md`. Us
 
 ## Anti-Patterns in Skill Creation
 
-| Anti-Pattern | Why It Fails | Do This Instead |
-|---|---|---|
-| **Vague steps** ("follow best practices") | Agent has no concrete action to take | Specify exact actions, files, commands |
-| **Unbounded scope** ("covers everything about testing") | Skill becomes too long, agents skip sections | Define explicit boundaries, split if needed |
-| **No example walkthrough** | Agents misinterpret abstract instructions | Include one end-to-end scenario |
-| **Wall of prose** | Agents lose context in long paragraphs | Use tables, lists, and checklists |
-| **Missing anti-patterns** | Agents repeat the same mistakes | Document at least 5 common mistakes |
-| **No checklist** | No way to verify output quality | Add verifiable pre-delivery checklist |
-| **Generic advice** ("write clean code") | Adds no value over general knowledge | Every instruction must be specific to the domain |
-| **Too many phases** (>7) | Cognitive overload, agents lose the thread | Merge related phases or split into separate skills |
-| **No goal statements** | Agent does not understand a phase's purpose | Every phase opens with bold one-sentence Goal |
-| **Passive voice** ("the file should be created") | Ambiguous about who acts | Use imperative: "Create...", "Run...", "Verify..." |
+| Anti-Pattern                                            | Why It Fails                                 | Do This Instead                                    |
+| ------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------- |
+| **Vague steps** ("follow best practices")               | Agent has no concrete action to take         | Specify exact actions, files, commands             |
+| **Unbounded scope** ("covers everything about testing") | Skill becomes too long, agents skip sections | Define explicit boundaries, split if needed        |
+| **No example walkthrough**                              | Agents misinterpret abstract instructions    | Include one end-to-end scenario                    |
+| **Wall of prose**                                       | Agents lose context in long paragraphs       | Use tables, lists, and checklists                  |
+| **Missing anti-patterns**                               | Agents repeat the same mistakes              | Document at least 5 common mistakes                |
+| **No checklist**                                        | No way to verify output quality              | Add verifiable pre-delivery checklist              |
+| **Generic advice** ("write clean code")                 | Adds no value over general knowledge         | Every instruction must be specific to the domain   |
+| **Too many phases** (>7)                                | Cognitive overload, agents lose the thread   | Merge related phases or split into separate skills |
+| **No goal statements**                                  | Agent does not understand a phase's purpose  | Every phase opens with bold one-sentence Goal      |
+| **Passive voice** ("the file should be created")        | Ambiguous about who acts                     | Use imperative: "Create...", "Run...", "Verify..." |
 
 ---
 
 ## Pre-Delivery Checklist for New Skills
 
 ### Structure
+
 - [ ] YAML frontmatter has `name` and `description` fields
 - [ ] Description is under 120 characters and communicates purpose
 - [ ] H1 title present and matches the skill name
@@ -258,6 +261,7 @@ Directory created at `.claude/skills/code-review/`. File saved as `SKILL.md`. Us
 - [ ] Every phase has a bold `**Goal:**` statement
 
 ### Content Quality
+
 - [ ] Every step uses imperative voice
 - [ ] No step contains vague language ("best practices", "as appropriate", "consider")
 - [ ] File paths, commands, and artifact names are concrete
@@ -265,18 +269,21 @@ Directory created at `.claude/skills/code-review/`. File saved as `SKILL.md`. Us
 - [ ] Scope boundaries are explicitly stated
 
 ### Reference Material
+
 - [ ] Tables used for lookup data with 4+ entries
 - [ ] Anti-patterns section exists with at least 5 entries
 - [ ] At least one complete example walkthrough included
 - [ ] Example exercises at least 80% of defined phases
 
 ### Completeness
+
 - [ ] Pre-delivery checklist exists with verifiable items
 - [ ] Checklist items grouped by category
 - [ ] Skill length matches complexity (see Structure Sizing Guide)
 - [ ] A new agent with no prior context could follow start-to-finish
 
 ### Integration
+
 - [ ] Directory named in kebab-case: `.claude/skills/[skill-name]/`
 - [ ] `SKILL.md` placed in the skill directory
 - [ ] Cross-references to other skills use correct paths

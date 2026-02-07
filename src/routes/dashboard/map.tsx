@@ -10,10 +10,10 @@ export const Route = createFileRoute('/dashboard/map')({
 
 function MapPage() {
   const user = useQuery(api.users.current)
-  
+
   // Wait for user to be loaded or handled by layout
   // Note: WalkTrackerControls and ActiveWalkOverlay are already included in SpotsMap
-  
+
   return (
     <DashboardLayout user={user ?? null} immersive>
       <div className="relative h-full w-full overflow-hidden bg-background">
@@ -22,4 +22,3 @@ function MapPage() {
     </DashboardLayout>
   )
 }
-

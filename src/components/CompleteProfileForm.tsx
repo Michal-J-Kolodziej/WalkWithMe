@@ -110,7 +110,7 @@ export function CompleteProfileForm() {
       </div>
 
       <div className="relative w-full max-w-2xl">
-        <div className="bg-card/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl border border-border/50 p-8 md:p-12 transition-all duration-300 hover:shadow-primary/5">
+        <div className="bg-card/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-border/50 p-8 md:p-12 transition-all duration-300 hover:shadow-primary/5">
           <div className="text-center mb-10 space-y-4">
             <div className="inline-flex p-4 rounded-full bg-primary/10 text-primary mb-4 animate-bounce">
               <Sparkles size={32} />

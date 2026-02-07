@@ -2,8 +2,8 @@ import { useMutation, useQuery } from 'convex/react'
 import { Calendar, Check, Clock, Loader2, MapPin, Users, X } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { GlassCard } from './DashboardWidgets'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface MeetingInvitation {
   _id: Id<'meetingInvitations'>

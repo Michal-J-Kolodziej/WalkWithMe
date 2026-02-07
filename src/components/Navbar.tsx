@@ -18,7 +18,6 @@ export function Navbar() {
   // as it updates immediately upon token changes, whereas useQuery
   // might have a slight delay or initially return undefined.
 
-
   // Render auth buttons based on state
   const renderAuthButtons = (isMobile: boolean = false) => {
     if (isLoading) {

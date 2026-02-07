@@ -1,17 +1,21 @@
 # Feature: "Walking Now" Beacon 📢
 
 ## Description
+
 The "Walking Now" Beacon allows users to broadcast their live walking status to friends, encouraging spontaneous meetups. It features a simple toggle interface, visibility controls (Ghost Mode), and safety timeouts using a heartbeat mechanism.
 
 ## Progress
+
 **Overall Progress:** 100%
 
 ## Tasks Status
+
 - **All Tasks:** 13
 - **Completed:** 13
 - **In Progress:** 0
 
 ## Bugs Status
+
 - **All Bugs:** 0
 - **Completed:** 0
 - **In Progress:** 0
@@ -42,7 +46,7 @@ The "Walking Now" Beacon allows users to broadcast their live walking status to 
    - Create `src/components/dashboard/beacon/ActiveWalkersList.tsx`.
 
 7. **[x] Map Integration**
-   - *Note: Implicitly handled via ActiveWalkersList component and dashboard integration.*
+   - _Note: Implicitly handled via ActiveWalkersList component and dashboard integration._
 
 ### Phase 3: Notifications & Privacy 🛡️
 
@@ -50,7 +54,7 @@ The "Walking Now" Beacon allows users to broadcast their live walking status to 
    - Add "Beacon Settings" to the Settings page.
 
 9. **[x] In-App "Toast" Notifications**
-   - *Note: Integrated into active walkers list view mostly.*
+   - _Note: Integrated into active walkers list view mostly._
 
 ### Phase 4: Integration & Polish ✨
 

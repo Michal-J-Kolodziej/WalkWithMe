@@ -147,7 +147,7 @@ export function DogForm({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-lg bg-card/95 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-border/50 p-8 animate-in fade-in zoom-in-95 duration-300">
+      <div className="relative w-full max-w-lg bg-card/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-border/50 p-8 animate-in fade-in zoom-in-95 duration-300">
         {/* Close Button */}
         <button
           onClick={onClose}

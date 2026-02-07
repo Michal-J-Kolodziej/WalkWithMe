@@ -343,6 +343,7 @@ A comprehensive overview of all implemented features in the WalkWithMe dog walki
 ### Beacon Schema (User field)
 
 User schema includes optional `beacon` object:
+
 - `isActive` - Boolean status (required)
 - `startedAt` - Start timestamp (required)
 - `lastHeartbeat` - Last activity timestamp (optional)

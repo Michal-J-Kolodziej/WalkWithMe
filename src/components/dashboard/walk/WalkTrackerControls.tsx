@@ -3,35 +3,31 @@ import { Check, Dog, Loader2, Pause, Play, Square } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../../convex/_generated/api'
-import type { Id } from '../../../../convex/_generated/dataModel'
 import { useWalkTracker } from '../../../hooks/useWalkTracker'
 import { Button } from '../../ui/Button'
 import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from '../../ui/dialog'
+import type { Id } from '../../../../convex/_generated/dataModel'
 
 interface WalkTrackerControlsProps {
   compact?: boolean
 }
 
-export function WalkTrackerControls({ compact = false }: WalkTrackerControlsProps) {
+export function WalkTrackerControls({
+  compact = false,
+}: WalkTrackerControlsProps) {
   const { t } = useTranslation()
-  const {
-    status,
-    startWalk,
-    pauseWalk,
-    resumeWalk,
-    endWalk,
-    isLoading,
-  } = useWalkTracker()
+  const { status, startWalk, pauseWalk, resumeWalk, endWalk, isLoading } =
+    useWalkTracker()
 
   const dogs = useQuery(api.dogs.listByOwner)
   const [showDogSelector, setShowDogSelector] = useState(false)
-  const [selectedDogs, setSelectedDogs] = useState<Id<'dogs'>[]>([])
+  const [selectedDogs, setSelectedDogs] = useState<Array<Id<'dogs'>>>([])
   const [showEndConfirm, setShowEndConfirm] = useState(false)
   const [isStarting, setIsStarting] = useState(false)
   const [isEnding, setIsEnding] = useState(false)
@@ -228,10 +224,7 @@ export function WalkTrackerControls({ compact = false }: WalkTrackerControlsProp
             <DialogTitle>{t('walks.confirmEnd')}</DialogTitle>
           </DialogHeader>
           <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setShowEndConfirm(false)}
-            >
+            <Button variant="outline" onClick={() => setShowEndConfirm(false)}>
               {t('common.cancel')}
             </Button>
             <Button

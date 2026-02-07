@@ -1,24 +1,24 @@
 import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
-    ArrowLeft,
-    Calendar,
-    Clock,
-    Dog,
-    Loader2,
-    MapPin,
-    Trash2,
-    UserPlus,
-    Users,
+  ArrowLeft,
+  Calendar,
+  Clock,
+  Dog,
+  Loader2,
+  MapPin,
+  Trash2,
+  UserPlus,
+  Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { GlassCard } from '../../components/dashboard/DashboardWidgets'
 import { InviteFriendsModal } from '../../components/dashboard/InviteFriendsModal'
 import { MeetingMap } from '../../components/dashboard/MeetingMap'
 import { MeetingWeather } from '../../components/dashboard/MeetingWeather'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 export const Route = createFileRoute('/dashboard/meetings/$meetingId')({
   component: MeetingDetailsPage,

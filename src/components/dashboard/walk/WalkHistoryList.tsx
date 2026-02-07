@@ -3,9 +3,9 @@ import { Calendar, Clock, Dog, Footprints, MapPin } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../../convex/_generated/api'
-import type { Id } from '../../../../convex/_generated/dataModel'
 import { EmptyState, GlassCard } from '../DashboardWidgets'
 import { WalkDetailsSheet } from './WalkDetailsSheet'
+import type { Id } from '../../../../convex/_generated/dataModel'
 
 export function WalkHistoryList() {
   const { t } = useTranslation()
@@ -21,7 +21,11 @@ export function WalkHistoryList() {
     })
   }
 
-  const formatDuration = (startedAt: number, endedAt?: number, pausedDuration = 0) => {
+  const formatDuration = (
+    startedAt: number,
+    endedAt?: number,
+    pausedDuration = 0,
+  ) => {
     if (!endedAt) return '--'
     const durationMs = endedAt - startedAt - pausedDuration
     const minutes = Math.floor(durationMs / 60000)
@@ -82,7 +86,9 @@ export function WalkHistoryList() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-primary">
                   <Calendar className="w-4 h-4" />
-                  <span className="font-medium">{formatDate(walk.startedAt)}</span>
+                  <span className="font-medium">
+                    {formatDate(walk.startedAt)}
+                  </span>
                 </div>
               </div>
 
@@ -91,7 +97,11 @@ export function WalkHistoryList() {
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Clock className="w-4 h-4" />
                   <span>
-                    {formatDuration(walk.startedAt, walk.endedAt, walk.pausedDuration)}
+                    {formatDuration(
+                      walk.startedAt,
+                      walk.endedAt,
+                      walk.pausedDuration,
+                    )}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">

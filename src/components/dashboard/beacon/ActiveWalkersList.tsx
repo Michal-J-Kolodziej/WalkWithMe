@@ -1,14 +1,14 @@
+import { formatDistanceToNow } from 'date-fns'
+import { MapPin } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { useBeacon } from '@/hooks/useBeacon'
-import { formatDistanceToNow } from 'date-fns'
-import { MapPin } from 'lucide-react'
 
 export function ActiveWalkersList() {
   const { activeWalkers } = useBeacon()
@@ -27,7 +27,8 @@ export function ActiveWalkersList() {
             Walking Now
           </span>
           <span className="text-xs text-muted-foreground">
-            {activeWalkers.length} friend{activeWalkers.length !== 1 && 's'} active
+            {activeWalkers.length} friend{activeWalkers.length !== 1 && 's'}{' '}
+            active
           </span>
         </div>
 

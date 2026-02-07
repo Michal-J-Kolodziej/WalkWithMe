@@ -1,7 +1,7 @@
 ---
 name: ui-ux
 description: AI-powered design intelligence with 50+ styles, 95+ color palettes, and automated design system generation
-argument-hint: "[product type, style keywords]"
+argument-hint: '[product type, style keywords]'
 ---
 
 # UI/UX Pro Max

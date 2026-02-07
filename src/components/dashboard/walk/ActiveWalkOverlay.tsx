@@ -4,7 +4,8 @@ import { useWalkTracker } from '../../../hooks/useWalkTracker'
 
 export function ActiveWalkOverlay() {
   const { t } = useTranslation()
-  const { status, formattedDuration, formattedDistance, dogs } = useWalkTracker()
+  const { status, formattedDuration, formattedDistance, dogs } =
+    useWalkTracker()
 
   if (status === 'idle') return null
 
@@ -21,7 +22,9 @@ export function ActiveWalkOverlay() {
             }`}
           />
           <span className="text-white/80 text-sm font-medium">
-            {status === 'tracking' ? t('walks.tracking', 'Tracking') : t('walks.paused', 'Paused')}
+            {status === 'tracking'
+              ? t('walks.tracking', 'Tracking')
+              : t('walks.paused', 'Paused')}
           </span>
         </div>
 
@@ -59,9 +62,7 @@ export function ActiveWalkOverlay() {
               />
             ))}
             {dogs.length > 3 && (
-              <span className="text-white/60 text-sm">
-                +{dogs.length - 3}
-              </span>
+              <span className="text-white/60 text-sm">+{dogs.length - 3}</span>
             )}
           </div>
         )}

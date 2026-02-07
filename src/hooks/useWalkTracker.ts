@@ -140,7 +140,7 @@ export function useWalkTracker() {
 
   // Start walk
   const startWalk = useCallback(
-    async (dogIds: Id<'dogs'>[]) => {
+    async (dogIds: Array<Id<'dogs'>>) => {
       try {
         await startWalkMutation({ dogIds })
         pauseStartRef.current = null

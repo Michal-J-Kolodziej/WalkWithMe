@@ -8,15 +8,22 @@ import { api } from '../../../../convex/_generated/api'
 
 // Simple heatmap implementation using circles
 // For production, consider using leaflet.heat for better performance
-function HeatmapLayer({ points }: { points: Array<{ latitude: number; longitude: number }> }) {
+function HeatmapLayer({
+  points,
+}: {
+  points: Array<{ latitude: number; longitude: number }>
+}) {
   const map = useMap()
 
   useEffect(() => {
     if (points.length === 0) return
 
     // Count frequency at each location (rounded to ~10m grid)
-    const frequencyMap = new Map<string, { lat: number; lng: number; count: number }>()
-    
+    const frequencyMap = new Map<
+      string,
+      { lat: number; lng: number; count: number }
+    >()
+
     for (const point of points) {
       // Round to ~10m precision
       const key = `${point.latitude.toFixed(4)},${point.longitude.toFixed(4)}`
@@ -24,7 +31,11 @@ function HeatmapLayer({ points }: { points: Array<{ latitude: number; longitude:
       if (existing) {
         existing.count++
       } else {
-        frequencyMap.set(key, { lat: point.latitude, lng: point.longitude, count: 1 })
+        frequencyMap.set(key, {
+          lat: point.latitude,
+          lng: point.longitude,
+          count: 1,
+        })
       }
     }
 
@@ -35,7 +46,7 @@ function HeatmapLayer({ points }: { points: Array<{ latitude: number; longitude:
     }
 
     // Create circle markers
-    const circles: L.Circle[] = []
+    const circles: Array<L.Circle> = []
     for (const data of frequencyMap.values()) {
       const intensity = data.count / maxCount
       const color = getHeatColor(intensity)
@@ -54,7 +65,9 @@ function HeatmapLayer({ points }: { points: Array<{ latitude: number; longitude:
 
     // Fit bounds to show all points
     if (points.length > 0) {
-      const bounds = L.latLngBounds(points.map((p) => [p.latitude, p.longitude]))
+      const bounds = L.latLngBounds(
+        points.map((p) => [p.latitude, p.longitude]),
+      )
       map.fitBounds(bounds, { padding: [50, 50] })
     }
 

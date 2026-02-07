@@ -1,7 +1,13 @@
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useMemo } from 'react'
-import { MapContainer, Marker, Polyline, TileLayer, useMap } from 'react-leaflet'
+import {
+  MapContainer,
+  Marker,
+  Polyline,
+  TileLayer,
+  useMap,
+} from 'react-leaflet'
 
 // Custom icons
 import icon from 'leaflet/dist/images/marker-icon.png'
@@ -21,12 +27,12 @@ interface RoutePoint {
 }
 
 interface WalkRouteMapProps {
-  routePoints: RoutePoint[]
+  routePoints: Array<RoutePoint>
   interactive?: boolean
 }
 
 // Component to fit map to route bounds
-function FitBounds({ points }: { points: [number, number][] }) {
+function FitBounds({ points }: { points: Array<[number, number]> }) {
   const map = useMap()
 
   if (points.length > 0) {
@@ -37,7 +43,10 @@ function FitBounds({ points }: { points: [number, number][] }) {
   return null
 }
 
-export function WalkRouteMap({ routePoints, interactive = false }: WalkRouteMapProps) {
+export function WalkRouteMap({
+  routePoints,
+  interactive = false,
+}: WalkRouteMapProps) {
   // Convert route points to Leaflet format
   const positions = useMemo(() => {
     return routePoints
@@ -46,9 +55,8 @@ export function WalkRouteMap({ routePoints, interactive = false }: WalkRouteMapP
   }, [routePoints])
 
   // Default center if no points
-  const center: [number, number] = positions.length > 0 
-    ? positions[0] 
-    : [52.2297, 21.0122] // Warsaw
+  const center: [number, number] =
+    positions.length > 0 ? positions[0] : [52.2297, 21.0122] // Warsaw
 
   if (positions.length === 0) {
     return (
@@ -86,29 +94,35 @@ export function WalkRouteMap({ routePoints, interactive = false }: WalkRouteMapP
       />
 
       {/* Start marker */}
-      <Marker position={positions[0]} icon={L.divIcon({
-        className: 'start-marker',
-        html: `
+      <Marker
+        position={positions[0]}
+        icon={L.divIcon({
+          className: 'start-marker',
+          html: `
           <div class="flex items-center justify-center">
             <div class="w-4 h-4 rounded-full bg-green-500 border-2 border-white shadow-lg"></div>
           </div>
         `,
-        iconSize: [16, 16],
-        iconAnchor: [8, 8],
-      })} />
+          iconSize: [16, 16],
+          iconAnchor: [8, 8],
+        })}
+      />
 
       {/* End marker */}
       {positions.length > 1 && (
-        <Marker position={positions[positions.length - 1]} icon={L.divIcon({
-          className: 'end-marker',
-          html: `
+        <Marker
+          position={positions[positions.length - 1]}
+          icon={L.divIcon({
+            className: 'end-marker',
+            html: `
             <div class="flex items-center justify-center">
               <div class="w-4 h-4 rounded-full bg-red-500 border-2 border-white shadow-lg"></div>
             </div>
           `,
-          iconSize: [16, 16],
-          iconAnchor: [8, 8],
-        })} />
+            iconSize: [16, 16],
+            iconAnchor: [8, 8],
+          })}
+        />
       )}
     </MapContainer>
   )

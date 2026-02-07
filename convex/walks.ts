@@ -273,7 +273,7 @@ export const listWalks = query({
 
     // Filter to completed and apply limit
     let completedWalks = walks.filter((w) => w.status === 'completed')
-    
+
     if (args.limit) {
       completedWalks = completedWalks.slice(0, args.limit)
     }
@@ -281,7 +281,8 @@ export const listWalks = query({
     return Promise.all(
       completedWalks.map(async (walk) => {
         const dogs = await Promise.all(walk.dogIds.map((id) => ctx.db.get(id)))
-        const duration = (walk.endedAt || Date.now()) - walk.startedAt - walk.pausedDuration
+        const duration =
+          (walk.endedAt || Date.now()) - walk.startedAt - walk.pausedDuration
         return { ...walk, dogs: dogs.filter(Boolean), duration }
       }),
     )
@@ -398,7 +399,12 @@ export const getAllRoutePoints = query({
         .query('walkRoutePoints')
         .withIndex('by_walk', (q) => q.eq('walkId', walkId))
         .collect()
-      allPoints.push(...points.map((p) => ({ latitude: p.latitude, longitude: p.longitude })))
+      allPoints.push(
+        ...points.map((p) => ({
+          latitude: p.latitude,
+          longitude: p.longitude,
+        })),
+      )
     }
 
     return allPoints

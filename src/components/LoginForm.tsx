@@ -15,10 +15,10 @@ export function LoginForm() {
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  
+
   // Check auth state
   const user = useQuery(api.users.current)
-  
+
   // Track if we successfully signed in and are waiting for auth session
   const [isWaitingForAuth, setIsWaitingForAuth] = useState(false)
 
@@ -50,8 +50,8 @@ export function LoginForm() {
             ),
       )
       setIsLoading(false)
-    } 
-    // Note: We don't set isLoading(false) on success because we want to keep 
+    }
+    // Note: We don't set isLoading(false) on success because we want to keep
     // the loading state while waiting for the user session + navigation
   }
 

@@ -34,14 +34,16 @@ export function MeetingWeather({
 
   // Find the closest forecast for the meeting time
   const forecast = data.forecast.reduce((prev, curr) => {
-    return Math.abs(curr.time - dateTime) < Math.abs(prev.time - dateTime) ? curr : prev
+    return Math.abs(curr.time - dateTime) < Math.abs(prev.time - dateTime)
+      ? curr
+      : prev
   })
 
   // If the meeting is more than 2 hours away from our closest forecast point,
   // we might not have reliable data (Open-Meteo 7-day forecast should cover it though)
   const diffInHours = Math.abs(forecast.time - dateTime) / (1000 * 60 * 60)
   if (diffInHours > 2) {
-      return null
+    return null
   }
 
   const { temp, icon, condition, precip } = forecast
@@ -74,9 +76,7 @@ export function MeetingWeather({
         className,
       )}
     >
-      <div className="p-2.5 bg-white/10 rounded-full text-2xl">
-        {icon}
-      </div>
+      <div className="p-2.5 bg-white/10 rounded-full text-2xl">{icon}</div>
       <div className="flex-1">
         <div className="flex items-center gap-2">
           <span className="text-2xl font-bold text-white">
@@ -94,9 +94,11 @@ export function MeetingWeather({
       </div>
 
       {temp > 25 && (
-          <div className="px-2 py-1 bg-orange-500/20 rounded-lg border border-orange-500/30">
-              <span className="text-[10px] font-bold text-orange-400 uppercase">Hot! 🐾</span>
-          </div>
+        <div className="px-2 py-1 bg-orange-500/20 rounded-lg border border-orange-500/30">
+          <span className="text-[10px] font-bold text-orange-400 uppercase">
+            Hot! 🐾
+          </span>
+        </div>
       )}
     </div>
   )

@@ -1,7 +1,7 @@
+import { Footprints } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useBeacon } from '@/hooks/useBeacon'
 import { cn } from '@/lib/utils'
-import { Footprints } from 'lucide-react'
 
 export function BeaconToggle() {
   const { isActive, toggleBeacon } = useBeacon()

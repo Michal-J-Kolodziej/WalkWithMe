@@ -1,7 +1,7 @@
 ---
 name: style-audit
 description: Audit and enforce consistent styling, spacing, typography, and glassmorphism across the entire app
-argument-hint: "[scope: full | spacing | typography | colors | glass | component-name]"
+argument-hint: '[scope: full | spacing | typography | colors | glass | component-name]'
 ---
 
 # Style Consistency Audit & Fix
@@ -32,83 +32,83 @@ These are the ground-truth values derived from `src/styles.css` and the dominant
 
 ### Spacing Scale
 
-| Context | Canonical Value | Notes |
-|---|---|---|
-| Page section spacing | `space-y-8` | Between major sections on dashboard pages |
-| Card internal padding | `p-5` (content cards), `p-6` (stat/summary cards), `p-8` (forms/modals) | Three tiers, not interchangeable |
-| Card grid gap | `gap-4` (2-col), `gap-6` (3-col) | Wider gap for wider grids |
-| Form field spacing | `space-y-6` | Within form sections (standardize on 6) |
-| Input group (label + input) | `space-y-2` | Label-to-input spacing |
-| Button gap (icon + text) | `gap-2` | Inside buttons with icons |
-| Flex row item gap | `gap-3` or `gap-4` | Between inline items |
+| Context                     | Canonical Value                                                         | Notes                                     |
+| --------------------------- | ----------------------------------------------------------------------- | ----------------------------------------- |
+| Page section spacing        | `space-y-8`                                                             | Between major sections on dashboard pages |
+| Card internal padding       | `p-5` (content cards), `p-6` (stat/summary cards), `p-8` (forms/modals) | Three tiers, not interchangeable          |
+| Card grid gap               | `gap-4` (2-col), `gap-6` (3-col)                                        | Wider gap for wider grids                 |
+| Form field spacing          | `space-y-6`                                                             | Within form sections (standardize on 6)   |
+| Input group (label + input) | `space-y-2`                                                             | Label-to-input spacing                    |
+| Button gap (icon + text)    | `gap-2`                                                                 | Inside buttons with icons                 |
+| Flex row item gap           | `gap-3` or `gap-4`                                                      | Between inline items                      |
 
 ### Typography Scale
 
-| Element | Classes | Notes |
-|---|---|---|
-| Page title (H1) | `text-3xl font-bold tracking-tight` | Always with icon (`w-8 h-8 text-primary`) |
-| Page subtitle | `text-muted-foreground mt-1` | Below H1 |
-| Section heading (H2) | `text-xl font-semibold` | Section dividers |
-| Card title (H3) | `text-lg font-semibold` | Card headers |
-| Body text | `text-sm` or `text-base` | Default content |
-| Small/meta text | `text-xs text-muted-foreground` | Timestamps, counts |
-| Badge text | `text-xs font-medium` | Inside badges/pills |
+| Element              | Classes                             | Notes                                     |
+| -------------------- | ----------------------------------- | ----------------------------------------- |
+| Page title (H1)      | `text-3xl font-bold tracking-tight` | Always with icon (`w-8 h-8 text-primary`) |
+| Page subtitle        | `text-muted-foreground mt-1`        | Below H1                                  |
+| Section heading (H2) | `text-xl font-semibold`             | Section dividers                          |
+| Card title (H3)      | `text-lg font-semibold`             | Card headers                              |
+| Body text            | `text-sm` or `text-base`            | Default content                           |
+| Small/meta text      | `text-xs text-muted-foreground`     | Timestamps, counts                        |
+| Badge text           | `text-xs font-medium`               | Inside badges/pills                       |
 
 ### Color Rules
 
-| Usage | Canonical Pattern | Anti-Pattern |
-|---|---|---|
-| Primary actions | `bg-primary text-primary-foreground` | Hard-coded `bg-orange-500` |
-| Secondary text | `text-muted-foreground` | `text-gray-500`, `text-zinc-400` |
-| Borders | `border-border` or `border-border/50` | `border-gray-200`, `border-white/10` |
-| Hover backgrounds | `hover:bg-primary/10` or `hover:bg-muted` | `hover:bg-gray-100` |
-| Active/selected state | `bg-primary/10 text-primary` | Hard-coded color pairs |
-| Destructive actions | `text-destructive`, `bg-destructive/10` | `text-red-500`, `bg-red-100` |
-| Status: success | `text-green-600`, `bg-green-500/10` | Acceptable (no semantic token exists) |
-| Status: warning | `text-amber-500`, `bg-amber-500/10` | Acceptable (no semantic token exists) |
-| Gradient pairs | `from-primary/20 to-secondary/20` | Arbitrary color pairs |
+| Usage                 | Canonical Pattern                         | Anti-Pattern                          |
+| --------------------- | ----------------------------------------- | ------------------------------------- |
+| Primary actions       | `bg-primary text-primary-foreground`      | Hard-coded `bg-orange-500`            |
+| Secondary text        | `text-muted-foreground`                   | `text-gray-500`, `text-zinc-400`      |
+| Borders               | `border-border` or `border-border/50`     | `border-gray-200`, `border-white/10`  |
+| Hover backgrounds     | `hover:bg-primary/10` or `hover:bg-muted` | `hover:bg-gray-100`                   |
+| Active/selected state | `bg-primary/10 text-primary`              | Hard-coded color pairs                |
+| Destructive actions   | `text-destructive`, `bg-destructive/10`   | `text-red-500`, `bg-red-100`          |
+| Status: success       | `text-green-600`, `bg-green-500/10`       | Acceptable (no semantic token exists) |
+| Status: warning       | `text-amber-500`, `bg-amber-500/10`       | Acceptable (no semantic token exists) |
+| Gradient pairs        | `from-primary/20 to-secondary/20`         | Arbitrary color pairs                 |
 
 ### Border Radius
 
-| Element | Canonical Value | Notes |
-|---|---|---|
-| Cards | `rounded-2xl` | Via `glass-card` class or explicit |
-| Buttons | `rounded-xl` | Via Button component |
-| Inputs | `rounded-xl` | All form inputs |
-| Modals | `rounded-2xl` | Modal containers |
-| Badges/pills | `rounded-full` | Status indicators |
-| Tab containers | `rounded-xl` | Tab bar wrapper |
-| Avatar/image | `rounded-2xl` | Profile images |
+| Element        | Canonical Value | Notes                              |
+| -------------- | --------------- | ---------------------------------- |
+| Cards          | `rounded-2xl`   | Via `glass-card` class or explicit |
+| Buttons        | `rounded-xl`    | Via Button component               |
+| Inputs         | `rounded-xl`    | All form inputs                    |
+| Modals         | `rounded-2xl`   | Modal containers                   |
+| Badges/pills   | `rounded-full`  | Status indicators                  |
+| Tab containers | `rounded-xl`    | Tab bar wrapper                    |
+| Avatar/image   | `rounded-2xl`   | Profile images                     |
 
 ### Glassmorphism Classes
 
-| Context | Class to Use | Do NOT Use |
-|---|---|---|
-| Content cards | `glass-card` (CSS class) or `<GlassCard>` component | Inline `backdrop-blur-sm bg-white/90` |
-| Sidebar | `glass-sidebar` | Inline blur + bg |
-| Modal backdrop | `bg-black/40 backdrop-blur-sm` | `bg-black/50`, `bg-black/60` |
-| Modal container | `glass-card` or `bg-card/95 backdrop-blur-xl` | Inline bg + blur combos |
+| Context         | Class to Use                                        | Do NOT Use                            |
+| --------------- | --------------------------------------------------- | ------------------------------------- |
+| Content cards   | `glass-card` (CSS class) or `<GlassCard>` component | Inline `backdrop-blur-sm bg-white/90` |
+| Sidebar         | `glass-sidebar`                                     | Inline blur + bg                      |
+| Modal backdrop  | `bg-black/40 backdrop-blur-sm`                      | `bg-black/50`, `bg-black/60`          |
+| Modal container | `glass-card` or `bg-card/95 backdrop-blur-xl`       | Inline bg + blur combos               |
 
 ### Animation Standards
 
-| Pattern | Canonical Value | Notes |
-|---|---|---|
-| Card hover lift | `hover:scale-[1.02]` | NOT `hover:scale-105` or `hover:scale-110` |
-| Button press | `active:scale-[0.98]` | Subtle press feedback |
-| Transition timing | `transition-all duration-300` | Standard interaction speed |
-| Color-only transition | `transition-colors` | No duration needed (uses default) |
-| Loading spinner | `animate-spin` on `Loader2` icon | `w-4 h-4` (inline), `w-12 h-12` (page) |
-| Focus ring | `focus:ring-2 focus:ring-primary/50` | Consistent across all inputs |
+| Pattern               | Canonical Value                      | Notes                                      |
+| --------------------- | ------------------------------------ | ------------------------------------------ |
+| Card hover lift       | `hover:scale-[1.02]`                 | NOT `hover:scale-105` or `hover:scale-110` |
+| Button press          | `active:scale-[0.98]`                | Subtle press feedback                      |
+| Transition timing     | `transition-all duration-300`        | Standard interaction speed                 |
+| Color-only transition | `transition-colors`                  | No duration needed (uses default)          |
+| Loading spinner       | `animate-spin` on `Loader2` icon     | `w-4 h-4` (inline), `w-12 h-12` (page)     |
+| Focus ring            | `focus:ring-2 focus:ring-primary/50` | Consistent across all inputs               |
 
 ### Icon Sizing
 
-| Context | Size | Example |
-|---|---|---|
-| Page title icon | `w-8 h-8` | Next to H1 heading |
-| Card stat icon | `w-6 h-6` | Inside icon wrapper |
-| Button inline icon | `w-4 h-4` | Inside `<Button>` |
-| Navigation icon | `w-5 h-5` | Sidebar nav items |
-| Small badge icon | `w-3 h-3` | Status dots |
+| Context            | Size      | Example             |
+| ------------------ | --------- | ------------------- |
+| Page title icon    | `w-8 h-8` | Next to H1 heading  |
+| Card stat icon     | `w-6 h-6` | Inside icon wrapper |
+| Button inline icon | `w-4 h-4` | Inside `<Button>`   |
+| Navigation icon    | `w-5 h-5` | Sidebar nav items   |
+| Small badge icon   | `w-3 h-3` | Status dots         |
 
 ---
 
@@ -140,7 +140,7 @@ These are the ground-truth values derived from `src/styles.css` and the dominant
    - Search for `hover:scale-` for lift effects
    - Search for `transition-` for transition property usage
 
-*Ask yourself: "Did I search both `src/components/` and `src/routes/`? Inconsistencies often hide in route files that get less attention than shared components."*
+_Ask yourself: "Did I search both `src/components/` and `src/routes/`? Inconsistencies often hide in route files that get less attention than shared components."_
 
 ## Phase 2: Deviation Analysis
 
@@ -154,9 +154,9 @@ These are the ground-truth values derived from `src/styles.css` and the dominant
 
    ### Deviations Found
 
-   | File | Line | Current Value | Canonical Value | Severity |
-   |---|---|---|---|---|
-   | src/components/X.tsx | 45 | p-4 | p-5 | minor |
+   | File                 | Line | Current Value | Canonical Value | Severity |
+   | -------------------- | ---- | ------------- | --------------- | -------- |
+   | src/components/X.tsx | 45   | p-4           | p-5             | minor    |
    ```
 
 3. **Classify severity**:
@@ -174,7 +174,7 @@ These are the ground-truth values derived from `src/styles.css` and the dominant
    - Chat page `h-[calc(100vh-8rem)] md:h-[calc(100vh-6rem)]` (intentionally custom height for chat layout)
    - `rounded-[2rem]` on DogForm modal — technically equivalent to `rounded-3xl` but written differently; normalize to `rounded-2xl` if touched
 
-*Ask yourself: "Am I marking something as a deviation that is actually correct for its context? Check the Canonical Standards table for context-specific values before flagging."*
+_Ask yourself: "Am I marking something as a deviation that is actually correct for its context? Check the Canonical Standards table for context-specific values before flagging."_
 
 ## Phase 3: Fix Planning
 
@@ -196,16 +196,19 @@ These are the ground-truth values derived from `src/styles.css` and the dominant
    ## Fix Plan
 
    ### Batch 1: Critical (Theme-Breaking)
+
    - [ ] File: path — Change X to Y (reason)
 
    ### Batch 2: Major (Visual Inconsistency)
+
    - [ ] File: path — Change X to Y (reason)
 
    ### Batch 3: Minor (Polish)
+
    - [ ] File: path — Change X to Y (reason)
    ```
 
-*Ask yourself: "Will fixing this value in a shared component cascade to places where the current value is actually correct? If yes, use `cn()` overrides at the call site instead."*
+_Ask yourself: "Will fixing this value in a shared component cascade to places where the current value is actually correct? If yes, use `cn()` overrides at the call site instead."_
 
 ## Phase 4: Apply Fixes
 
@@ -230,16 +233,16 @@ These are the ground-truth values derived from `src/styles.css` and the dominant
 
 ### Fix Rules
 
-| Rule | Do | Don't |
-|---|---|---|
-| Changing padding on cards | Change the specific card's classes | Change the `glass-card` CSS class (affects everything) |
-| Replacing colors | Use semantic tokens from `styles.css` | Introduce new hard-coded values |
-| Standardizing radius | Use the canonical value from the table | Use `rounded-[2rem]` or other arbitrary values |
-| Fixing glass patterns | Switch to the appropriate CSS class | Add more inline Tailwind blur/opacity |
-| Fixing animations | Use `hover:scale-[1.02]` | Use `hover:scale-105` or `hover:scale-110` |
-| Changing shared components | Check all consumers first | Blindly change without checking imports |
+| Rule                       | Do                                     | Don't                                                  |
+| -------------------------- | -------------------------------------- | ------------------------------------------------------ |
+| Changing padding on cards  | Change the specific card's classes     | Change the `glass-card` CSS class (affects everything) |
+| Replacing colors           | Use semantic tokens from `styles.css`  | Introduce new hard-coded values                        |
+| Standardizing radius       | Use the canonical value from the table | Use `rounded-[2rem]` or other arbitrary values         |
+| Fixing glass patterns      | Switch to the appropriate CSS class    | Add more inline Tailwind blur/opacity                  |
+| Fixing animations          | Use `hover:scale-[1.02]`               | Use `hover:scale-105` or `hover:scale-110`             |
+| Changing shared components | Check all consumers first              | Blindly change without checking imports                |
 
-*Ask yourself: "After this change, does the component still look correct in both its normal and hover/focus/active states?"*
+_Ask yourself: "After this change, does the component still look correct in both its normal and hover/focus/active states?"_
 
 ## Phase 5: Verification
 
@@ -265,7 +268,7 @@ These are the ground-truth values derived from `src/styles.css` and the dominant
 5. **Update the audit report** — Mark all fixes as complete in `STYLE_AUDIT.md`. Note any remaining intentional deviations.
 6. **Clean up** — Ask the user if they want to keep `STYLE_AUDIT.md` or delete it.
 
-*Ask yourself: "If I screenshot each page and put them side by side, do they feel like they belong to the same app?"*
+_Ask yourself: "If I screenshot each page and put them side by side, do they feel like they belong to the same app?"_
 
 ---
 
@@ -273,26 +276,26 @@ These are the ground-truth values derived from `src/styles.css` and the dominant
 
 Quick-reference patterns for the inventory scan. Run these against `src/components/` and `src/routes/`.
 
-| What to Find | Pattern | Output Mode |
-|---|---|---|
-| Padding values | `\bp-[0-9]+` | content (with file + line) |
-| Gap values | `\bgap-[0-9]+` | content |
-| Vertical rhythm | `\bspace-y-[0-9]+` | content |
-| Text sizes | `text-(xs\|sm\|base\|lg\|xl\|2xl\|3xl\|4xl)` | content |
-| Font weights | `font-(medium\|semibold\|bold)` | content |
-| Raw palette colors | `(bg\|text\|border)-(red\|blue\|green\|gray\|zinc\|slate)-\d` | content |
-| Hard-coded hex/rgba | `rgba\(\|#[0-9a-fA-F]{3,8}` | content |
-| Border radius variants | `rounded(-none\|-sm\|-md\|-lg\|-xl\|-2xl\|-3xl\|-full)?` | count |
-| Arbitrary radius | `rounded-\[` | content |
-| Inline backdrop-blur | `backdrop-blur` | files_with_matches |
-| Glass class usage | `glass(-dark\|-sidebar\|-card)?` | files_with_matches |
-| Transition durations | `duration-\d+` | content |
-| Hover scale values | `hover:scale-` | content |
-| Shadow variants | `shadow(-sm\|-md\|-lg\|-xl\|-2xl)?` | count |
-| Arbitrary shadows | `shadow-\[` | content |
-| Icon sizes (w-N h-N) | `[wh]-[3-8]\b` | content |
-| Dark mode overrides | `dark:` | content |
-| Arbitrary values | `-\[\d` | content |
+| What to Find           | Pattern                                                       | Output Mode                |
+| ---------------------- | ------------------------------------------------------------- | -------------------------- |
+| Padding values         | `\bp-[0-9]+`                                                  | content (with file + line) |
+| Gap values             | `\bgap-[0-9]+`                                                | content                    |
+| Vertical rhythm        | `\bspace-y-[0-9]+`                                            | content                    |
+| Text sizes             | `text-(xs\|sm\|base\|lg\|xl\|2xl\|3xl\|4xl)`                  | content                    |
+| Font weights           | `font-(medium\|semibold\|bold)`                               | content                    |
+| Raw palette colors     | `(bg\|text\|border)-(red\|blue\|green\|gray\|zinc\|slate)-\d` | content                    |
+| Hard-coded hex/rgba    | `rgba\(\|#[0-9a-fA-F]{3,8}`                                   | content                    |
+| Border radius variants | `rounded(-none\|-sm\|-md\|-lg\|-xl\|-2xl\|-3xl\|-full)?`      | count                      |
+| Arbitrary radius       | `rounded-\[`                                                  | content                    |
+| Inline backdrop-blur   | `backdrop-blur`                                               | files_with_matches         |
+| Glass class usage      | `glass(-dark\|-sidebar\|-card)?`                              | files_with_matches         |
+| Transition durations   | `duration-\d+`                                                | content                    |
+| Hover scale values     | `hover:scale-`                                                | content                    |
+| Shadow variants        | `shadow(-sm\|-md\|-lg\|-xl\|-2xl)?`                           | count                      |
+| Arbitrary shadows      | `shadow-\[`                                                   | content                    |
+| Icon sizes (w-N h-N)   | `[wh]-[3-8]\b`                                                | content                    |
+| Dark mode overrides    | `dark:`                                                       | content                    |
+| Arbitrary values       | `-\[\d`                                                       | content                    |
 
 ---
 
@@ -303,33 +306,38 @@ Quick-reference patterns for the inventory scan. Run these against `src/componen
 ### Phase 1: Inventory
 
 Ran padding scan on `src/components/dashboard/walk/`:
+
 - `WalkTrackerControls.tsx:23` — `p-4` (content card context)
 - `WalkHistoryList.tsx:45` — `p-6` (list items)
 - `WalkDetailsSheet.tsx:12` — `p-6` (sheet/modal)
 - `ActiveWalkOverlay.tsx:8` — `p-4` (overlay)
 
 Ran typography scan:
+
 - `WalkHistoryList.tsx:38` — `text-xl font-bold` (section heading)
 - `WalkDetailsSheet.tsx:18` — `text-lg font-semibold` (card title) — correct
 
 Ran color scan:
+
 - `WalkTrackerControls.tsx:56` — `bg-green-500` on start button — flagged
 
 ### Phase 2: Deviation Analysis
 
-| File | Line | Current | Canonical | Severity |
-|---|---|---|---|---|
-| WalkTrackerControls.tsx | 23 | `p-4` | `p-5` | major |
-| WalkHistoryList.tsx | 38 | `text-xl font-bold` | `text-xl font-semibold` | minor |
-| WalkTrackerControls.tsx | 56 | `bg-green-500` | acceptable (action button, no semantic token) | intentional |
+| File                    | Line | Current             | Canonical                                     | Severity    |
+| ----------------------- | ---- | ------------------- | --------------------------------------------- | ----------- |
+| WalkTrackerControls.tsx | 23   | `p-4`               | `p-5`                                         | major       |
+| WalkHistoryList.tsx     | 38   | `text-xl font-bold` | `text-xl font-semibold`                       | minor       |
+| WalkTrackerControls.tsx | 56   | `bg-green-500`      | acceptable (action button, no semantic token) | intentional |
 
 ### Phase 3: Fix Plan
 
 ```markdown
 ### Batch 2: Major
+
 - [ ] WalkTrackerControls.tsx:23 — Change `p-4` to `p-5` (content card canonical padding)
 
 ### Batch 3: Minor
+
 - [ ] WalkHistoryList.tsx:38 — Change `font-bold` to `font-semibold` (section headings use semibold)
 ```
 
@@ -349,18 +357,18 @@ Ran color scan:
 
 ## Anti-Patterns
 
-| Anti-Pattern | Why It Fails | Do This Instead |
-|---|---|---|
-| **Blind find-and-replace** ("change all `p-4` to `p-5`") | Breaks components where `p-4` is correct (e.g., inside a button, nested element) | Search with file context, fix individually |
-| **Changing `components/ui/` files** | These are shadcn/ui upstream components. Changes get overwritten on next `npx shadcn add` | Fix styling at the consumption site, not in the primitive |
-| **Adding new design tokens** for one-off fixes | Inflates the design system without need | Use existing tokens; if none fit, the deviation may be intentional |
-| **Fixing everything in one commit** | Impossible to bisect regressions | Fix by batch (critical → major → minor), commit after each |
-| **Ignoring responsive variants** | A component might use `p-4 md:p-6` intentionally | Preserve responsive overrides when standardizing base values |
-| **Auditing without the canonical reference** | No source of truth means fixes are arbitrary | Always check the Canonical Design Standards tables above before changing anything |
-| **Not checking the browser** | Class changes can have unexpected visual effects (margin collapse, flex shrink, overflow) | Visually verify every batch of fixes at mobile and desktop widths |
-| **Treating all deviations as bugs** | Some differences are intentional (modals have more padding, page spinners are larger) | Check the "Intentional Deviations" list in Phase 2 before flagging |
-| **Changing glassmorphism inline to CSS class without checking dark mode** | The CSS class may have different dark-mode behavior than the inline version | Verify both light and dark mode after switching to CSS classes |
-| **Skipping the re-scan after fixes** | Cannot confirm deviations were actually resolved | Re-run Phase 1 grep patterns after Phase 4 to verify |
+| Anti-Pattern                                                              | Why It Fails                                                                              | Do This Instead                                                                   |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Blind find-and-replace** ("change all `p-4` to `p-5`")                  | Breaks components where `p-4` is correct (e.g., inside a button, nested element)          | Search with file context, fix individually                                        |
+| **Changing `components/ui/` files**                                       | These are shadcn/ui upstream components. Changes get overwritten on next `npx shadcn add` | Fix styling at the consumption site, not in the primitive                         |
+| **Adding new design tokens** for one-off fixes                            | Inflates the design system without need                                                   | Use existing tokens; if none fit, the deviation may be intentional                |
+| **Fixing everything in one commit**                                       | Impossible to bisect regressions                                                          | Fix by batch (critical → major → minor), commit after each                        |
+| **Ignoring responsive variants**                                          | A component might use `p-4 md:p-6` intentionally                                          | Preserve responsive overrides when standardizing base values                      |
+| **Auditing without the canonical reference**                              | No source of truth means fixes are arbitrary                                              | Always check the Canonical Design Standards tables above before changing anything |
+| **Not checking the browser**                                              | Class changes can have unexpected visual effects (margin collapse, flex shrink, overflow) | Visually verify every batch of fixes at mobile and desktop widths                 |
+| **Treating all deviations as bugs**                                       | Some differences are intentional (modals have more padding, page spinners are larger)     | Check the "Intentional Deviations" list in Phase 2 before flagging                |
+| **Changing glassmorphism inline to CSS class without checking dark mode** | The CSS class may have different dark-mode behavior than the inline version               | Verify both light and dark mode after switching to CSS classes                    |
+| **Skipping the re-scan after fixes**                                      | Cannot confirm deviations were actually resolved                                          | Re-run Phase 1 grep patterns after Phase 4 to verify                              |
 
 ---
 

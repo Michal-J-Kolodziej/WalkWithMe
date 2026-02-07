@@ -57,9 +57,9 @@ export const addReview = mutation({
 export const listSpots = query({
   args: {},
   handler: async (ctx) => {
-    // Return all spots for now. 
+    // Return all spots for now.
     // In a real app with many spots, we'd use geospatial indexing or bounding box filtering.
-    // Convex doesn't have native geo-spatial queries yet, so we fetch all (assuming small scale) 
+    // Convex doesn't have native geo-spatial queries yet, so we fetch all (assuming small scale)
     // or we would filter in-memory if the dataset was medium-sized.
     return await ctx.db.query('spots').collect()
   },
