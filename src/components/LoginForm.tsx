@@ -67,7 +67,7 @@ export function LoginForm() {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg transition-transform duration-200 group-hover:scale-105">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg transition-transform duration-200 group-hover:scale-[1.02]">
               <PawPrint className="h-6 w-6" />
             </div>
             <span className="text-2xl font-bold tracking-tight text-foreground">
@@ -77,7 +77,7 @@ export function LoginForm() {
         </div>
 
         {/* Card */}
-        <div className="bg-card rounded-3xl shadow-xl border border-border/50 p-8 backdrop-blur-sm">
+        <div className="bg-card rounded-2xl shadow-xl border border-border/50 p-8 backdrop-blur-sm">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-foreground mb-2">
               {t('auth.loginTitle')}

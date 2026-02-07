@@ -109,7 +109,7 @@ export function DashboardLayout({
             {/* Logo */}
             <div className="flex items-center justify-between mb-8">
               <Link to="/" className="flex items-center gap-3 group">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-transform group-hover:scale-105">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md transition-transform group-hover:scale-[1.02]">
                   <PawPrint className="h-5 w-5" />
                 </div>
                 {!collapsed && (

@@ -17,7 +17,7 @@ export function ActiveWalkersList() {
 
   return (
     <Card className="mb-6 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border-green-500/20">
-      <CardContent className="p-4 flex items-center gap-4 overflow-x-auto">
+      <CardContent className="p-5 flex items-center gap-4 overflow-x-auto">
         <div className="flex flex-col min-w-fit">
           <span className="font-semibold flex items-center gap-2 text-green-600 dark:text-green-400">
             <span className="relative flex h-3 w-3">

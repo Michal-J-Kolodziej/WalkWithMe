@@ -93,7 +93,7 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
       />
 
       {/* Modal */}
-      <div className="relative glass-card rounded-2xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
+      <div className="relative glass-card rounded-2xl p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold">Create Meeting</h2>
@@ -105,7 +105,7 @@ export function CreateMeetingModal({ onClose }: CreateMeetingModalProps) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Title */}
           <div>
             <label className="block text-sm font-medium mb-2">

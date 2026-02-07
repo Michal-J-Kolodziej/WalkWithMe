@@ -92,7 +92,7 @@ export function SendRequestModal({
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Message (Optional) */}
           <div className="space-y-2">
             <label htmlFor="message" className="text-sm font-medium">
