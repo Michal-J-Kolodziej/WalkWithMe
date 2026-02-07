@@ -108,7 +108,7 @@ export function WeatherWidget() {
           {forecast.slice(0, 6).map((h, i) => (
             <div
               key={i}
-              className="flex flex-col items-center gap-1 min-w-[36px]"
+              className="flex flex-col items-center gap-1 min-w-[48px] px-1"
             >
               <span className="text-[9px] text-white/30">
                 {new Date(h.time).getHours()}:00

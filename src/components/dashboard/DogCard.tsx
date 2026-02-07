@@ -3,8 +3,8 @@ import { Loader2, PawPrint, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import { Button } from '../ui/Button'
 import type { Id } from '../../../convex/_generated/dataModel'
+import { Button } from '../ui/Button'
 
 interface DogData {
   _id: Id<'dogs'>
@@ -116,11 +116,7 @@ export function DogCard({ dog, onEdit }: DogCardProps) {
             <h3 className="font-semibold text-lg truncate">{dog.name}</h3>
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
               <PawPrint className="w-3 h-3" />
-              {dog.age}{' '}
-              {t('dogs.ageYears', { count: dog.age })
-                .split(' ')
-                .slice(-2)
-                .join(' ')}
+              {t('dogs.ageYears', { count: dog.age })}
             </div>
           </div>
           <p className="text-sm text-muted-foreground">{dog.breed}</p>

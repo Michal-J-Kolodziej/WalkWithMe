@@ -72,9 +72,12 @@ function ProfilePage() {
                   <PawPrint className="w-4 h-4" />
                   {t('profile.dogOwner')}
                 </span>
+                {user.bio && (
+                  <p className="text-muted-foreground mt-2">{user.bio}</p>
+                )}
               </div>
 
-              <div className="space-y-2 text-muted-foreground">
+              <div className="space-y-2 text-muted-foreground pt-2 border-t border-border/50">
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4" />
                   <span>{user.email || t('settings.notSet')}</span>

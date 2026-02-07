@@ -1,13 +1,14 @@
 import { Link } from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
 import {
-  Calendar,
-  Clock,
-  Dog,
-  Footprints,
-  Plus,
-  Search,
-  Users,
+    Calendar,
+    Clock,
+    Dog,
+    Footprints,
+    MapPin,
+    Plus,
+    Search,
+    Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +21,7 @@ import { AddDogForm } from './DogForm'
 import { WeatherWidget } from './WeatherWidget'
 
 function formatDuration(ms: number): string {
+  if (!ms || isNaN(ms)) return '0m'
   const hours = Math.floor(ms / (1000 * 60 * 60))
   const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60))
   if (hours > 0) {
