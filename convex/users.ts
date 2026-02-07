@@ -1,6 +1,6 @@
-import { getAuthUserId } from '@convex-dev/auth/server'
 import { v } from 'convex/values'
 import { mutation, query } from './_generated/server'
+import { getAuthUserId, getOrCreateUser } from './authHelpers'
 
 export const current = query({
   args: {},
@@ -10,6 +10,14 @@ export const current = query({
       return null
     }
     return await ctx.db.get(userId)
+  },
+})
+
+// Mutation to get or create user - called after OAuth login
+export const getOrCreate = mutation({
+  args: {},
+  handler: async (ctx) => {
+    return await getOrCreateUser(ctx)
   },
 })
 

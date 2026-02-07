@@ -1,6 +1,6 @@
-import { getAuthUserId } from '@convex-dev/auth/server'
 import { v } from 'convex/values'
 import { mutation, query } from './_generated/server'
+import { getAuthUserId } from './authHelpers'
 
 /**
  * List all conversations for the current user with last message preview

@@ -12,9 +12,8 @@
     "check": "prettier --write . && eslint --fix"
   },
   "dependencies": {
-    "@auth/core": "0.37.0",
-    "@convex-dev/auth": "^0.0.90",
     "@convex-dev/react-query": "0.1.0",
+    "@convex-dev/workos": "^0.0.1",
     "@faker-js/faker": "^10.0.0",
     "@radix-ui/react-avatar": "^1.1.11",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -41,6 +40,7 @@
     "@tanstack/router-plugin": "^1.132.0",
     "@tanstack/store": "^0.8.0",
     "@types/leaflet": "^1.9.21",
+    "@workos-inc/authkit-react": "^0.16.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "convex": "^1.27.3",

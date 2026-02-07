@@ -1,12 +1,12 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
-  ArrowRight,
-  Calendar,
-  Loader2,
-  MapPin,
-  Sparkles,
-  UserCircle,
+    ArrowRight,
+    Calendar,
+    Loader2,
+    MapPin,
+    Sparkles,
+    UserCircle,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -66,7 +66,7 @@ export function CompleteProfileForm() {
     )
   }
 
-  // If user is null (not authenticated), show error with option to go back
+  // If user is null (not authenticated), show error with option to sign in
   if (user === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background px-4">
@@ -80,18 +80,13 @@ export function CompleteProfileForm() {
           <p className="text-muted-foreground">
             {t(
               'completeProfile.sessionExpiredDesc',
-              'Your authentication session could not be verified. Please log in again to complete your profile.',
+              'Your authentication session could not be verified. Please sign in again to complete your profile.',
             )}
           </p>
           <div className="flex gap-4 justify-center">
-            <Link to="/login">
-              <Button variant="default">
-                {t('completeProfile.goToLogin', 'Go to Login')}
-              </Button>
-            </Link>
-            <Link to="/register">
+            <Link to="/">
               <Button variant="outline">
-                {t('completeProfile.registerAgain', 'Register Again')}
+                {t('common.goHome', 'Go Home')}
               </Button>
             </Link>
           </div>
@@ -99,6 +94,7 @@ export function CompleteProfileForm() {
       </div>
     )
   }
+
 
   // User is authenticated, show the form
   return (

@@ -1,5 +1,5 @@
-import { useAuthActions } from '@convex-dev/auth/react'
 import { Link } from '@tanstack/react-router'
+import { useAuth } from '@workos-inc/authkit-react'
 import { useConvexAuth, useQuery } from 'convex/react'
 import { Loader2, Menu, PawPrint, X } from 'lucide-react'
 import { useState } from 'react'
@@ -12,7 +12,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const { isAuthenticated, isLoading } = useConvexAuth()
   const user = useQuery(api.users.current)
-  const { signOut } = useAuthActions()
+  const { signIn, signOut } = useAuth()
 
   // Note: We use useConvexAuth for the primary auth state check
   // as it updates immediately upon token changes, whereas useQuery
@@ -62,26 +62,27 @@ export function Navbar() {
       )
     }
 
-    // Not authenticated
+    // Not authenticated - use WorkOS AuthKit signIn
     return (
       <>
-        <Link to="/login">
-          <Button
-            variant="ghost"
-            className={
-              isMobile
-                ? 'w-full justify-start'
-                : 'text-muted-foreground hover:text-foreground'
-            }
-          >
-            {t('auth.signIn')}
-          </Button>
-        </Link>
-        <Link to="/register">
-          <Button variant="default" className={isMobile ? 'w-full' : ''}>
-            {t('landing.getStarted')}
-          </Button>
-        </Link>
+        <Button
+          variant="ghost"
+          className={
+            isMobile
+              ? 'w-full justify-start'
+              : 'text-muted-foreground hover:text-foreground'
+          }
+          onClick={() => signIn()}
+        >
+          {t('auth.signIn')}
+        </Button>
+        <Button
+          variant="default"
+          className={isMobile ? 'w-full' : ''}
+          onClick={() => signIn()}
+        >
+          {t('landing.getStarted')}
+        </Button>
       </>
     )
   }

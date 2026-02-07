@@ -8,7 +8,7 @@
  * @module
  */
 
-import type * as auth from "../auth.js";
+import type * as authHelpers from "../authHelpers.js";
 import type * as beacon from "../beacon.js";
 import type * as conversations from "../conversations.js";
 import type * as discover from "../discover.js";
@@ -33,7 +33,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
-  auth: typeof auth;
+  authHelpers: typeof authHelpers;
   beacon: typeof beacon;
   conversations: typeof conversations;
   discover: typeof discover;

@@ -1,8 +1,7 @@
 import { httpRouter } from 'convex/server'
-import { auth } from './auth'
 
 const http = httpRouter()
 
-auth.addHttpRoutes(http)
+// Auth routes are now handled by WorkOS AuthKit on the client side
 
 export default http

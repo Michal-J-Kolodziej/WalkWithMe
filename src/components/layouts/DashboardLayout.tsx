@@ -1,28 +1,27 @@
-import { useAuthActions } from '@convex-dev/auth/react'
 import { Link, useLocation } from '@tanstack/react-router'
 import {
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-  Dog,
-  Footprints,
-  Home,
-  LogOut,
-  MapPin,
-  Menu,
-  MessageSquare,
-  PawPrint,
-  Search,
-  Settings,
-  User,
-  Users,
-  X,
+    Calendar,
+    ChevronLeft,
+    ChevronRight,
+    Dog,
+    Footprints,
+    Home,
+    LogOut,
+    MapPin,
+    Menu,
+    MessageSquare,
+    PawPrint,
+    Search,
+    Settings,
+    User,
+    Users,
+    X,
 } from 'lucide-react'
+import type { ReactNode } from 'react'
 import { createContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocationTracker } from '../../hooks/useLocationTracker'
 import { BeaconToggle } from '../dashboard/beacon/BeaconToggle'
-import type { ReactNode } from 'react'
 
 export const DashboardContext = createContext<{
   setMobileOpen: (open: boolean) => void
@@ -73,7 +72,7 @@ export function DashboardLayout({
   const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const { signOut } = useAuthActions()
+  const { signOut } = useAuth()
   const location = useLocation()
 
   const handleSignOut = async () => {
