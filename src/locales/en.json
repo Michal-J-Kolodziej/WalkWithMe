@@ -45,6 +45,7 @@
     "profile": "Profile",
     "settings": "Settings",
     "map": "Dog Spots",
+    "walks": "My Walks",
     "signOut": "Sign Out"
   },
   "dashboard": {
@@ -316,5 +317,30 @@
     "precipChance": "{{chance}}% chance of rain",
     "hotPavement": "Hot Pavement Warning! 🐾",
     "hotPavementDesc": "Temperature is above 25°C. Pavement might be too hot for paws. Check with your hand before walking!"
+  },
+  "walks": {
+    "title": "Walk History",
+    "subtitle": "Track your walks and see your progress",
+    "startWalk": "Start Walk",
+    "endWalk": "End Walk",
+    "pause": "Pause",
+    "resume": "Resume",
+    "duration": "Duration",
+    "distance": "Distance",
+    "noWalks": "No walks recorded yet",
+    "noWalksDesc": "Start tracking your walks to see your history here.",
+    "weeklyStats": "Last week you walked {{distance}}!",
+    "tabHistory": "History",
+    "tabHeatmap": "Heatmap",
+    "confirmEnd": "End this walk?",
+    "selectDogs": "Select dogs for this walk",
+    "viewDetails": "Walk Details",
+    "deleteConfirm": "Delete this walk?",
+    "dogsOnWalk": "Dogs on this walk",
+    "totalWalks": "Total Walks",
+    "totalDistance": "Total Distance",
+    "totalTime": "Total Time",
+    "tracking": "Tracking",
+    "paused": "Paused"
   }
 }

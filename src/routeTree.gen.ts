@@ -20,6 +20,7 @@ import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-qu
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as DemoStoreRouteImport } from './routes/demo/store'
 import { Route as DemoConvexRouteImport } from './routes/demo/convex'
+import { Route as DashboardWalksRouteImport } from './routes/dashboard/walks'
 import { Route as DashboardSettingsRouteImport } from './routes/dashboard/settings'
 import { Route as DashboardProfileRouteImport } from './routes/dashboard/profile'
 import { Route as DashboardMeetingsRouteImport } from './routes/dashboard/meetings'
@@ -28,6 +29,7 @@ import { Route as DashboardFriendsRouteImport } from './routes/dashboard/friends
 import { Route as DashboardDogsRouteImport } from './routes/dashboard/dogs'
 import { Route as DashboardDiscoverRouteImport } from './routes/dashboard/discover'
 import { Route as DashboardChatRouteImport } from './routes/dashboard/chat'
+import { Route as DashboardWalksIndexRouteImport } from './routes/dashboard/walks.index'
 import { Route as DashboardMeetingsIndexRouteImport } from './routes/dashboard/meetings.index'
 import { Route as DashboardChatIndexRouteImport } from './routes/dashboard/chat.index'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
@@ -98,6 +100,11 @@ const DemoConvexRoute = DemoConvexRouteImport.update({
   path: '/demo/convex',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardWalksRoute = DashboardWalksRouteImport.update({
+  id: '/walks',
+  path: '/walks',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -137,6 +144,11 @@ const DashboardChatRoute = DashboardChatRouteImport.update({
   id: '/chat',
   path: '/chat',
   getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardWalksIndexRoute = DashboardWalksIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardWalksRoute,
 } as any)
 const DashboardMeetingsIndexRoute = DashboardMeetingsIndexRouteImport.update({
   id: '/',
@@ -226,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/meetings': typeof DashboardMeetingsRouteWithChildren
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/walks': typeof DashboardWalksRouteWithChildren
   '/demo/convex': typeof DemoConvexRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
@@ -241,6 +254,7 @@ export interface FileRoutesByFullPath {
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/dashboard/chat/': typeof DashboardChatIndexRoute
   '/dashboard/meetings/': typeof DashboardMeetingsIndexRoute
+  '/dashboard/walks/': typeof DashboardWalksIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -273,6 +287,7 @@ export interface FileRoutesByTo {
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/dashboard/chat': typeof DashboardChatIndexRoute
   '/dashboard/meetings': typeof DashboardMeetingsIndexRoute
+  '/dashboard/walks': typeof DashboardWalksIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -294,6 +309,7 @@ export interface FileRoutesById {
   '/dashboard/meetings': typeof DashboardMeetingsRouteWithChildren
   '/dashboard/profile': typeof DashboardProfileRoute
   '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/walks': typeof DashboardWalksRouteWithChildren
   '/demo/convex': typeof DemoConvexRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/table': typeof DemoTableRoute
@@ -309,6 +325,7 @@ export interface FileRoutesById {
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/dashboard/chat/': typeof DashboardChatIndexRoute
   '/dashboard/meetings/': typeof DashboardMeetingsIndexRoute
+  '/dashboard/walks/': typeof DashboardWalksIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -331,6 +348,7 @@ export interface FileRouteTypes {
     | '/dashboard/meetings'
     | '/dashboard/profile'
     | '/dashboard/settings'
+    | '/dashboard/walks'
     | '/demo/convex'
     | '/demo/store'
     | '/demo/table'
@@ -346,6 +364,7 @@ export interface FileRouteTypes {
     | '/demo/start/server-funcs'
     | '/dashboard/chat/'
     | '/dashboard/meetings/'
+    | '/dashboard/walks/'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -378,6 +397,7 @@ export interface FileRouteTypes {
     | '/demo/start/server-funcs'
     | '/dashboard/chat'
     | '/dashboard/meetings'
+    | '/dashboard/walks'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -398,6 +418,7 @@ export interface FileRouteTypes {
     | '/dashboard/meetings'
     | '/dashboard/profile'
     | '/dashboard/settings'
+    | '/dashboard/walks'
     | '/demo/convex'
     | '/demo/store'
     | '/demo/table'
@@ -413,6 +434,7 @@ export interface FileRouteTypes {
     | '/demo/start/server-funcs'
     | '/dashboard/chat/'
     | '/dashboard/meetings/'
+    | '/dashboard/walks/'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -521,6 +543,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoConvexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/walks': {
+      id: '/dashboard/walks'
+      path: '/walks'
+      fullPath: '/dashboard/walks'
+      preLoaderRoute: typeof DashboardWalksRouteImport
+      parentRoute: typeof DashboardRoute
+    }
     '/dashboard/settings': {
       id: '/dashboard/settings'
       path: '/settings'
@@ -576,6 +605,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard/chat'
       preLoaderRoute: typeof DashboardChatRouteImport
       parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/walks/': {
+      id: '/dashboard/walks/'
+      path: '/'
+      fullPath: '/dashboard/walks/'
+      preLoaderRoute: typeof DashboardWalksIndexRouteImport
+      parentRoute: typeof DashboardWalksRoute
     }
     '/dashboard/meetings/': {
       id: '/dashboard/meetings/'
@@ -705,6 +741,18 @@ const DashboardMeetingsRouteChildren: DashboardMeetingsRouteChildren = {
 const DashboardMeetingsRouteWithChildren =
   DashboardMeetingsRoute._addFileChildren(DashboardMeetingsRouteChildren)
 
+interface DashboardWalksRouteChildren {
+  DashboardWalksIndexRoute: typeof DashboardWalksIndexRoute
+}
+
+const DashboardWalksRouteChildren: DashboardWalksRouteChildren = {
+  DashboardWalksIndexRoute: DashboardWalksIndexRoute,
+}
+
+const DashboardWalksRouteWithChildren = DashboardWalksRoute._addFileChildren(
+  DashboardWalksRouteChildren,
+)
+
 interface DashboardRouteChildren {
   DashboardChatRoute: typeof DashboardChatRouteWithChildren
   DashboardDiscoverRoute: typeof DashboardDiscoverRoute
@@ -714,6 +762,7 @@ interface DashboardRouteChildren {
   DashboardMeetingsRoute: typeof DashboardMeetingsRouteWithChildren
   DashboardProfileRoute: typeof DashboardProfileRoute
   DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardWalksRoute: typeof DashboardWalksRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
@@ -726,6 +775,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardMeetingsRoute: DashboardMeetingsRouteWithChildren,
   DashboardProfileRoute: DashboardProfileRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardWalksRoute: DashboardWalksRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

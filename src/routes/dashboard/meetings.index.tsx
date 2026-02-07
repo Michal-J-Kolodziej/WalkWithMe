@@ -23,6 +23,7 @@ import {
     GlassCard,
 } from '../../components/dashboard/DashboardWidgets'
 import { MeetingInvitationCard } from '../../components/dashboard/MeetingInvitationCard'
+import { MeetingWeather } from '../../components/dashboard/MeetingWeather'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
 
 type TabType = 'upcoming' | 'past' | 'invitations'

@@ -23,6 +23,7 @@ import type * as messages from "../messages.js";
 import type * as spots from "../spots.js";
 import type * as todos from "../todos.js";
 import type * as users from "../users.js";
+import type * as walks from "../walks.js";
 import type * as weather from "../weather.js";
 
 import type {
@@ -47,6 +48,7 @@ declare const fullApi: ApiFromModules<{
   spots: typeof spots;
   todos: typeof todos;
   users: typeof users;
+  walks: typeof walks;
   weather: typeof weather;
 }>;
 

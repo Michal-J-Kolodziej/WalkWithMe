@@ -12,6 +12,7 @@ function MapPage() {
   const user = useQuery(api.users.current)
   
   // Wait for user to be loaded or handled by layout
+  // Note: WalkTrackerControls and ActiveWalkOverlay are already included in SpotsMap
   
   return (
     <DashboardLayout user={user ?? null} immersive>
@@ -21,3 +22,4 @@ function MapPage() {
     </DashboardLayout>
   )
 }
+

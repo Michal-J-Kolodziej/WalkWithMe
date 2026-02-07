@@ -8,12 +8,15 @@ import {
 import { useBeacon } from '@/hooks/useBeacon'
 import { useLocationTracker } from '@/hooks/useLocationTracker'
 import { useSpots } from '@/hooks/useSpots'
+import { useWalkTracker } from '@/hooks/useWalkTracker'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Locate, Plus } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet'
+import { MapContainer, Marker, Polyline, Popup, TileLayer, useMap, useMapEvents } from 'react-leaflet'
 import { Id } from '../../../../convex/_generated/dataModel'
+import { ActiveWalkOverlay } from '../walk/ActiveWalkOverlay'
+import { WalkTrackerControls } from '../walk/WalkTrackerControls'
 import { AddSpotModal } from './AddSpotModal'
 import { BeaconMarker } from './BeaconMarker'
 import { FloatingMapHeader } from './FloatingMapHeader'
@@ -50,6 +53,7 @@ export function SpotsMap() {
 
   const { activeWalkers } = useBeacon()
   const userLocation = useLocationTracker()
+  const { status: walkStatus, routePoints } = useWalkTracker()
 
   // Center map on Warsaw by default, or user location if available (can be enhanced)
   const defaultCenter = { lat: 52.2297, lng: 21.0122 }
@@ -124,6 +128,9 @@ export function SpotsMap() {
     <div className="relative h-full w-full overflow-hidden border border-border shadow-sm z-0">
       <FloatingMapHeader onSearch={setSearchTerm} />
 
+      {/* Active Walk Overlay */}
+      <ActiveWalkOverlay />
+
       {/* Horizontal Filter Bar */}
       <div className="absolute top-20 left-0 right-0 z-[5] px-4 overflow-x-auto no-scrollbar">
         <div className="mx-auto max-w-md w-full flex gap-2 pb-2">
@@ -192,6 +199,11 @@ export function SpotsMap() {
         </TooltipProvider>
       </div>
 
+      {/* Walk Tracker Controls */}
+      <div className="absolute bottom-24 left-6 z-[5]">
+        <WalkTrackerControls compact />
+      </div>
+
       <MapContainer center={defaultCenter} zoom={13} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -221,6 +233,19 @@ export function SpotsMap() {
         )}
 
         {/* Active Walker Beacons */}
+        {/* Live Walk Route */}
+        {walkStatus !== 'idle' && routePoints.length > 1 && (
+          <Polyline
+            positions={routePoints.map((p) => [p.lat, p.lng] as [number, number])}
+            pathOptions={{
+              color: '#22c55e',
+              weight: 4,
+              opacity: 0.8,
+              dashArray: walkStatus === 'paused' ? '10, 10' : undefined,
+            }}
+          />
+        )}
+
         {activeWalkers.map((walker) => (
           <BeaconMarker key={walker._id} walker={walker} />
         ))}

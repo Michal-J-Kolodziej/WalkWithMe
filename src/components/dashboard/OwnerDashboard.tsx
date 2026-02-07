@@ -7,7 +7,7 @@ import {
     Footprints,
     Plus,
     Search,
-    Users,
+    Users
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -18,6 +18,22 @@ import { EmptyState, GlassCard, StatCard } from './DashboardWidgets'
 import { DogCard } from './DogCard'
 import { AddDogForm } from './DogForm'
 import { WeatherWidget } from './WeatherWidget'
+
+function formatDuration(ms: number): string {
+  const hours = Math.floor(ms / (1000 * 60 * 60))
+  const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60))
+  if (hours > 0) {
+    return `${hours}h ${minutes}m`
+  }
+  return `${minutes}m`
+}
+
+function formatDistance(meters: number): string {
+  if (meters >= 1000) {
+    return `${(meters / 1000).toFixed(1)} km`
+  }
+  return `${Math.round(meters)} m`
+}
 
 interface OwnerDashboardProps {
   user: {
@@ -32,6 +48,8 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
   const dogs = useQuery(api.dogs.listByOwner)
   const friendCount = useQuery(api.friendships.count)
   const pendingRequests = useQuery(api.friendRequests.countPending)
+  const walkStats = useQuery(api.walks.getWalkStats)
+  const recentWalks = useQuery(api.walks.listWalks, { limit: 3 })
   const [isAddFormOpen, setIsAddFormOpen] = useState(false)
 
   const hasDogs = dogs && dogs.length > 0
@@ -88,12 +106,14 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
             }
           />
         </Link>
-        <StatCard
-          icon={Clock}
-          label={t('dashboard.statsTotalWalkTime')}
-          value={`0 ${t('dashboard.hours')}`}
-          iconColor="text-amber-500"
-        />
+        <Link to="/dashboard/walks">
+          <StatCard
+            icon={Clock}
+            label={t('dashboard.statsTotalWalkTime')}
+            value={walkStats ? formatDuration(walkStats.totalDuration) : `0 ${t('dashboard.hours')}`}
+            iconColor="text-amber-500"
+          />
+        </Link>
         <StatCard
           icon={Calendar}
           label={t('dashboard.statsUpcoming')}
@@ -162,17 +182,63 @@ export function OwnerDashboard({ user }: OwnerDashboardProps) {
 
         {/* Activity Feed - 1 column */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold">
-            {t('dashboard.recentActivity')}
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold">
+              {t('dashboard.recentActivity')}
+            </h2>
+            <Link to="/dashboard/walks">
+              <Button variant="ghost" size="sm" className="text-primary">
+                {t('walks.viewDetails')}
+              </Button>
+            </Link>
+          </div>
 
-          <GlassCard hover={false}>
-            <EmptyState
-              icon={Footprints}
-              title={t('dashboard.noWalks')}
-              description={t('dashboard.noWalksDesc')}
-            />
-          </GlassCard>
+          {recentWalks && recentWalks.length > 0 ? (
+            <div className="space-y-3">
+              {recentWalks.map((walk) => (
+                <Link key={walk._id} to="/dashboard/walks">
+                  <GlassCard className="hover:border-primary/30 transition-colors">
+                    <div className="flex items-center gap-4">
+                      <div className="p-2 rounded-xl bg-primary/10">
+                        <Footprints className="w-5 h-5 text-primary" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-medium text-sm">
+                          {new Date(walk.startedAt).toLocaleDateString()}
+                        </p>
+                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {formatDuration(walk.duration)}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {formatDistance(walk.distanceMeters)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </GlassCard>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <GlassCard hover={false}>
+              <EmptyState
+                icon={Footprints}
+                title={t('dashboard.noWalks')}
+                description={t('dashboard.noWalksDesc')}
+                action={
+                  <Link to="/dashboard/walks">
+                    <Button variant="outline" className="gap-2 cursor-pointer">
+                      <Footprints className="w-4 h-4" />
+                      {t('walks.startWalk')}
+                    </Button>
+                  </Link>
+                }
+              />
+            </GlassCard>
+          )}
 
           {/* Upcoming Events */}
           <h2 className="text-xl font-semibold">

@@ -160,4 +160,25 @@ export default defineSchema({
   })
     .index('by_spot', ['spotId'])
     .index('by_user', ['userId']),
+  // Walk session tracking
+  walks: defineTable({
+    userId: v.id('users'),
+    dogIds: v.array(v.id('dogs')), // Dogs on this walk
+    status: v.string(), // 'active' | 'paused' | 'completed'
+    startedAt: v.number(),
+    endedAt: v.optional(v.number()),
+    pausedDuration: v.number(), // Total ms spent paused
+    distanceMeters: v.number(), // Calculated distance
+  })
+    .index('by_user', ['userId'])
+    .index('by_user_status', ['userId', 'status'])
+    .index('by_started', ['startedAt']),
+  // GPS route points for walks
+  walkRoutePoints: defineTable({
+    walkId: v.id('walks'),
+    latitude: v.number(),
+    longitude: v.number(),
+    timestamp: v.number(),
+    accuracy: v.optional(v.number()),
+  }).index('by_walk', ['walkId', 'timestamp']),
 })

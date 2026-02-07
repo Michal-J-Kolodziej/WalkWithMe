@@ -61,6 +61,7 @@
     "profile": "Profil",
     "settings": "Ustawienia",
     "map": "Psie Miejscówki",
+    "walks": "Moje Spacery",
     "signOut": "Wyloguj się"
   },
   "dashboard": {
@@ -312,5 +313,30 @@
     "copyright": "© {{year}} WalkWithMe. Wszelkie prawa zastrzeżone.",
     "privacy": "Prywatność",
     "terms": "Regulamin"
+  },
+  "walks": {
+    "title": "Historia Spacerów",
+    "subtitle": "Śledź swoje spacery i postępy",
+    "startWalk": "Rozpocznij Spacer",
+    "endWalk": "Zakończ Spacer",
+    "pause": "Pauza",
+    "resume": "Wznów",
+    "duration": "Czas trwania",
+    "distance": "Dystans",
+    "noWalks": "Brak zarejestrowanych spacerów",
+    "noWalksDesc": "Zacznij śledzić spacery, aby zobaczyć historię tutaj.",
+    "weeklyStats": "W zeszłym tygodniu przeszedłeś {{distance}}!",
+    "tabHistory": "Historia",
+    "tabHeatmap": "Mapa ciepła",
+    "confirmEnd": "Zakończyć ten spacer?",
+    "selectDogs": "Wybierz psy na ten spacer",
+    "viewDetails": "Szczegóły Spaceru",
+    "deleteConfirm": "Usunąć ten spacer?",
+    "dogsOnWalk": "Psy na tym spacerze",
+    "totalWalks": "Wszystkie Spacery",
+    "totalDistance": "Całkowity Dystans",
+    "totalTime": "Całkowity Czas",
+    "tracking": "Śledzenie",
+    "paused": "Wstrzymany"
   }
 }

@@ -5,6 +5,7 @@ import {
     ChevronLeft,
     ChevronRight,
     Dog,
+    Footprints,
     Home,
     LogOut,
     MapPin,
@@ -59,6 +60,7 @@ const navItems: Array<NavItem> = [
   { icon: Calendar, labelKey: 'nav.meetings', href: '/dashboard/meetings' },
   { icon: Search, labelKey: 'nav.discover', href: '/dashboard/discover' },
   { icon: MapPin, labelKey: 'nav.map', href: '/dashboard/map' },
+  { icon: Footprints, labelKey: 'nav.walks', href: '/dashboard/walks' },
   { icon: User, labelKey: 'nav.profile', href: '/dashboard/profile' },
   { icon: Settings, labelKey: 'nav.settings', href: '/dashboard/settings' },
 ]
