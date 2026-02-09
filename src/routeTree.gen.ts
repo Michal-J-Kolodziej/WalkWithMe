@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CompleteProfileRouteImport } from './routes/complete-profile'
 import { Route as CallbackRouteImport } from './routes/callback'
@@ -43,6 +44,11 @@ import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
 import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -216,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/callback': typeof CallbackRoute
   '/complete-profile': typeof CompleteProfileRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/login': typeof LoginRoute
   '/dashboard/chat': typeof DashboardChatRouteWithChildren
   '/dashboard/discover': typeof DashboardDiscoverRoute
   '/dashboard/dogs': typeof DashboardDogsRoute
@@ -250,6 +257,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/callback': typeof CallbackRoute
   '/complete-profile': typeof CompleteProfileRoute
+  '/login': typeof LoginRoute
   '/dashboard/discover': typeof DashboardDiscoverRoute
   '/dashboard/dogs': typeof DashboardDogsRoute
   '/dashboard/friends': typeof DashboardFriendsRoute
@@ -283,6 +291,7 @@ export interface FileRoutesById {
   '/callback': typeof CallbackRoute
   '/complete-profile': typeof CompleteProfileRoute
   '/dashboard': typeof DashboardRouteWithChildren
+  '/login': typeof LoginRoute
   '/dashboard/chat': typeof DashboardChatRouteWithChildren
   '/dashboard/discover': typeof DashboardDiscoverRoute
   '/dashboard/dogs': typeof DashboardDogsRoute
@@ -320,6 +329,7 @@ export interface FileRouteTypes {
     | '/callback'
     | '/complete-profile'
     | '/dashboard'
+    | '/login'
     | '/dashboard/chat'
     | '/dashboard/discover'
     | '/dashboard/dogs'
@@ -354,6 +364,7 @@ export interface FileRouteTypes {
     | '/'
     | '/callback'
     | '/complete-profile'
+    | '/login'
     | '/dashboard/discover'
     | '/dashboard/dogs'
     | '/dashboard/friends'
@@ -386,6 +397,7 @@ export interface FileRouteTypes {
     | '/callback'
     | '/complete-profile'
     | '/dashboard'
+    | '/login'
     | '/dashboard/chat'
     | '/dashboard/discover'
     | '/dashboard/dogs'
@@ -422,6 +434,7 @@ export interface RootRouteChildren {
   CallbackRoute: typeof CallbackRoute
   CompleteProfileRoute: typeof CompleteProfileRoute
   DashboardRoute: typeof DashboardRouteWithChildren
+  LoginRoute: typeof LoginRoute
   DemoConvexRoute: typeof DemoConvexRoute
   DemoStoreRoute: typeof DemoStoreRoute
   DemoTableRoute: typeof DemoTableRoute
@@ -440,6 +453,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -748,6 +768,7 @@ const rootRouteChildren: RootRouteChildren = {
   CallbackRoute: CallbackRoute,
   CompleteProfileRoute: CompleteProfileRoute,
   DashboardRoute: DashboardRouteWithChildren,
+  LoginRoute: LoginRoute,
   DemoConvexRoute: DemoConvexRoute,
   DemoStoreRoute: DemoStoreRoute,
   DemoTableRoute: DemoTableRoute,

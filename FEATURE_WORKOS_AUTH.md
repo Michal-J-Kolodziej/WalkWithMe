@@ -8,12 +8,12 @@ Replace the current `@convex-dev/auth` Password-based authentication with WorkOS
 
 ## Tasks Status
 
-| Category | Total | Completed | In Progress |
-|----------|-------|-----------|-------------|
-| Backend | 4 | 0 | 0 |
-| Frontend | 6 | 0 | 0 |
-| Configuration | 3 | 0 | 0 |
-| **Total** | **13** | **0** | **0** |
+| Category      | Total  | Completed | In Progress |
+| ------------- | ------ | --------- | ----------- |
+| Backend       | 4      | 0         | 0           |
+| Frontend      | 6      | 0         | 0           |
+| Configuration | 3      | 0         | 0           |
+| **Total**     | **13** | **0**     | **0**       |
 
 ## Current Authentication Stack (To Be Replaced)
 
@@ -81,23 +81,23 @@ WORKOS_API_KEY=<your-workos-api-key>
 
 ## Key Files to Modify
 
-| File | Action | Description |
-|------|--------|-------------|
-| `convex/auth.config.ts` | MODIFY | WorkOS JWT config |
-| `convex/auth.ts` | DELETE | No longer needed |
-| `convex/http.ts` | MODIFY | Remove auth routes |
-| `convex/users.ts` | MODIFY | Update auth helpers |
-| `src/integrations/convex/provider.tsx` | MODIFY | New providers |
-| `src/components/LoginForm.tsx` | DELETE | Using AuthKit UI |
-| `src/components/RegisterForm.tsx` | DELETE | Using AuthKit UI |
-| `src/components/ForgotPasswordForm.tsx` | DELETE | Using AuthKit UI |
-| `src/components/Navbar.tsx` | MODIFY | Update auth hooks |
-| `src/routes/login.tsx` | DELETE | Not needed |
-| `src/routes/register.tsx` | DELETE | Not needed |
-| `src/routes/forgot-password.tsx` | DELETE | Not needed |
-| `src/routes/callback.tsx` | NEW | OAuth callback |
-| `.env.local` | MODIFY | Add WorkOS vars |
-| `package.json` | MODIFY | Update dependencies |
+| File                                    | Action | Description         |
+| --------------------------------------- | ------ | ------------------- |
+| `convex/auth.config.ts`                 | MODIFY | WorkOS JWT config   |
+| `convex/auth.ts`                        | DELETE | No longer needed    |
+| `convex/http.ts`                        | MODIFY | Remove auth routes  |
+| `convex/users.ts`                       | MODIFY | Update auth helpers |
+| `src/integrations/convex/provider.tsx`  | MODIFY | New providers       |
+| `src/components/LoginForm.tsx`          | DELETE | Using AuthKit UI    |
+| `src/components/RegisterForm.tsx`       | DELETE | Using AuthKit UI    |
+| `src/components/ForgotPasswordForm.tsx` | DELETE | Using AuthKit UI    |
+| `src/components/Navbar.tsx`             | MODIFY | Update auth hooks   |
+| `src/routes/login.tsx`                  | DELETE | Not needed          |
+| `src/routes/register.tsx`               | DELETE | Not needed          |
+| `src/routes/forgot-password.tsx`        | DELETE | Not needed          |
+| `src/routes/callback.tsx`               | NEW    | OAuth callback      |
+| `.env.local`                            | MODIFY | Add WorkOS vars     |
+| `package.json`                          | MODIFY | Update dependencies |
 
 ## Verification Plan
 

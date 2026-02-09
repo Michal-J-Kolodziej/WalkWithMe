@@ -15,9 +15,13 @@ export const current = query({
 
 // Mutation to get or create user - called after OAuth login
 export const getOrCreate = mutation({
-  args: {},
-  handler: async (ctx) => {
-    return await getOrCreateUser(ctx)
+  args: {
+    email: v.optional(v.string()),
+    name: v.optional(v.string()),
+    image: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    return await getOrCreateUser(ctx, args)
   },
 })
 

@@ -1,12 +1,12 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
-    ArrowRight,
-    Calendar,
-    Loader2,
-    MapPin,
-    Sparkles,
-    UserCircle,
+  ArrowRight,
+  Calendar,
+  Loader2,
+  MapPin,
+  Sparkles,
+  UserCircle,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -85,16 +85,13 @@ export function CompleteProfileForm() {
           </p>
           <div className="flex gap-4 justify-center">
             <Link to="/">
-              <Button variant="outline">
-                {t('common.goHome', 'Go Home')}
-              </Button>
+              <Button variant="outline">{t('common.goHome', 'Go Home')}</Button>
             </Link>
           </div>
         </div>
       </div>
     )
   }
-
 
   // User is authenticated, show the form
   return (

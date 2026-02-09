@@ -1,27 +1,27 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useMutation, useQuery } from 'convex/react'
 import {
-    Bell,
-    Calendar,
-    Check,
-    Footprints,
-    Globe,
-    Loader2,
-    Mail,
-    MapPin,
-    Save,
-    Settings,
-    User,
-    X,
+  Bell,
+  Calendar,
+  Check,
+  Footprints,
+  Globe,
+  Loader2,
+  Mail,
+  MapPin,
+  Save,
+  Settings,
+  User,
+  X,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { GlassCard } from '../../components/dashboard/DashboardWidgets'
 import { DashboardLayout } from '../../components/layouts/DashboardLayout'
 import { Button } from '../../components/ui/Button'
 import { ImageUpload } from '../../components/ui/ImageUpload'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 export const Route = createFileRoute('/dashboard/settings')({
   component: SettingsPage,

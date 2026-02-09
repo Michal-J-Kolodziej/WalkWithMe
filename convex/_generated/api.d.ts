@@ -11,6 +11,7 @@
 import type * as authHelpers from "../authHelpers.js";
 import type * as beacon from "../beacon.js";
 import type * as conversations from "../conversations.js";
+import type * as debug from "../debug.js";
 import type * as discover from "../discover.js";
 import type * as dogs from "../dogs.js";
 import type * as files from "../files.js";
@@ -36,6 +37,7 @@ declare const fullApi: ApiFromModules<{
   authHelpers: typeof authHelpers;
   beacon: typeof beacon;
   conversations: typeof conversations;
+  debug: typeof debug;
   discover: typeof discover;
   dogs: typeof dogs;
   files: typeof files;

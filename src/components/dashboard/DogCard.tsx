@@ -3,8 +3,8 @@ import { Loader2, PawPrint, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../../../convex/_generated/api'
-import type { Id } from '../../../convex/_generated/dataModel'
 import { Button } from '../ui/Button'
+import type { Id } from '../../../convex/_generated/dataModel'
 
 interface DogData {
   _id: Id<'dogs'>

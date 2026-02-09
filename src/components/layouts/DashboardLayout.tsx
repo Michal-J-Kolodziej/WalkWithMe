@@ -1,4 +1,5 @@
 import { Link, useLocation } from '@tanstack/react-router'
+import { useAuth } from '@workos-inc/authkit-react'
 import {
     Calendar,
     ChevronLeft,

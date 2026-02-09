@@ -1,14 +1,14 @@
 import { Link } from '@tanstack/react-router'
 import { useQuery } from 'convex/react'
 import {
-    Calendar,
-    Clock,
-    Dog,
-    Footprints,
-    MapPin,
-    Plus,
-    Search,
-    Users,
+  Calendar,
+  Clock,
+  Dog,
+  Footprints,
+  MapPin,
+  Plus,
+  Search,
+  Users,
 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'

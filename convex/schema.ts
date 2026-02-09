@@ -34,7 +34,8 @@ export default defineSchema({
         privacy: v.string(), // 'friends' | 'public' | 'none'
       }),
     ),
-  }).index('email', ['email']),
+    tokenIdentifier: v.optional(v.string()),
+  }).index('email', ['email']).index('by_token', ['tokenIdentifier']),
   dogs: defineTable({
     ownerId: v.id('users'),
     name: v.string(),
